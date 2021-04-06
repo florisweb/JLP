@@ -1,0 +1,126 @@
+
+html {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+}
+
+
+#backgroundHolder {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: .5;
+
+}
+
+#topBalk .logoHolder {
+  display: none;
+}
+
+
+
+
+
+
+
+
+#mainContent {
+  position: relative;
+  top: 0;
+  margin: auto;
+  width: 100vw;
+  max-width: 700px;
+
+  height: calc(100vh);
+}
+
+#mainContent .page {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+
+  transition: all .3s;
+  border: 1px solid red;
+}
+
+#mainContent .page.hide {
+  transform: scale(.8);
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+
+
+
+
+#mainContent .page .questionHolder {
+  position: relative;
+  margin: auto;
+  margin-top: 20vh;
+
+  transform: translateY(-50%);
+
+  width: auto;
+  text-align: center;
+}
+
+#mainContent .page .questionHolder a {
+  font-size: 60px;
+  border-bottom: 3px solid rgba(140, 140, 205, .5);
+}
+
+#mainContent .page.reviewPage .inputField {
+  position: relative;
+  width: 100%;
+  margin: auto;
+
+  border: 1px solid red;
+  text-align: center;
+  font-size: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+#navigationHolder {
+  width: 100%;
+}
+
+#navigationHolder .panel {
+  width: calc(50% - 20px * 2 - 20px * 2 - 4px);
+  height: 90px;
+
+  background: url("/pictures/background_front.png");
+  background-size: 100% 100%; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

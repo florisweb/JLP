@@ -1,0 +1,126 @@
+
+
+
+
+
+
+.panel {
+	position: relative;
+	float: left;
+	padding: 20px;
+	margin: 20px;
+	/*background: rgba(0, 0, 0, .1);*/
+	box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, .08);
+
+	border-radius: 5px;
+}
+
+.panel .text.title {
+	font-size: 20px;
+}
+
+.panel .text.subText {
+	margin-top: 5px;
+	color: #aaa;
+	font-size: 12px;
+}
+
+
+
+
+
+
+
+
+
+.button {
+	position: relative;
+	width: auto;
+	padding: 7px 15px !important;
+
+	border-radius: 30px;
+	font-size: 13px;
+
+	overflow: hidden;
+	cursor: pointer;
+}
+	.button.bBoxy {
+		border-radius: 4px;	
+	}
+
+	.button.bDefault {
+		background: rgb(140, 153, 247);
+		color: #fff !important;
+	}
+
+	.button img {
+		position: relative;
+		top: 3px;
+		margin-left: -5px;
+		margin-right: 3px;
+
+		width: 16px;
+		height: auto;
+	}
+
+
+
+
+
+
+
+
+
+
+.userText {
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.clickable {cursor: pointer;}
+
+
+
+
+
+
+
+
+.inputField {
+	position: relative;
+	left: 0;
+	padding: 7px 3px;
+	height: 32px;
+	border-radius: 3px;
+	background: transparent;
+
+	border: none;
+	outline: none;
+
+	color: #888;
+}
+
+
+
+
+
+
+.text {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: #777;
+	font-size: 15px;
+}
+
+.text.blue {
+	color: rgb(140, 140, 205);
+}
+
+
+.text.header {
+	font-family: Verdana, Geneva, sans-serif;
+	color: #888;
+	font-size: 14px;
+	font-weight: bolder !important;
+}
+
+
