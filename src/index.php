@@ -3,7 +3,7 @@
 	<head>
 		<title>JLP - Florisweb.tk</title>
 		<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0' name='viewport'/>
- 		<link rel="stylesheet" type="text/css" href="css/component.css?a=4">
+ 		<link rel="stylesheet" type="text/css" href="css/component.css?a=5">
  		<link rel="stylesheet" type="text/css" href="css/main.css?a=5">
  		<link rel="stylesheet" type="text/css" href="css/popup.css?a=1">
 	</head>	
@@ -77,12 +77,19 @@
 			</div>
 			<div class='page h ide reviewPage'>
 				<div class='text blue questionHolder'><a>三日</a></div>
+				<div class='text blue questionTypeHolder'><a>Meaning</a></div>
 				<br>
-				<br>
-				<input class='text blue inputField'>
+				<input class='text blue panel inputField' placeholder='答え'>
 
+				<div class='panel infoPanel'>
+					<div class='text title'>
+						Meaning
+					</div>
+					<div class='text subText'>
+						A whole new world!
+					</div>
 
-
+				</div>
 			</div>
 		</div>
 	
