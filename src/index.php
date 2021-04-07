@@ -4,7 +4,7 @@
 		<title>JLP - Florisweb.tk</title>
 		<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0' name='viewport'/>
  		<link rel="stylesheet" type="text/css" href="css/component.css?a=5">
- 		<link rel="stylesheet" type="text/css" href="css/main.css?a=5">
+ 		<link rel="stylesheet" type="text/css" href="css/main.css?a=6">
  		<link rel="stylesheet" type="text/css" href="css/popup.css?a=1">
 	</head>	
 	<body>
@@ -12,7 +12,7 @@
 
 
 		<div id="mainContent">
-			<div class='page hide'>
+			<div class='page h ide'>
 				<div id='navigationHolder'>
 					<div class="panel clickable">
 						<div class='text title'>
@@ -22,7 +22,7 @@
 							15 lessons
 						</div>
 					</div>
-					<div class="panel clickable" onclick='App.openPage(1)'>
+					<div class="panel clickable" onclick='App.reviewPage.open()'>
 						<div class='text title'>
 							Reviews
 						</div>
@@ -75,7 +75,7 @@
 					</div>
 				</div>
 			</div>
-			<div class='page h ide reviewPage'>
+			<div class='page hide reviewPage'>
 				<div class='text blue questionHolder'><a>三日</a></div>
 				<div class='text blue questionTypeHolder'><a>Meaning</a></div>
 				<br>
@@ -97,7 +97,8 @@
 		<script src='js/wanakana.js'></script>
 		<script src='js/extraFunctions.js'></script>
 		<script src='js/popupComponent.js'></script>
-		<script src='js/app.js'></script>
+		<script src='js/reviewPage.js'></script>
+		<script src='js/app.js?a=1'></script>
 
 		<script>
 			let input = $(".inputField")[0];
