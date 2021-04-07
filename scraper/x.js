@@ -13,7 +13,8 @@ async function getPage(_level = 0) {
 let output = [];
 async function run() {
 
-	await scrapeLevelRecursively(0);
+	// await scrapeLevelRecursively(0);
+	output = await scrapeLevel(0);
 	
 	
 	// let data = await getLinkInfo("vocabulary/%E5%85%AB");

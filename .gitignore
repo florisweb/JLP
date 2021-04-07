@@ -1,3 +1,5 @@
 **/*.DS_Store,
 **/package-lock.json
 **/node_modules
+**/main_min.js
+**/main_min.css

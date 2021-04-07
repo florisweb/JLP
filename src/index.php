@@ -4,7 +4,7 @@
 		<title>JLP - Florisweb.tk</title>
 		<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0' name='viewport'/>
  		<link rel="stylesheet" type="text/css" href="css/component.css?a=5">
- 		<link rel="stylesheet" type="text/css" href="css/main.css?a=6">
+ 		<link rel="stylesheet" type="text/css" href="css/main.css?a=8">
  		<link rel="stylesheet" type="text/css" href="css/popup.css?a=1">
 	</head>	
 	<body>
@@ -95,10 +95,7 @@
 	
 		
 		<script src='js/wanakana.js'></script>
-		<script src='js/extraFunctions.js'></script>
-		<script src='js/popupComponent.js'></script>
-		<script src='js/reviewPage.js'></script>
-		<script src='js/app.js?a=1'></script>
+		<script src='js/main_min.js?a=1'></script>
 
 		<script>
 			let input = $(".inputField")[0];

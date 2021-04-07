@@ -4,7 +4,7 @@
 
 const App = new function() {
   const HTML = {
-    pages: $("#mainContent .page")
+    pages: $<HTMLElement>("#mainContent .page")
   }
 
   this.reviewPage = new _reviewPage(openPage);
