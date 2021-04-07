@@ -97,11 +97,6 @@
 		<script src='js/wanakana.js'></script>
 		<script src='js/main_min.js?a=1'></script>
 
-		<script>
-			let input = $(".inputField")[0];
-			wanakana.bind(input, {IMEMode: 'toHiragana' || 'toKatakana'	});
-
-		</script>
 	</body>
 </html>	
 

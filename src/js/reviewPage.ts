@@ -5,6 +5,32 @@ function _reviewPage(_openPage) {
 		questionTypeHolder: $<HTMLElement>("#mainContent .page.reviewPage .questionTypeHolder")[0],
 		inputField: 		$<HTMLInputElement>("#mainContent .page.reviewPage .inputField")[0]
 	}
+	
+	let InputField = new function() {
+		let wanakanaIsBound:boolean = false;
+		
+		this.reset = function() {
+			HTML.inputField.value = null; 
+			HTML.inputField.focus();
+		}
+
+		this.getValue = function():string {
+			return HTML.inputField.value;
+		}
+
+		this.setKanaInputMode = function() {
+			if (wanakanaIsBound) return;
+			//@ts-ignore
+			wanakana.bind(HTML.inputField, {IMEMode: 'toHiragana' || 'toKatakana'});
+			wanakanaIsBound = true;
+		}
+		this.setNormalInputMode = function() {
+			if (!wanakanaIsBound) return;
+			//@ts-ignore
+			wanakana.unbind(HTML.inputField);
+			wanakanaIsBound = false;
+		}
+	}
 
 	this.questions = [];
 
@@ -13,9 +39,8 @@ function _reviewPage(_openPage) {
 		_openPage(1);
 		this.questions = _questions;
 		this.nextQuestion();
-
-		HTML.inputField.value = null; 
-		HTML.inputField.focus();
+		
+		InputField.reset();
 	}
 
 	this.nextQuestion = function() {
@@ -30,7 +55,7 @@ function _reviewPage(_openPage) {
 
 
 	function isAnswerCorrect(_question:Question):boolean {
-		let answer:string = removeSpacesFromEnds(HTML.inputField.value);
+		let answer:string = removeSpacesFromEnds(InputField.getValue());
 		
 		for (let reading of _question.word.readings)
 		{
@@ -45,6 +70,8 @@ function _reviewPage(_openPage) {
 	this.showQuestion = function(_question: Question) {
 		this.curQuestion = _question;
 		writeQuestion(this.curQuestion);
+		InputField.setKanaInputMode();
+		if (this.curQuestion.askMeaning) InputField.setNormalInputMode();
 	}
 
 
