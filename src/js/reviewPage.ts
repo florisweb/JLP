@@ -3,7 +3,8 @@ function _reviewPage(_openPage) {
 	let HTML = {
 		questionHolder: 	$<HTMLElement>("#mainContent .page.reviewPage .questionHolder")[0],
 		questionTypeHolder: $<HTMLElement>("#mainContent .page.reviewPage .questionTypeHolder")[0],
-		inputField: 		$<HTMLInputElement>("#mainContent .page.reviewPage .inputField")[0]
+		inputField: 		$<HTMLInputElement>("#mainContent .page.reviewPage .inputField")[0],
+		infoMenu: 			$<HTMLElement>("#mainContent .page.reviewPage .infoPanel")[0]
 	}
 	
 	let InputField = new function() {
@@ -32,6 +33,8 @@ function _reviewPage(_openPage) {
 		}
 	}
 
+	let WordInfoMenu = new _WordInfoMenu(HTML.infoMenu);
+
 	this.questions = [];
 
 
@@ -44,22 +47,27 @@ function _reviewPage(_openPage) {
 	}
 
 	this.nextQuestion = function() {
+		WordInfoMenu.close();
 		if (this.questions.length < 1) return; //open result page
-		this.showQuestion(this.questions[0])
+		this.showQuestion(this.questions[0]);
 	}
 
 
 	this.checkAnswer = function() {
-		console.log(isAnswerCorrect(this.curQuestion));
+		let isCorrect = isAnswerCorrect(this.curQuestion);
+		this.questions.splice(0, 1);
+		if (isCorrect) return this.nextQuestion();
+		WordInfoMenu.open(this.curQuestion.word);
 	}
 
 
 	function isAnswerCorrect(_question:Question):boolean {
-		let answer:string = removeSpacesFromEnds(InputField.getValue());
-		
+		let answer:string = removeSpacesFromEnds(InputField.getValue()).toLowerCase();
+		if (_question.askMeaning && _question.word.meaning.toLowerCase() == answer) return true;
+
 		for (let reading of _question.word.readings)
 		{
-			if (answer == reading) return true;	
+			if (answer == reading.toLowerCase()) return true;	
 		}
 		return false;
 	}
@@ -68,6 +76,8 @@ function _reviewPage(_openPage) {
 
 	this.curQuestion = false;
 	this.showQuestion = function(_question: Question) {
+		InputField.reset();
+		
 		this.curQuestion = _question;
 		writeQuestion(this.curQuestion);
 		InputField.setKanaInputMode();

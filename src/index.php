@@ -3,8 +3,8 @@
 	<head>
 		<title>JLP - Florisweb.tk</title>
 		<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0' name='viewport'/>
- 		<link rel="stylesheet" type="text/css" href="css/component.css?a=5">
- 		<link rel="stylesheet" type="text/css" href="css/main.css?a=8">
+ 		<link rel="stylesheet" type="text/css" href="css/component.css?a=6">
+ 		<link rel="stylesheet" type="text/css" href="css/main.css?a=9">
  		<link rel="stylesheet" type="text/css" href="css/popup.css?a=1">
 	</head>	
 	<body>
@@ -12,7 +12,7 @@
 
 
 		<div id="mainContent">
-			<div class='page h ide'>
+			<div class='page hide'>
 				<div id='navigationHolder'>
 					<div class="panel clickable">
 						<div class='text title'>
@@ -75,27 +75,28 @@
 					</div>
 				</div>
 			</div>
-			<div class='page hide reviewPage'>
+			<div class='page hid e reviewPage'>
 				<div class='text blue questionHolder'><a>三日</a></div>
 				<div class='text blue questionTypeHolder'><a>Meaning</a></div>
 				<br>
 				<input class='text blue panel inputField' placeholder='答え'>
 
-				<div class='panel infoPanel'>
-					<div class='text title'>
-						Meaning
+				<div class='panel infoPanel hide'>
+					<div class='text title'></div>
+					<div class='text subText keyValuePair'>
+						Meaning: <span class='value'></span>
 					</div>
-					<div class='text subText'>
-						A whole new world!
+					<div class='text subText keyValuePair'>
+						Readings: <span class='value'></span>
 					</div>
-
+					<div class='text subText infoTextHolder'></div>
 				</div>
 			</div>
 		</div>
 	
 		
 		<script src='js/wanakana.js'></script>
-		<script src='js/main_min.js?a=1'></script>
+		<script src='js/main_min.js?a=2'></script>
 
 	</body>
 </html>	
