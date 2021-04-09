@@ -24,12 +24,14 @@ function _reviewPage(_openPage) {
 			//@ts-ignore
 			wanakana.bind(HTML.inputField, {IMEMode: 'toHiragana' || 'toKatakana'});
 			wanakanaIsBound = true;
+			HTML.inputField.setAttribute('placeHolder', '答え');
 		}
 		this.setNormalInputMode = function() {
 			if (!wanakanaIsBound) return;
 			//@ts-ignore
 			wanakana.unbind(HTML.inputField);
 			wanakanaIsBound = false;
+			HTML.inputField.setAttribute('placeHolder', 'meaning');
 		}
 	}
 
@@ -39,6 +41,8 @@ function _reviewPage(_openPage) {
 
 
 	this.open = function(_questions: Question[]) {
+		App.curPage = this;
+		
 		_openPage(1);
 		this.questions = _questions;
 		this.nextQuestion();

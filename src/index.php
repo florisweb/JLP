@@ -79,7 +79,7 @@
 				<div class='text blue questionHolder'><a>三日</a></div>
 				<div class='text blue questionTypeHolder'><a>Meaning</a></div>
 				<br>
-				<input class='text blue panel inputField' placeholder='答え'>
+				<input class='text blue panel inputField'>
 
 				<div class='panel infoPanel hide'>
 					<div class='text title'></div>
@@ -96,7 +96,7 @@
 	
 		
 		<script src='js/wanakana.js'></script>
-		<script src='js/main_min.js?a=2'></script>
+		<script src='js/main_min.js?a=3'></script>
 
 	</body>
 </html>	

@@ -7,13 +7,25 @@ const App = new function() {
     pages: $<HTMLElement>("#mainContent .page")
   }
 
+  this.setup = function() {
+    document.body.addEventListener("keydown", function(_e) {
+      KEYS[_e["key"]] = true;
+      let preventDefault = KeyHandler.handleKeys(KEYS, _e);
+      if (preventDefault) _e.preventDefault();
+    });
+
+    document.body.addEventListener("keyup", function(_e) {
+      KEYS[_e["key"]] = false;
+    });
+  }
+
+  this.curPage = false;
   this.reviewPage = new _reviewPage(openPage);
-  this.openPage = openPage;
+
   function openPage(_index) {
     for (let page of HTML.pages) page.classList.add("hide");
     HTML.pages[_index].classList.remove("hide");
   } 
 };
 
-
-
+App.setup();
