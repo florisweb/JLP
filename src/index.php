@@ -4,7 +4,7 @@
 		<title>JLP - Florisweb.tk</title>
 		<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0' name='viewport'/>
  		<link rel="stylesheet" type="text/css" href="css/component.css?a=6">
- 		<link rel="stylesheet" type="text/css" href="css/main.css?a=9">
+ 		<link rel="stylesheet" type="text/css" href="css/main.css?a=10">
  		<link rel="stylesheet" type="text/css" href="css/popup.css?a=1">
 	</head>	
 	<body>
@@ -96,7 +96,7 @@
 	
 		
 		<script src='js/wanakana.js'></script>
-		<script src='js/main_min.js?a=3'></script>
+		<script src='js/main_min.js?a=4'></script>
 
 	</body>
 </html>	

@@ -99,7 +99,42 @@ html {
 
   background: #fff;
   box-shadow: 3px 3px 12px 8px rgba(100, 100, 165, .15);
+  
+  transition: all .3s;
 }
+
+#mainContent .page.reviewPage .inputField.answerIncorrect {
+  color: #f00;
+  background: rgb(255, 220, 220);
+  animation: inputHolder_inputDenied .3s 3;
+  animation-fill-mode: forwards;
+}
+#mainContent .page.reviewPage .inputField.answerCorrect {
+  color: #0f0;
+  background: rgb(200, 255, 220);
+}
+
+@keyframes inputHolder_inputDenied {
+    0% {
+        margin-left: 0;
+    }
+    50% {
+      margin-left: 0;
+    }
+    66% {
+      margin-left: -3%;
+    }
+    83% {
+      margin-left: 3%;
+    }
+    100% {
+      margin-left: 0;
+    }
+}
+
+
+
+
 
 
 #mainContent .page .infoPanel {

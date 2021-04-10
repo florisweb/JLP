@@ -33,6 +33,19 @@ function _reviewPage(_openPage) {
 			wanakanaIsBound = false;
 			HTML.inputField.setAttribute('placeHolder', 'meaning');
 		}
+
+		this.showAnswerIncorrectAnimation = function() {
+			HTML.inputField.classList.add("answerIncorrect");
+			setTimeout(function () {
+				HTML.inputField.classList.remove("answerIncorrect");
+			}, 900);
+		}
+		this.showAnswerCorrectAnimation = function() {
+			HTML.inputField.classList.add("answerCorrect");
+			setTimeout(function () {
+				HTML.inputField.classList.remove("answerCorrect");
+			}, 900);
+		}
 	}
 
 	let WordInfoMenu = new _WordInfoMenu(HTML.infoMenu);
@@ -59,9 +72,21 @@ function _reviewPage(_openPage) {
 
 	this.checkAnswer = function() {
 		let isCorrect = isAnswerCorrect(this.curQuestion);
-		this.questions.splice(0, 1);
-		if (isCorrect) return this.nextQuestion();
-		WordInfoMenu.open(this.curQuestion.word);
+		if (this.questions[0] == this.curQuestion) this.questions.splice(0, 1);
+		if (isCorrect)
+		{	
+			InputField.showAnswerCorrectAnimation();
+			setTimeout(function () {
+				App.reviewPage.nextQuestion();
+			}, 500);
+			return;
+		}
+
+		InputField.showAnswerIncorrectAnimation();
+		setTimeout(function () {
+			WordInfoMenu.open(App.reviewPage.curQuestion.word);
+		}, 500);
+		this.questions.push(this.curQuestion);
 	}
 
 
