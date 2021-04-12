@@ -7,12 +7,17 @@ type ShortCut = {
 
 
 let KEYS = {};
-let KeyHandler = new _KeyHandler();
+const KeyHandler = new _KeyHandler();
+export default KeyHandler;
+
 function _KeyHandler() {
+  this.keys = {};
+
   let shortCuts:ShortCut[] = [
     {
       keys: ["Enter"], 
       event: function (_e:Event) {
+        //@ts-ignore
         let inInputField = _e.target.type == "text" || _e.target.type == "textarea";
         if (!inInputField) return;
         App.reviewPage.checkAnswer();
@@ -33,7 +38,7 @@ function _KeyHandler() {
       let succes = true;
       for (let i = 0; i < curShortcut.keys.length; i++)
       {
-        let curKey = curShortcut.keys[i];
+        let curKey:String = curShortcut.keys[i];
         if (_keyArr[curKey]) continue;
         succes = false;
         break;

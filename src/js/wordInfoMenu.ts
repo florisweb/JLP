@@ -1,5 +1,7 @@
+import { Word } from 'types';
+import { setTextToElement } from 'extraFunctions';
 
-function _WordInfoMenu(_HTML:HTMLElement) {
+export function WordInfoMenu(_HTML:HTMLElement) {
 	let HTML = {
 		menu: _HTML,
 		titleHolder: _HTML.children[0],

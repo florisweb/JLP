@@ -1,12 +1,18 @@
+import { App } from 'app';
+import { WordInfoMenu } from 'wordInfoMenu';
+import { Question } from 'types';
+import { $, setTextToElement,  } from 'extraFunctions';
+import 'wanakana';
 
-function _reviewPage(_openPage) {
+
+export default function ReviewPage(_openPage:Function) {
 	let HTML = {
 		questionHolder: 	$<HTMLElement>("#mainContent .page.reviewPage .questionHolder")[0],
 		questionTypeHolder: $<HTMLElement>("#mainContent .page.reviewPage .questionTypeHolder")[0],
 		inputField: 		$<HTMLInputElement>("#mainContent .page.reviewPage .inputField")[0],
 		infoMenu: 			$<HTMLElement>("#mainContent .page.reviewPage .infoPanel")[0]
 	}
-	
+	//@ts-ignore
 	let InputField = new function() {
 		let wanakanaIsBound:boolean = false;
 		
@@ -21,14 +27,14 @@ function _reviewPage(_openPage) {
 
 		this.setKanaInputMode = function() {
 			if (wanakanaIsBound) return;
-			//@ts-ignore
+
 			wanakana.bind(HTML.inputField, {IMEMode: 'toHiragana' || 'toKatakana'});
 			wanakanaIsBound = true;
 			HTML.inputField.setAttribute('placeHolder', '答え');
 		}
 		this.setNormalInputMode = function() {
 			if (!wanakanaIsBound) return;
-			//@ts-ignore
+
 			wanakana.unbind(HTML.inputField);
 			wanakanaIsBound = false;
 			HTML.inputField.setAttribute('placeHolder', 'meaning');
@@ -48,23 +54,23 @@ function _reviewPage(_openPage) {
 		}
 	}
 
-	let WordInfoMenu = new _WordInfoMenu(HTML.infoMenu);
+	let wordInfoMenu = new WordInfoMenu(HTML.infoMenu);
 
 	this.questions = [];
 
 
-	this.open = function(_questions: Question[]) {
+	this.open = async function() {
+		this.questions = await Server.review.getQuestions();
 		App.curPage = this;
 		
 		_openPage(1);
-		this.questions = _questions;
 		this.nextQuestion();
 		
 		InputField.reset();
 	}
 
 	this.nextQuestion = function() {
-		WordInfoMenu.close();
+		wordInfoMenu.close();
 		if (this.questions.length < 1) return; //open result page
 		this.showQuestion(this.questions[0]);
 	}
@@ -84,7 +90,7 @@ function _reviewPage(_openPage) {
 
 		InputField.showAnswerIncorrectAnimation();
 		setTimeout(function () {
-			WordInfoMenu.open(App.reviewPage.curQuestion.word);
+			wordInfoMenu.open(App.reviewPage.curQuestion.word);
 		}, 500);
 		this.questions.push(this.curQuestion);
 	}

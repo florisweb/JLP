@@ -12,7 +12,7 @@
 
 
 		<div id="mainContent">
-			<div class='page hide'>
+			<div class='page'>
 				<div id='navigationHolder'>
 					<div class="panel clickable">
 						<div class='text title'>
@@ -75,7 +75,7 @@
 					</div>
 				</div>
 			</div>
-			<div class='page hid e reviewPage'>
+			<div class='page hide reviewPage'>
 				<div class='text blue questionHolder'><a>三日</a></div>
 				<div class='text blue questionTypeHolder'><a>Meaning</a></div>
 				<br>
@@ -92,11 +92,13 @@
 					<div class='text subText infoTextHolder'></div>
 				</div>
 			</div>
+			<div class='page hide'>
+			</div>
 		</div>
 	
 		
 		<script src='js/wanakana.js'></script>
-		<script src='js/main_min.js?a=4'></script>
+		<script src='js/main_min.js?a=5'></script>
 
 	</body>
 </html>	

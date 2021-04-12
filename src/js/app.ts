@@ -1,6 +1,5 @@
-
-
-
+import 'reviewPage';
+import 'resultPage';
 
 const App = new function() {
   const HTML = {
@@ -20,7 +19,8 @@ const App = new function() {
   }
 
   this.curPage = false;
-  this.reviewPage = new _reviewPage(openPage);
+  this.reviewPage = new ReviewPage(openPage);
+  this.resultPage = new ResultPage(openPage);
 
   function openPage(_index) {
     for (let page of HTML.pages) page.classList.add("hide");
@@ -29,3 +29,6 @@ const App = new function() {
 };
 
 App.setup();
+
+
+export default App;

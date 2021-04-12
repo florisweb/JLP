@@ -2,7 +2,7 @@
 cd "$(dirname "$0")/js"
 echo - Building JavaScript
 
-cat types.ts extraFunctions.ts keyHandler.ts wordInfoMenu.ts reviewPage.ts server.ts app.ts > typeScript.ts
+cat types.ts extraFunctions.ts keyHandler.ts wordInfoMenu.ts resultPage.ts reviewPage.ts server.ts app.ts > typeScript.ts
 tsc typeScript.ts
 cat popupComponent.js typeScript.js  > main_min.js
 rm -rf typeScript.js
