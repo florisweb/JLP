@@ -16,7 +16,7 @@
   \***********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\nvar App = new function () {\n    var HTML = {\n        pages: $(\"#mainContent .page\")\n    };\n    this.setup = function () {\n        document.body.addEventListener(\"keydown\", function (_e) {\n            KEYS[_e[\"key\"]] = true;\n            var preventDefault = KeyHandler.handleKeys(KEYS, _e);\n            if (preventDefault)\n                _e.preventDefault();\n        });\n        document.body.addEventListener(\"keyup\", function (_e) {\n            KEYS[_e[\"key\"]] = false;\n        });\n    };\n    this.curPage = false;\n    this.reviewPage = new _reviewPage(openPage);\n    this.resultPage = new _resultPage(openPage);\n    function openPage(_index) {\n        for (var _i = 0, _a = HTML.pages; _i < _a.length; _i++) {\n            var page = _a[_i];\n            page.classList.add(\"hide\");\n        }\n        HTML.pages[_index].classList.remove(\"hide\");\n    }\n};\nApp.setup();\n\n\n\n//# sourceURL=webpack://jlp/./src/js/app.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nvar App = new function () {\n    this.setup = function () {\n        console.log(\"hey\");\n    };\n};\nApp.setup();\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);\n\n\n//# sourceURL=webpack://jlp/./src/js/app.ts?");
 
 /***/ })
 
@@ -26,6 +26,23 @@ eval("__webpack_require__.r(__webpack_exports__);\nvar App = new function () {\n
 /******/ 	var __webpack_require__ = {};
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports

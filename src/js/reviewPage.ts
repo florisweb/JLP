@@ -1,7 +1,8 @@
-import { App } from 'app';
-import { WordInfoMenu } from 'wordInfoMenu';
+import App from 'app';
+import Server from 'server';
+import WordInfoMenu from 'wordInfoMenu';
 import { Question } from 'types';
-import { $, setTextToElement,  } from 'extraFunctions';
+import { $, setTextToElement, removeSpacesFromEnds } from 'extraFunctions';
 import 'wanakana';
 
 
@@ -27,14 +28,14 @@ export default function ReviewPage(_openPage:Function) {
 
 		this.setKanaInputMode = function() {
 			if (wanakanaIsBound) return;
-
+			//@ts-ignore
 			wanakana.bind(HTML.inputField, {IMEMode: 'toHiragana' || 'toKatakana'});
 			wanakanaIsBound = true;
 			HTML.inputField.setAttribute('placeHolder', '答え');
 		}
 		this.setNormalInputMode = function() {
 			if (!wanakanaIsBound) return;
-
+			//@ts-ignore
 			wanakana.unbind(HTML.inputField);
 			wanakanaIsBound = false;
 			HTML.inputField.setAttribute('placeHolder', 'meaning');
@@ -55,6 +56,7 @@ export default function ReviewPage(_openPage:Function) {
 	}
 
 	let wordInfoMenu = new WordInfoMenu(HTML.infoMenu);
+	this.wordInfoMenu = wordInfoMenu;
 
 	this.questions = [];
 

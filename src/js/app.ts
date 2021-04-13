@@ -1,34 +1,29 @@
 import 'reviewPage';
 import 'resultPage';
+import KeyHandler from 'keyHandler';
+import { $ } from 'extraFunctions';
 
-const App = new function() {
+const App = new (function() {
   const HTML = {
     pages: $<HTMLElement>("#mainContent .page")
   }
 
   this.setup = function() {
-    document.body.addEventListener("keydown", function(_e) {
-      KEYS[_e["key"]] = true;
-      let preventDefault = KeyHandler.handleKeys(KEYS, _e);
-      if (preventDefault) _e.preventDefault();
-    });
-
-    document.body.addEventListener("keyup", function(_e) {
-      KEYS[_e["key"]] = false;
-    });
+    KeyHandler.setup();
   }
 
   this.curPage = false;
   this.reviewPage = new ReviewPage(openPage);
   this.resultPage = new ResultPage(openPage);
 
-  function openPage(_index) {
+  function openPage(_index: number) {
     for (let page of HTML.pages) page.classList.add("hide");
     HTML.pages[_index].classList.remove("hide");
   } 
-};
+} as any);
 
 App.setup();
+
 
 
 export default App;

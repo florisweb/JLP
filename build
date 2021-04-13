@@ -1,0 +1,14 @@
+#!/bin/bash
+cd "$(dirname "$0")"
+echo - Building CSS
+
+cat src/css/popup.css src/css/component.css src/css/main.css > dist/bundle.css
+cp src/index.php dist/index.php
+cp src/images dist/images
+
+echo - Building Java/typescript
+npx webpack
+
+echo \|-------------------\|
+echo \| Finished Building \|
+echo \|-------------------\|

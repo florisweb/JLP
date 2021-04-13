@@ -1,13 +1,18 @@
+import App from 'app';
 
 type ShortCut = {
   keys: String[],
-  event,
+  event: Function,
   ignoreIfInInputField?: boolean
 }
 
+type keyArr = {
 
-let KEYS = {};
-const KeyHandler = new _KeyHandler();
+}
+
+
+let KEYS:keyArr = {};
+const KeyHandler = new (_KeyHandler() as any);
 export default KeyHandler;
 
 function _KeyHandler() {
@@ -16,7 +21,7 @@ function _KeyHandler() {
   let shortCuts:ShortCut[] = [
     {
       keys: ["Enter"], 
-      event: function (_e:Event) {
+      event: function (_e:KeyboardEvent) {
         //@ts-ignore
         let inInputField = _e.target.type == "text" || _e.target.type == "textarea";
         if (!inInputField) return;
@@ -27,7 +32,19 @@ function _KeyHandler() {
   ];
 
 
-  this.handleKeys = function(_keyArr, _event) {
+  this.setup = function() {
+    document.body.addEventListener("keydown", function(_e:KeyboardEvent) {
+      KEYS[_e["key"]] = true;
+      let preventDefault = KeyHandler.handleKeys(KEYS, _e);
+      if (preventDefault) _e.preventDefault();
+    });
+
+    document.body.addEventListener("keyup", function(_e) {
+      KEYS[_e["key"]] = false;
+    });
+  }
+
+  this.handleKeys = function(_keyArr:KeyArr, _event:KeyboardEvent) {
     let inInputField = _event.target.type == "text" || _event.target.type == "textarea";
 
     for (let i = 0; i < shortCuts.length; i++)

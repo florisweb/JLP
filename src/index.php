@@ -3,9 +3,7 @@
 	<head>
 		<title>JLP - Florisweb.tk</title>
 		<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0' name='viewport'/>
- 		<link rel="stylesheet" type="text/css" href="css/component.css?a=6">
- 		<link rel="stylesheet" type="text/css" href="css/main.css?a=10">
- 		<link rel="stylesheet" type="text/css" href="css/popup.css?a=1">
+ 		<link rel="stylesheet" type="text/css" href="bundle.css?a=10">
 	</head>	
 	<body>
 		<img src="/pictures/background_front.png" id="backgroundHolder">
@@ -97,9 +95,7 @@
 		</div>
 	
 		
-		<script src='js/wanakana.js'></script>
-		<script src='js/main_min.js?a=5'></script>
-
+		<script src='bundle.js?a=5'></script>
 	</body>
 </html>	
 
