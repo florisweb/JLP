@@ -1,105 +1,73 @@
-import App from 'app';
-import Server from 'server';
-import WordInfoMenu from 'wordInfoMenu';
-import { Question } from 'types';
-import { $, setTextToElement, removeSpacesFromEnds } from 'extraFunctions';
-import 'wanakana';
+import { App } from './app';
+import Server from './server';
+import WordInfoMenu from './wordInfoMenu';
+import { Question } from './types';
+import { $, setTextToElement, removeSpacesFromEnds } from './extraFunctions';
+import './wanakana';
 
 
-export default function ReviewPage(_openPage:Function) {
-	let HTML = {
+
+export default class ReviewPage {
+	#openPage:Function;
+	questions:Question[] = [];
+	curQuestion:Question;
+	
+	#HTML = {
 		questionHolder: 	$<HTMLElement>("#mainContent .page.reviewPage .questionHolder")[0],
 		questionTypeHolder: $<HTMLElement>("#mainContent .page.reviewPage .questionTypeHolder")[0],
 		inputField: 		$<HTMLInputElement>("#mainContent .page.reviewPage .inputField")[0],
 		infoMenu: 			$<HTMLElement>("#mainContent .page.reviewPage .infoPanel")[0]
-	}
-	//@ts-ignore
-	let InputField = new function() {
-		let wanakanaIsBound:boolean = false;
-		
-		this.reset = function() {
-			HTML.inputField.value = null; 
-			HTML.inputField.focus();
-		}
+	};
 
-		this.getValue = function():string {
-			return HTML.inputField.value;
-		}
 
-		this.setKanaInputMode = function() {
-			if (wanakanaIsBound) return;
-			//@ts-ignore
-			wanakana.bind(HTML.inputField, {IMEMode: 'toHiragana' || 'toKatakana'});
-			wanakanaIsBound = true;
-			HTML.inputField.setAttribute('placeHolder', '答え');
-		}
-		this.setNormalInputMode = function() {
-			if (!wanakanaIsBound) return;
-			//@ts-ignore
-			wanakana.unbind(HTML.inputField);
-			wanakanaIsBound = false;
-			HTML.inputField.setAttribute('placeHolder', 'meaning');
-		}
+	#InputField = new InputField(this.#HTML.inputField);
 
-		this.showAnswerIncorrectAnimation = function() {
-			HTML.inputField.classList.add("answerIncorrect");
-			setTimeout(function () {
-				HTML.inputField.classList.remove("answerIncorrect");
-			}, 900);
-		}
-		this.showAnswerCorrectAnimation = function() {
-			HTML.inputField.classList.add("answerCorrect");
-			setTimeout(function () {
-				HTML.inputField.classList.remove("answerCorrect");
-			}, 900);
-		}
+	constructor(_openPage:Function) {
+		this.#openPage = _openPage;
 	}
 
-	let wordInfoMenu = new WordInfoMenu(HTML.infoMenu);
-	this.wordInfoMenu = wordInfoMenu;
+	#wordInfoMenu = new WordInfoMenu(this.#HTML.infoMenu);
+	
 
-	this.questions = [];
-
-
-	this.open = async function() {
+	open = async function() {
 		this.questions = await Server.review.getQuestions();
 		App.curPage = this;
 		
-		_openPage(1);
+		this.#openPage(1);
 		this.nextQuestion();
 		
-		InputField.reset();
+		this.#InputField.reset();
 	}
 
-	this.nextQuestion = function() {
-		wordInfoMenu.close();
+	nextQuestion = function() {
+		this.#wordInfoMenu.close();
 		if (this.questions.length < 1) return; //open result page
 		this.showQuestion(this.questions[0]);
 	}
 
 
-	this.checkAnswer = function() {
-		let isCorrect = isAnswerCorrect(this.curQuestion);
+	checkAnswer = function() {
+		let isCorrect = this.#isAnswerCorrect(this.curQuestion);
 		if (this.questions[0] == this.curQuestion) this.questions.splice(0, 1);
 		if (isCorrect)
 		{	
-			InputField.showAnswerCorrectAnimation();
+			this.#InputField.showAnswerCorrectAnimation();
 			setTimeout(function () {
 				App.reviewPage.nextQuestion();
 			}, 500);
 			return;
 		}
 
-		InputField.showAnswerIncorrectAnimation();
+		this.#InputField.showAnswerIncorrectAnimation();
 		setTimeout(function () {
-			wordInfoMenu.open(App.reviewPage.curQuestion.word);
+			this.#wordInfoMenu.open(this.curQuestion.word);
 		}, 500);
 		this.questions.push(this.curQuestion);
 	}
 
 
-	function isAnswerCorrect(_question:Question):boolean {
-		let answer:string = removeSpacesFromEnds(InputField.getValue()).toLowerCase();
+	#isAnswerCorrect = function(_question:Question):boolean {
+		let answer:string = removeSpacesFromEnds(this.#InputField.getValue()).toLowerCase();
 		if (_question.askMeaning && _question.word.meaning.toLowerCase() == answer) return true;
 
 		for (let reading of _question.word.readings)
@@ -111,22 +79,23 @@ export default function ReviewPage(_openPage:Function) {
 
 
 
-	this.curQuestion = false;
-	this.showQuestion = function(_question: Question) {
-		InputField.reset();
+
+	showQuestion = function(_question: Question) {
+		this.#InputField.reset();
 		
 		this.curQuestion = _question;
-		writeQuestion(this.curQuestion);
-		InputField.setKanaInputMode();
-		if (this.curQuestion.askMeaning) InputField.setNormalInputMode();
+		this.#writeQuestion(this.curQuestion);
+		this.#InputField.setKanaInputMode();
+		if (this.curQuestion.askMeaning) this.#InputField.setNormalInputMode();
 	}
 
 
-	function writeQuestion(_question: Question) {
+	
+	#writeQuestion = function(_question: Question) {
 		let questionString:string = _question.askMeaning ? _question.word.character : _question.word.meaning;
 		
 		setTextToElement(
-			HTML.questionHolder, 
+			this.#HTML.questionHolder, 
 			questionString
 		);
 
@@ -135,12 +104,61 @@ export default function ReviewPage(_openPage:Function) {
 		if (_question.word.type == 2) color = "rgb(140, 205, 140)";
 		let questionHolderLine = $<HTMLElement>("#mainContent .page .questionHolder a")[0];
 		questionHolderLine.style.borderBottomColor = color;
-		HTML.questionHolder.style.color = color;
-		HTML.questionTypeHolder.style.color = color;
+		this.#HTML.questionHolder.style.color = color;
+		this.#HTML.questionTypeHolder.style.color = color;
 
 		setTextToElement(
-			HTML.questionTypeHolder, 
+			this.#HTML.questionTypeHolder, 
 			_question.askMeaning ? "Meaning" : "Reading"
 		);
+	}
+};
+
+
+
+
+class InputField {
+	#HTML:HTMLInputElement;
+	constructor(_html:HTMLInputElement) {
+		this.#HTML = _html;
+	}
+
+	#wanakanaIsBound:boolean = false;
+	
+	reset = function() {
+		this.#HTML.value = null; 
+		this.#HTML.focus();
+	}
+
+	getValue = function():string {
+		return this.#HTML.value;
+	}
+
+	setKanaInputMode = function() {
+		if (this.#wanakanaIsBound) return;
+		//@ts-ignore
+		wanakana.bind(this.#HTML, {IMEMode: 'toHiragana' || 'toKatakana'});
+		this.#wanakanaIsBound = true;
+		this.#HTML.setAttribute('placeHolder', '答え');
+	}
+	setNormalInputMode = function() {
+		if (!this.#wanakanaIsBound) return;
+		//@ts-ignore
+		wanakana.unbind(this.#HTML);
+		this.#wanakanaIsBound = false;
+		this.#HTML.setAttribute('placeHolder', 'meaning');
+	}
+
+	showAnswerIncorrectAnimation = function() {
+		this.#HTML.classList.add("answerIncorrect");
+		setTimeout(function () {
+			this.#HTML.classList.remove("answerIncorrect");
+		}, 900);
+	}
+	showAnswerCorrectAnimation = function() {
+		this.#HTML.classList.add("answerCorrect");
+		setTimeout(function () {
+			this.#HTML.classList.remove("answerCorrect");
+		}, 900);
 	}
 }

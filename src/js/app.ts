@@ -1,29 +1,28 @@
-import 'reviewPage';
-import 'resultPage';
-import KeyHandler from 'keyHandler';
-import { $ } from 'extraFunctions';
+import ReviewPage from './reviewPage';
+// import ResultPage from './resultPage';
+// import HomePage from './homePage';
+// import KeyHandler from './keyHandler';
+import { $ } from './extraFunctions';
 
-const App = new (function() {
+export namespace App {
   const HTML = {
-    pages: $<HTMLElement>("#mainContent .page")
+    pages: $<HTMLElement>("#mainContent .page"),
   }
 
-  this.setup = function() {
-    KeyHandler.setup();
+  export function setup() {
+    console.warn("setup", this);
+    // KeyHandler.setup();
   }
 
-  this.curPage = false;
-  this.reviewPage = new ReviewPage(openPage);
-  this.resultPage = new ResultPage(openPage);
+  export let curPage = false;
+  export let reviewPage = new ReviewPage(openPage);
+  // export let resultPage = new (ResultPage(openPage) as any);
+  // export let homePage = new (HomePage(openPage) as any);
+
 
   function openPage(_index: number) {
+    // @ts-ignore
     for (let page of HTML.pages) page.classList.add("hide");
     HTML.pages[_index].classList.remove("hide");
   } 
-} as any);
-
-App.setup();
-
-
-
-export default App;
+}

@@ -1,5 +1,5 @@
-import { Word } from 'types';
-import { setTextToElement } from 'extraFunctions';
+import { Word } from './types';
+import { setTextToElement } from './extraFunctions';
 
 type HTMLHolder = {
 	menu: 				HTMLElement

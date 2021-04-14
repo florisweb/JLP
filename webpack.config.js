@@ -2,7 +2,8 @@ const path = require('path');
 
 module.exports = {
     mode: 'development',
-    entry: './src/js/app.ts',
+    devtool: 'inline-source-map',
+    entry: './src/js/main.ts',
    
     module: {
         rules: [
@@ -14,10 +15,10 @@ module.exports = {
         ],
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js', '.php'],
+        extensions: ['.tsx', '.ts', '.js'],
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js',
+        filename: 'main_min.js',
     },
 };

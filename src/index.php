@@ -3,7 +3,7 @@
 	<head>
 		<title>JLP - Florisweb.tk</title>
 		<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0' name='viewport'/>
- 		<link rel="stylesheet" type="text/css" href="bundle.css?a=10">
+ 		<link rel="stylesheet" type="text/css" href="main_min.css?a=10">
 	</head>	
 	<body>
 		<img src="/pictures/background_front.png" id="backgroundHolder">
@@ -20,7 +20,7 @@
 							15 lessons
 						</div>
 					</div>
-					<div class="panel clickable" onclick='App.reviewPage.open()'>
+					<div class="panel clickable">
 						<div class='text title'>
 							Reviews
 						</div>
@@ -95,7 +95,7 @@
 		</div>
 	
 		
-		<script src='bundle.js?a=5'></script>
+		<script src='main_min.js?a=5'></script>
 	</body>
 </html>	
 
