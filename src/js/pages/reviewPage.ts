@@ -1,14 +1,12 @@
-import { App } from './app';
-import Server from './server';
-import WordInfoMenu from './wordInfoMenu';
-import { Question } from './types';
-import { $, setTextToElement, removeSpacesFromEnds } from './extraFunctions';
-import './wanakana';
+import Page from './page';
+import { App } from '../app';
+import Server from '../server';
+import WordInfoMenu from '../wordInfoMenu';
+import { Question } from '../types';
+import { $, setTextToElement, removeSpacesFromEnds } from '../extraFunctions';
 
 
-
-export default class ReviewPage {
-	#openPage:Function;
+export default class ReviewPage extends Page {
 	questions:Question[] = [];
 	curQuestion:Question;
 	
@@ -21,23 +19,20 @@ export default class ReviewPage {
 
 
 	#InputField = new InputField(this.#HTML.inputField);
-
-	constructor(_openPage:Function) {
-		this.#openPage = _openPage;
-	}
-
 	#wordInfoMenu = new WordInfoMenu(this.#HTML.infoMenu);
 	
+	constructor() {
+		super({index: 1});
+	}
 
-	open = async function() {
+	onOpen = async function() {
 		this.questions = await Server.review.getQuestions();
-		App.curPage = this;
-		
-		this.#openPage(1);
 		this.nextQuestion();
 		
 		this.#InputField.reset();
 	}
+
+
 
 	nextQuestion = function() {
 		this.#wordInfoMenu.close();

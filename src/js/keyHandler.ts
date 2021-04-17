@@ -6,7 +6,6 @@ type ShortCut = {
   ignoreIfInInputField?: boolean
 }
 
-
 let Keys: {[index: string]: boolean};
 const KeyHandler = new (function () {
   const shortCuts:ShortCut[] = [
@@ -24,6 +23,7 @@ const KeyHandler = new (function () {
 
 
   this.setup = function() {
+    Keys = {};
     document.body.addEventListener("keydown", function(_e:KeyboardEvent) {
       Keys[_e["key"]] = true;
       let preventDefault = KeyHandler.handleKeys(_e);
@@ -67,6 +67,4 @@ const KeyHandler = new (function () {
 } as any);
 
 
-
 export default KeyHandler;
-

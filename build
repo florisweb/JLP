@@ -7,6 +7,9 @@ echo - Building CSS
 
 cat src/css/popup.css src/css/component.css src/css/main.css > dist/main_min.css
 cp src/index.php dist/index.php
+
+mkdir dist/lib
+cp -r src/js/wanakana.js dist/lib/wanakana.js
 cp -r src/images dist/images
 cp -r src/database dist/database
 

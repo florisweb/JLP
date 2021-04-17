@@ -1,7 +1,7 @@
-import ReviewPage from './reviewPage';
-// import ResultPage from './resultPage';
-// import HomePage from './homePage';
-// import KeyHandler from './keyHandler';
+import ReviewPage from './pages/reviewPage';
+import ResultPage from './pages/resultPage';
+import HomePage from './pages/homePage';
+import KeyHandler from './keyHandler';
 import { $ } from './extraFunctions';
 
 export namespace App {
@@ -9,20 +9,20 @@ export namespace App {
     pages: $<HTMLElement>("#mainContent .page"),
   }
 
-  export function setup() {
-    console.warn("setup", this);
-    // KeyHandler.setup();
+
+  export let homePage = new HomePage();
+  export let reviewPage = new ReviewPage();
+  export let resultPage = new ResultPage();
+  export let curPage = homePage;
+
+  export async function setup() {
+    console.warn("Started setting up...");
+    await homePage.setup();
+    await reviewPage.setup();
+    await resultPage.setup();
+
+    KeyHandler.setup();
+
+    console.warn("Finished setting up!");
   }
-
-  export let curPage = false;
-  export let reviewPage = new ReviewPage(openPage);
-  // export let resultPage = new (ResultPage(openPage) as any);
-  // export let homePage = new (HomePage(openPage) as any);
-
-
-  function openPage(_index: number) {
-    // @ts-ignore
-    for (let page of HTML.pages) page.classList.add("hide");
-    HTML.pages[_index].classList.remove("hide");
-  } 
 }
