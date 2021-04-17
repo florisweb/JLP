@@ -36,7 +36,7 @@ export default class ReviewPage extends Page {
 
 	nextQuestion = function() {
 		this.#wordInfoMenu.close();
-		if (this.questions.length < 1) return; //open result page
+		if (this.questions.length < 1) return App.resultPage.open();
 		this.showQuestion(this.questions[0]);
 	}
 
@@ -54,8 +54,9 @@ export default class ReviewPage extends Page {
 		}
 
 		this.#InputField.showAnswerIncorrectAnimation();
+		let This = this;
 		setTimeout(function () {
-			this.#wordInfoMenu.open(this.curQuestion.word);
+			This.#wordInfoMenu.open(This.curQuestion.word);
 		}, 500);
 		this.questions.push(this.curQuestion);
 	}
@@ -146,14 +147,16 @@ class InputField {
 
 	showAnswerIncorrectAnimation = function() {
 		this.#HTML.classList.add("answerIncorrect");
+		let This = this;
 		setTimeout(function () {
-			this.#HTML.classList.remove("answerIncorrect");
+			This.#HTML.classList.remove("answerIncorrect");
 		}, 900);
 	}
 	showAnswerCorrectAnimation = function() {
 		this.#HTML.classList.add("answerCorrect");
+		let This = this;
 		setTimeout(function () {
-			this.#HTML.classList.remove("answerCorrect");
+			This.#HTML.classList.remove("answerCorrect");
 		}, 900);
 	}
 }

@@ -137,23 +137,26 @@ html {
 
 
 
-#mainContent .page .infoPanel {
+#mainContent .page .panel.infoPanel {
   position: absolute;
   float: bottom;
   bottom: 100px;
 
   left: calc(15% - 10px + 3px);
   width: calc(70% - 10px * 2 - 3px * 2);
+  /* padding-top: 10px; */
+
   background: #fff;
   margin: auto;
   transition: all .3s;
 }
 #mainContent .page .infoPanel.hide {
-  bottom: 0px;
+  bottom: 0;
   opacity: 0;
   transform: scale(.8);
   pointer-events: none;;
 }
+
 #mainContent .page .infoPanel .infoTextHolder {
   margin-top: 10px;
 }
