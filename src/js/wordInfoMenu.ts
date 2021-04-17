@@ -15,18 +15,29 @@ export default class WordInfoMenu {
 		this.HTML = {
 			menu:				_HTML,
 			titleHolder: 		_HTML.children[0],
-			meaningHolder: 		_HTML.children[1].children[0],
-			readingsHolder: 	_HTML.children[2].children[0],
-			infoHolder: 		_HTML.children[3],
+			meaningHolder: 		_HTML.children[2].children[0],
+			readingsHolder: 	_HTML.children[3].children[0],
+			infoHolder: 		_HTML.children[4],
 		};
 	}
 	
 	open(_word: Word, _showMeaning:boolean = false) {
 		this.HTML.menu.classList.remove("hide");	
-		setTextToElement(this.HTML.titleHolder, _word.character);
+		this.#setTitle(_word);
+
 		setTextToElement(this.HTML.meaningHolder, _word.meaning);
 		setTextToElement(this.HTML.readingsHolder, _word.readings.join(", "));
 		setTextToElement(this.HTML.infoHolder, _word.info);
+	}
+
+	#setTitle = function(_word:Word) {
+		this.HTML.titleHolder.classList.remove('radical');
+		this.HTML.titleHolder.classList.remove('kanji');
+		this.HTML.titleHolder.classList.remove('voca');
+		setTextToElement(this.HTML.titleHolder, _word.character);
+		
+		let typeClasses = ['radical', 'kanji', 'voca'];
+		this.HTML.titleHolder.classList.add(typeClasses[_word.type]);
 	}
 
 

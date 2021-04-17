@@ -3,7 +3,7 @@
 	<head>
 		<title>JLP - Florisweb.tk</title>
 		<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0' name='viewport'/>
- 		<link rel="stylesheet" type="text/css" href="main_min.css?a=10">
+ 		<link rel="stylesheet" type="text/css" href="main_min.css?a=11">
 	</head>	
 	<body>
 		<img src="/pictures/background_front.png" id="backgroundHolder">
@@ -80,7 +80,8 @@
 				<input class='text blue panel inputField'>
 
 				<div class='panel infoPanel hide'>
-					<div class='text title'></div>
+					<span class='text title highLightType kanji'></span>
+					<br>
 					<div class='text subText keyValuePair'>
 						Meaning: <span class='value'></span>
 					</div>

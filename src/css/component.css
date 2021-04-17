@@ -29,6 +29,20 @@
 }
 
 
+.text.highLightType {
+	padding: 5px 8px;
+	border-radius: 3px;
+	color: #fff;
+}
+.text.highLightType.radical {
+	background: rgb(140, 140, 205);
+}
+.text.highLightType.kanji {
+	background: rgb(205, 140, 140)
+}
+.text.highLightType.voca {
+	background: rgb(140, 205, 140)
+}
 
 
 
