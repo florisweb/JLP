@@ -28,8 +28,8 @@ export default class WordInfoMenu {
 		this.HTML.menu.classList.remove("hide");	
 		this.#setTitle(_word);
 
-		setTextToElement(this.HTML.meaningHolder, _word.meaning);
-		setTextToElement(this.HTML.readingsHolder, _word.readings.join(", "));
+		setTextToElement(this.HTML.meaningHolder, _word.meanings.join(', '));
+		setTextToElement(this.HTML.readingsHolder, _word.readings.join(', '));
 		setTextToElement(this.HTML.infoHolder, _word.info);
 	}
 

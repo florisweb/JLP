@@ -73,7 +73,14 @@ export default class ReviewPage extends Page {
 
 	#isAnswerCorrect = function(_question:Question):boolean {
 		let answer:string = removeSpacesFromEnds(this.InputField.getValue()).toLowerCase();
-		if (_question.askMeaning && _question.word.meaning.toLowerCase() == answer) return true;
+		if (_question.askMeaning)
+		{
+			for (let meaning of _question.word.meanings)
+			{
+				if (answer == meaning.toLowerCase()) return true;	
+			}
+			return false;
+		}
 
 		for (let reading of _question.word.readings)
 		{
