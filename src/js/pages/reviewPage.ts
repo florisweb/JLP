@@ -18,8 +18,8 @@ export default class ReviewPage extends Page {
 	};
 
 
-	#InputField = new InputField(this.#HTML.inputField);
-	#wordInfoMenu = new WordInfoMenu(this.#HTML.infoMenu);
+	private InputField = new InputField(this.#HTML.inputField);
+	private wordInfoMenu = new WordInfoMenu(this.#HTML.infoMenu);
 	
 	constructor() {
 		super({index: 1});
@@ -29,13 +29,22 @@ export default class ReviewPage extends Page {
 		this.questions = await Server.review.getQuestions();
 		this.nextQuestion();
 		
-		this.#InputField.reset();
+		this.InputField.reset();
 	}
 
 
+	onEnterPress = function(_inInputField:boolean) {
+		console.log(this.wordInfoMenu.openState, _inInputField);
+		if (this.wordInfoMenu.openState) return this.nextQuestion();
+		if (!_inInputField) return;
+		this.checkAnswer();
+	}
+
+	
+
 
 	nextQuestion = function() {
-		this.#wordInfoMenu.close();
+		this.wordInfoMenu.close();
 		if (this.questions.length < 1) return App.resultPage.open();
 		this.showQuestion(this.questions[0]);
 	}
@@ -46,24 +55,24 @@ export default class ReviewPage extends Page {
 		if (this.questions[0] == this.curQuestion) this.questions.splice(0, 1);
 		if (isCorrect)
 		{	
-			this.#InputField.showAnswerCorrectAnimation();
+			this.InputField.setAnswerCorrectStatus(true);
 			setTimeout(function () {
 				App.reviewPage.nextQuestion();
 			}, 500);
 			return;
 		}
 
-		this.#InputField.showAnswerIncorrectAnimation();
+		this.InputField.setAnswerCorrectStatus(false);
 		let This = this;
 		setTimeout(function () {
-			This.#wordInfoMenu.open(This.curQuestion.word);
+			This.wordInfoMenu.open(This.curQuestion.word);
 		}, 500);
 		this.questions.push(this.curQuestion);
 	}
 
 
 	#isAnswerCorrect = function(_question:Question):boolean {
-		let answer:string = removeSpacesFromEnds(this.#InputField.getValue()).toLowerCase();
+		let answer:string = removeSpacesFromEnds(this.InputField.getValue()).toLowerCase();
 		if (_question.askMeaning && _question.word.meaning.toLowerCase() == answer) return true;
 
 		for (let reading of _question.word.readings)
@@ -77,22 +86,20 @@ export default class ReviewPage extends Page {
 
 
 	showQuestion = function(_question: Question) {
-		this.#InputField.reset();
+		this.InputField.reset();
 		
 		this.curQuestion = _question;
 		this.#writeQuestion(this.curQuestion);
-		this.#InputField.setKanaInputMode();
-		if (this.curQuestion.askMeaning) this.#InputField.setNormalInputMode();
+		this.InputField.setKanaInputMode();
+		if (this.curQuestion.askMeaning) this.InputField.setNormalInputMode();
 	}
 
 
 	
-	#writeQuestion = function(_question: Question) {
-		let questionString:string = _question.askMeaning ? _question.word.character : _question.word.meaning;
-		
+	#writeQuestion = function(_question: Question) {		
 		setTextToElement(
 			this.#HTML.questionHolder, 
-			questionString
+			_question.word.character
 		);
 
 		let color = "rgb(140, 140, 205)";
@@ -122,8 +129,10 @@ class InputField {
 	#wanakanaIsBound:boolean = false;
 	
 	reset = function() {
+		this.#HTML.removeAttribute("readonly");
 		this.#HTML.value = null; 
 		this.#HTML.focus();
+		this.#clearAnimation();
 	}
 
 	getValue = function():string {
@@ -145,18 +154,20 @@ class InputField {
 		this.#HTML.setAttribute('placeHolder', 'meaning');
 	}
 
-	showAnswerIncorrectAnimation = function() {
-		this.#HTML.classList.add("answerIncorrect");
-		let This = this;
-		setTimeout(function () {
-			This.#HTML.classList.remove("answerIncorrect");
-		}, 900);
+	setAnswerCorrectStatus = function(_correct:boolean) {
+		this.#HTML.setAttribute("readonly", '');
+		if (_correct) return this.#showAnswerCorrectAnimation();
+		this.#showAnswerIncorrectAnimation();
 	}
-	showAnswerCorrectAnimation = function() {
+
+	#showAnswerIncorrectAnimation = function() {
+		this.#HTML.classList.add("answerIncorrect");
+	}
+	#showAnswerCorrectAnimation = function() {
 		this.#HTML.classList.add("answerCorrect");
-		let This = this;
-		setTimeout(function () {
-			This.#HTML.classList.remove("answerCorrect");
-		}, 900);
+	}
+	 #clearAnimation = function() {
+		this.#HTML.classList.remove("answerIncorrect");
+		this.#HTML.classList.remove("answerCorrect");
 	}
 }

@@ -14,8 +14,7 @@ const KeyHandler = new (function () {
       event: function (_e:KeyboardEvent) {
         //@ts-ignore
         let inInputField = _e.target.type == "text" || _e.target.type == "textarea";
-        if (!inInputField) return;
-        App.reviewPage.checkAnswer();
+        App.reviewPage.onEnterPress(inInputField);
       },
       ignoreIfInInputField: false
     }

@@ -3,7 +3,7 @@
 	<head>
 		<title>JLP - Florisweb.tk</title>
 		<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0' name='viewport'/>
- 		<link rel="stylesheet" type="text/css" href="main_min.css?a=11">
+ 		<link rel="stylesheet" type="text/css" href="main_min.css?a=12">
 	</head>	
 	<body>
 		<img src="/pictures/background_front.png" id="backgroundHolder">
@@ -96,7 +96,7 @@
 		</div>
 	
 		<script src='lib/wanakana.js'></script>
-		<script src='main_min.js?a=6'></script>
+		<script src='main_min.js?a=7'></script>
 	</body>
 </html>	
 

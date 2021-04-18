@@ -10,12 +10,3 @@
     "moduleResolution": "node",
   }
 }
-
-//     "lib": [
-//       "DOM",
-//       "ES6",
-//       "DOM.Iterable",
-//       "ScriptHost"
-//     ]
-//   }
-// }

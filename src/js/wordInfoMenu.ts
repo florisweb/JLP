@@ -11,6 +11,8 @@ type HTMLHolder = {
 
 export default class WordInfoMenu {
 	private HTML: HTMLHolder;
+	openState:boolean = false;
+
 	constructor(_HTML: HTMLElement) { 
 		this.HTML = {
 			menu:				_HTML,
@@ -22,6 +24,7 @@ export default class WordInfoMenu {
 	}
 	
 	open(_word: Word, _showMeaning:boolean = false) {
+		this.openState = true;
 		this.HTML.menu.classList.remove("hide");	
 		this.#setTitle(_word);
 
@@ -42,6 +45,7 @@ export default class WordInfoMenu {
 
 
 	close() {
+		this.openState = false;
 		this.HTML.menu.classList.add("hide");
 	}
 }

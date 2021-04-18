@@ -72,7 +72,7 @@ html {
 
 #mainContent .page .questionHolder a {
   font-size: 60px;
-  border-bottom: 3px solid rgba(140, 140, 205, .4);
+  border-bottom: 2px solid rgba(140, 140, 205, .4);
 }
 
 #mainContent .page .questionTypeHolder {
