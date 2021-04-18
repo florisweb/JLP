@@ -33,7 +33,7 @@ html {
   top: 0;
   margin: auto;
   width: 100vw;
-  max-width: 700px;
+  /* max-width: 700px; */
 
   height: calc(100vh);
 }
@@ -44,11 +44,24 @@ html {
   top: 0;
   width: 100%;
   height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
 
   transition: all .3s;
 }
+/* #mainContent .page:not(.fullWidth) { */
+
+/* } */
+#mainContent .page .pageContent {
+  position: relative;
+  margin: auto;
+  width: 100%;
+  max-width: 700px;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+
+
 
 #mainContent .page.hide {
   transform: scale(.8);
@@ -60,9 +73,24 @@ html {
   position: absolute;
   left: 0;
   top: 0;
+  height: 30px;
+  line-height: 30px;
   width: 100%;
 
-  text-align: center;;
+  text-align: center;
+}
+
+.page .topBar img.homeButton {
+  position: fixed;
+  left: 0;
+  float: left;
+  
+  height: 22px;
+  width: auto;
+  padding: 15px;
+  margin: 5px;
+  margin-top: 0;
+  margin-left: 15px;
 }
 
 
@@ -96,6 +124,9 @@ html {
   text-align: center;
   opacity: .7;
 }
+
+
+
 
 #mainContent .page.reviewPage .inputField {
   position: relative;

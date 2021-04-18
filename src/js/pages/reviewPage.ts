@@ -37,6 +37,11 @@ export default class ReviewPage extends Page {
 		super({index: 1});
 	}
 
+	setup = async function() {
+		let homeButton = $<HTMLElement>("#mainContent .page.reviewPage .topBar .homeButton")[0];
+		homeButton.addEventListener("click", function () {App.homePage.open()});
+	}
+
 	onOpen = async function() {
 		this.questions = await Server.review.getQuestions();
 		this.resultStatus = {
