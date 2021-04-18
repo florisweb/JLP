@@ -3,7 +3,7 @@
 	<head>
 		<title>JLP - Florisweb.tk</title>
 		<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0' name='viewport'/>
- 		<link rel="stylesheet" type="text/css" href="main_min.css?a=12">
+ 		<link rel="stylesheet" type="text/css" href="main_min.css?a=14">
 	</head>	
 	<body>
 		<img src="/pictures/background_front.png" id="backgroundHolder">
@@ -74,6 +74,11 @@
 				</div>
 			</div>
 			<div class='page hide reviewPage'>
+				<div class='progressBar'></div>
+				<div class='topBar'>
+					<div class='text scoreHolder'>5/15</div>
+				</div>
+
 				<div class='text blue questionHolder'><a>三日</a></div>
 				<div class='text blue questionTypeHolder'><a>Meaning</a></div>
 				<br>

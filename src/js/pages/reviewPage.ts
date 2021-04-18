@@ -6,19 +6,31 @@ import { Question } from '../types';
 import { $, setTextToElement, removeSpacesFromEnds } from '../extraFunctions';
 
 
+type Result = {
+	correct: Question[],
+	inCorrect: Question[]
+}
+
+
 export default class ReviewPage extends Page {
 	questions:Question[] = [];
 	curQuestion:Question;
+	questionIndex:number;
+	resultStatus:Result;
 	
 	#HTML = {
 		questionHolder: 	$<HTMLElement>("#mainContent .page.reviewPage .questionHolder")[0],
 		questionTypeHolder: $<HTMLElement>("#mainContent .page.reviewPage .questionTypeHolder")[0],
 		inputField: 		$<HTMLInputElement>("#mainContent .page.reviewPage .inputField")[0],
-		infoMenu: 			$<HTMLElement>("#mainContent .page.reviewPage .infoPanel")[0]
+		infoMenu: 			$<HTMLElement>("#mainContent .page.reviewPage .infoPanel")[0],
+		progressBar:		$<HTMLElement>("#mainContent .page.reviewPage .progressBar")[0],
+		topBar:				$<HTMLElement>("#mainContent .page.reviewPage .topBar")[0],
+		scoreHolder:		$<HTMLElement>("#mainContent .page.reviewPage .topBar .scoreHolder")[0],
 	};
 
 
 	private InputField = new InputField(this.#HTML.inputField);
+	#ProgressBar = new ProgressBar(this.#HTML.progressBar);
 	private wordInfoMenu = new WordInfoMenu(this.#HTML.infoMenu);
 	
 	constructor() {
@@ -27,6 +39,11 @@ export default class ReviewPage extends Page {
 
 	onOpen = async function() {
 		this.questions = await Server.review.getQuestions();
+		this.resultStatus = {
+			correct: [],
+			inCorrect: [],
+		};
+
 		this.nextQuestion();
 		
 		this.InputField.reset();
@@ -34,7 +51,6 @@ export default class ReviewPage extends Page {
 
 
 	onEnterPress = function(_inInputField:boolean) {
-		console.log(this.wordInfoMenu.openState, _inInputField);
 		if (this.wordInfoMenu.openState) return this.nextQuestion();
 		if (!_inInputField) return;
 		this.checkAnswer();
@@ -45,16 +61,20 @@ export default class ReviewPage extends Page {
 
 	nextQuestion = function() {
 		this.wordInfoMenu.close();
-		if (this.questions.length < 1) return App.resultPage.open();
+		this.#ProgressBar.setPercentage(this.resultStatus.correct.length / (this.questions.length + this.resultStatus.correct.length));
+		setTextToElement(this.#HTML.scoreHolder, this.resultStatus.correct.length + "/" + (this.questions.length + this.resultStatus.correct.length));
+
+		if (this.questions.lenght < 1) return App.resultPage.open();
 		this.showQuestion(this.questions[0]);
 	}
 
 
 	checkAnswer = function() {
 		let isCorrect = this.#isAnswerCorrect(this.curQuestion);
-		if (this.questions[0] == this.curQuestion) this.questions.splice(0, 1);
+		if (this.curQuestion == this.questions[0]) this.questions.splice(0, 1);
 		if (isCorrect)
 		{	
+			this.resultStatus.correct.push(this.curQuestion);
 			this.InputField.setAnswerCorrectStatus(true);
 			setTimeout(function () {
 				App.reviewPage.nextQuestion();
@@ -67,6 +87,8 @@ export default class ReviewPage extends Page {
 		setTimeout(function () {
 			This.wordInfoMenu.open(This.curQuestion.word);
 		}, 500);
+		
+		this.resultStatus.inCorrect.push(this.curQuestion);
 		this.questions.push(this.curQuestion);
 	}
 
@@ -176,5 +198,17 @@ class InputField {
 	 #clearAnimation = function() {
 		this.#HTML.classList.remove("answerIncorrect");
 		this.#HTML.classList.remove("answerCorrect");
+	}
+}
+
+
+class ProgressBar {
+	#HTML:HTMLElement;
+	constructor(_html:HTMLElement) {
+		this.#HTML = _html;
+	}
+
+	setPercentage = function(_percentage:number) {
+		this.#HTML.style.width = _percentage * 100 + "%";
 	}
 }
