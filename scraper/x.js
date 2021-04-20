@@ -15,11 +15,13 @@ async function run() {
 
 	// await scrapeLevelRecursively(0);
 	// output = await scrapeLevel(0);
-	// output = [await getLinkInfo({link: 'radicals/barb', level: 0})];
-	// output = output.concat(await getLinkInfo({link: 'kanji/%E7%94%9F', level: 0}));
-	// output = output.concat(await getLinkInfo({link: 'vocabulary/%E7%94%9F', level: 0}));
-	// output = output.concat(await getLinkInfo({link: 'vocabulary/%E6%96%B9', level: 0}));
+	output = [await getLinkInfo({link: 'radicals/barb', level: 0})];
+	output = output.concat(await getLinkInfo({link: 'kanji/%E7%94%9F', level: 0}));
+	output = output.concat(await getLinkInfo({link: 'vocabulary/%E7%94%9F', level: 0}));
+	output = output.concat(await getLinkInfo({link: 'vocabulary/%E6%96%B9', level: 0}));
 	output = output.concat(await getLinkInfo({link: 'vocabulary/%E5%BA%83%E3%81%84', level: 0}));
+	output = output.concat(await getLinkInfo({link: 'vocabulary/%E3%82%A4%E3%82%AE%E3%83%AA%E3%82%B9%E4%BA%BA', level: 0}));
+	output = output.concat(await getLinkInfo({link: 'vocabulary/%E4%BA%BA%E5%B7%A5', level: 0}));
 	
 	
 	
@@ -27,7 +29,7 @@ async function run() {
 	// console.log(data);
 	// let data = await getLinkInfo('vocabulary/%E4%B8%8A%E3%82%8B');
 	console.log(output);
-	// writeToFile(JSON.stringify(output));
+	writeToFile(JSON.stringify(output));
 }
 
 async function scrapeLevelRecursively(l) {
@@ -108,11 +110,16 @@ async function getLinkInfo(_linkObj) {
 	let info = getMeaningAndCharacter(content)
 	linkInfo.character = info.character;
 	linkInfo.meanings = info.meanings;
+
+	let rmInfo = getReadingAndMeaningInfo(page);
+	linkInfo.meaningInfo = rmInfo.meaningInfo;
+	linkInfo.readingInfo = rmInfo.readingInfo;
+	
 	switch (linkInfo.type)
 	{
 		case 0: 
 			delete linkInfo.readings;
-
+			// custom info detection for the radicals
 
 		break;
 		case 1:
@@ -158,6 +165,26 @@ async function getLinkInfo(_linkObj) {
 	
 
 	return linkInfo;
+}
+
+function getReadingAndMeaningInfo(_content) {
+	let readingPart = _content.split('<section id="reading"')[1];
+	let meaningPart = _content.split('<section id="meaning"')[1];
+
+	return {
+		readingInfo: getInfoFromContentPart(readingPart),
+		meaningInfo: getInfoFromContentPart(meaningPart),
+	}
+
+}
+
+function getInfoFromContentPart(_contentPart) {
+	if (!_contentPart) return "";
+	let parts = _contentPart.split('<section class="mnemonic-content mnemonic-content--new">');
+	if (parts.length < 2) return "";
+	let subPart = parts[1].split('<p>').splice(1, 1000).join('<p>');
+	let subPart2 = subPart.split('</section>')[0];
+	return cleanString(subPart2);
 }
 
 
