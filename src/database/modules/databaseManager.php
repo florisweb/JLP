@@ -6,26 +6,23 @@
 	$PM->includePacket("DB", "1.0");
 
 
-	global $DatabaseManager;
-	$DatabaseManager = new _DatabaseManager();
+	global $DBManager;
+	$DBManager = new _DatabaseManager();
 
 
 	class _DatabaseManager {
 		private $DBName = "eelekweb_JLP";
 		private $DB;
 
-		public $wordList;
+		public $words;
+		public $users;
 
 		public function __construct() {
 			$this->DB = $GLOBALS["DB"]->connect($this->DBName);
 			if (!$this->DB) die("Error connecting to DB");
-			$this->wordList = new _DatabaseManager_wordList($this->DB);
-
+			$this->words = new _DatabaseManager_wordList($this->DB);
+			$this->users = new _DatabaseManager_userList($this->DB);
 		}
-
-		
-
-
 	}
 
 	class _DatabaseManager_wordList {
@@ -53,7 +50,7 @@
 			if ($wordExists)
 			{
 				$result = $this->DB->execute(
-					"UPDATE $this->DBTableName SET _character=?,meanings=?,readings=?,type=?,readingInfo=?, meaningInfo=? WHERE id=?", 
+					"UPDATE $this->DBTableName SET _character=?,meanings=?,readings=?,type=?,readingInfo=?, meaningInfo=?, level=? WHERE id=?", 
 					array(
 						$word["character"],
 						json_encode($word["meanings"]),
@@ -61,6 +58,7 @@
 						$word["type"],
 						$word["readingInfo"],
 						$word["meaningInfo"],
+						$word["level"],
 						$word["id"],
 					)
 				);
@@ -85,28 +83,74 @@
 		}
 	}
 
+	class _DatabaseManager_userList {
+		private $DBTableName = "userList";
+		private $DB;
 
-	// var_dump($DatabaseManager->wordList->getById(6));
-	var_dump($DatabaseManager->wordList->update(array(
-		"id" => 5,
-		"character" => '少し2',
-		'readings' => array('すこし'),
-		'meanings' => ['A little'],
-		'meaningInfo' => 'This word is a single kanji with hiragana attached, though there is no specific clue as to what type of word it is. That means you can usually guess it\'s a noun, adverb or na-adjective (in this case it\'s a noun / adverb). The meaning of this word is pretty much the same as the kanji, though, making it fairly easy. The kanji meaning for 少 is few, and the meaning of the vocab form is a little or a few.',
-		'readingInfo' => '',
-		'type' => 1
-	)));
-
-	// var_dump($DatabaseManager->wordList->update(array(
-	// 	"character" => 'a',
-	// 	'readings' => ['b'],
-	// 	'meanings' => ['A little'],
-	// 	'meaningInfo' => 'a',
-	// 	'readingInfo' => 'test',
-	// 	'type' => 1
-	// )));
+		public function __construct($_DB) {
+			$this->DB = $_DB;
+		}
 
 
+		public function getToLearnListById($_id) {
+			$result = $this->DB->execute("SELECT toLearnWords FROM $this->DBTableName WHERE userId=? LIMIT 1", array($_id))[0];
+			if (!$result) return array();
+			$result = json_decode($result["toLearnWords"], true);
+			if (!$result) return array();
+			return $result;
+		}
+
+		public function getLearnedListById($_id) {
+			$result = $this->DB->execute("SELECT learnedWords FROM $this->DBTableName WHERE userId=? LIMIT 1", array($_id))[0];
+			if (!$result) return array();
+			$result = json_decode($result["learnedWords"], true);
+			if (!$result) return array();
+			return $result;
+		}
 
 
+		public function setToLearnList($_array, $_id) {
+			if ($this->userRowExists($_id))
+			{
+				return $this->DB->execute(
+					"UPDATE $this->DBTableName SET toLearnWords=? WHERE userId=?", 
+					array(
+						json_encode($_array),
+						$_id,
+					)
+				);
+			}
+			return $this->DB->execute(
+				"INSERT INTO $this->DBTableName (userId, learnedWords, toLearnWords) VALUES (?, '[]', ?)", 
+				array(
+					$_id,
+					json_encode($_array)
+				)
+			);
+		}
+		public function setLearnedList($_array, $_id) {
+			if ($this->userRowExists($_id))
+			{
+				return $this->DB->execute(
+					"UPDATE $this->DBTableName SET learnedWords=? WHERE userId=?", 
+					array(
+						json_encode($_array),
+						$_id,
+					)
+				);
+			}
+			return $this->DB->execute(
+				"INSERT INTO $this->DBTableName (userId, learnedWords, toLearnWords) VALUES (?, ?, '[]')", 
+				array(
+					$_id,
+					json_encode($_array)
+				)
+			);
+		}
+		
+		private function userRowExists($_id) {
+			$result = $this->DB->execute("SELECT userId FROM $this->DBTableName WHERE userId=?", array($_id))[0];
+			return !!$result;
+		}
+	}
 ?>

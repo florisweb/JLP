@@ -17,6 +17,7 @@
 				"meanings" 		=> ["array", [], $GLOBALS["FILTERER"]->Defaultable],
 				"readings" 		=> ["array", [], $GLOBALS["FILTERER"]->Defaultable],
 				"type" 			=> ["int", 0, $GLOBALS["FILTERER"]->Defaultable],
+				"level" 		=> ["int", 0, $GLOBALS["FILTERER"]->Defaultable],
 				"readingInfo"	=> ["string", "", $GLOBALS["FILTERER"]->Defaultable],
 				"meaningInfo"	=> ["string", "", $GLOBALS["FILTERER"]->Defaultable],
 			));
