@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en" id="main">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script>window.NREUM||(NREUM={});NREUM.info={"beacon":"bam-cell.nr-data.net","errorBeacon":"bam-cell.nr-data.net","licenseKey":"3448ab299a","applicationID":"534651","transactionName":"IV1XQkZZVF1VQU0XBQZbWldYRRdCWFwV","queueTime":7,"applicationTime":64,"agent":""}</script>
+<script>(window.NREUM||(NREUM={})).loader_config={licenseKey:"3448ab299a",applicationID:"534651"};window.NREUM||(NREUM={}),__nr_require=function(e,t,n){function r(n){if(!t[n]){var i=t[n]={exports:{}};e[n][0].call(i.exports,function(t){var i=e[n][1][t];return r(i||t)},i,i.exports)}return t[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var i=0;i<n.length;i++)r(n[i]);return r}({1:[function(e,t,n){function r(){}function i(e,t,n){return function(){return o(e,[u.now()].concat(c(arguments)),t?null:this,n),t?void 0:this}}var o=e("handle"),a=e(7),c=e(8),f=e("ee").get("tracer"),u=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var d=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],p="api-",l=p+"ixn-";a(d,function(e,t){s[t]=i(p+t,!0,"api")}),s.addPageAction=i(p+"addPageAction",!0),s.setCurrentRouteName=i(p+"routeName",!0),t.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,t){var n={},r=this,i="function"==typeof t;return o(l+"tracer",[u.now(),e,n],r),function(){if(f.emit((i?"":"no-")+"fn-start",[u.now(),r,i],n),i)try{return t.apply(this,arguments)}catch(e){throw f.emit("fn-err",[arguments,this,e],n),e}finally{f.emit("fn-end",[u.now()],n)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,t){m[t]=i(l+t)}),newrelic.noticeError=function(e,t){"string"==typeof e&&(e=new Error(e)),o("err",[e,u.now(),!1,t])}},{}],2:[function(e,t,n){function r(){return c.exists&&performance.now?Math.round(performance.now()):(o=Math.max((new Date).getTime(),o))-a}function i(){return o}var o=(new Date).getTime(),a=o,c=e(9);t.exports=r,t.exports.offset=a,t.exports.getLastTimestamp=i},{}],3:[function(e,t,n){function r(e){return!(!e||!e.protocol||"file:"===e.protocol)}t.exports=r},{}],4:[function(e,t,n){function r(e,t){var n=e.getEntries();n.forEach(function(e){"first-paint"===e.name?d("timing",["fp",Math.floor(e.startTime)]):"first-contentful-paint"===e.name&&d("timing",["fcp",Math.floor(e.startTime)])})}function i(e,t){var n=e.getEntries();n.length>0&&d("lcp",[n[n.length-1]])}function o(e){e.getEntries().forEach(function(e){e.hadRecentInput||d("cls",[e])})}function a(e){if(e instanceof m&&!g){var t=Math.round(e.timeStamp),n={type:e.type};t<=p.now()?n.fid=p.now()-t:t>p.offset&&t<=Date.now()?(t-=p.offset,n.fid=p.now()-t):t=p.now(),g=!0,d("timing",["fi",t,n])}}function c(e){d("pageHide",[p.now(),e])}if(!("init"in NREUM&&"page_view_timing"in NREUM.init&&"enabled"in NREUM.init.page_view_timing&&NREUM.init.page_view_timing.enabled===!1)){var f,u,s,d=e("handle"),p=e("loader"),l=e(6),m=NREUM.o.EV;if("PerformanceObserver"in window&&"function"==typeof window.PerformanceObserver){f=new PerformanceObserver(r);try{f.observe({entryTypes:["paint"]})}catch(v){}u=new PerformanceObserver(i);try{u.observe({entryTypes:["largest-contentful-paint"]})}catch(v){}s=new PerformanceObserver(o);try{s.observe({type:"layout-shift",buffered:!0})}catch(v){}}if("addEventListener"in document){var g=!1,w=["click","keydown","mousedown","pointerdown","touchstart"];w.forEach(function(e){document.addEventListener(e,a,!1)})}l(c)}},{}],5:[function(e,t,n){function r(e,t){if(!i)return!1;if(e!==i)return!1;if(!t)return!0;if(!o)return!1;for(var n=o.split("."),r=t.split("."),a=0;a<r.length;a++)if(r[a]!==n[a])return!1;return!0}var i=null,o=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var c=navigator.userAgent,f=c.match(a);f&&c.indexOf("Chrome")===-1&&c.indexOf("Chromium")===-1&&(i="Safari",o=f[1])}t.exports={agent:i,version:o,match:r}},{}],6:[function(e,t,n){function r(e){function t(){e(a&&document[a]?document[a]:document[i]?"hidden":"visible")}"addEventListener"in document&&o&&document.addEventListener(o,t,!1)}t.exports=r;var i,o,a;"undefined"!=typeof document.hidden?(i="hidden",o="visibilitychange",a="visibilityState"):"undefined"!=typeof document.msHidden?(i="msHidden",o="msvisibilitychange"):"undefined"!=typeof document.webkitHidden&&(i="webkitHidden",o="webkitvisibilitychange",a="webkitVisibilityState")},{}],7:[function(e,t,n){function r(e,t){var n=[],r="",o=0;for(r in e)i.call(e,r)&&(n[o]=t(r,e[r]),o+=1);return n}var i=Object.prototype.hasOwnProperty;t.exports=r},{}],8:[function(e,t,n){function r(e,t,n){t||(t=0),"undefined"==typeof n&&(n=e?e.length:0);for(var r=-1,i=n-t||0,o=Array(i<0?0:i);++r<i;)o[r]=e[t+r];return o}t.exports=r},{}],9:[function(e,t,n){t.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,t,n){function r(){}function i(e){function t(e){return e&&e instanceof r?e:e?u(e,f,a):a()}function n(n,r,i,o,a){if(a!==!1&&(a=!0),!l.aborted||o){e&&a&&e(n,r,i);for(var c=t(i),f=v(n),u=f.length,s=0;s<u;s++)f[s].apply(c,r);var p=d[h[n]];return p&&p.push([b,n,r,c]),c}}function o(e,t){y[e]=v(e).concat(t)}function m(e,t){var n=y[e];if(n)for(var r=0;r<n.length;r++)n[r]===t&&n.splice(r,1)}function v(e){return y[e]||[]}function g(e){return p[e]=p[e]||i(n)}function w(e,t){s(e,function(e,n){t=t||"feature",h[n]=t,t in d||(d[t]=[])})}var y={},h={},b={on:o,addEventListener:o,removeEventListener:m,emit:n,get:g,listeners:v,context:t,buffer:w,abort:c,aborted:!1};return b}function o(e){return u(e,f,a)}function a(){return new r}function c(){(d.api||d.feature)&&(l.aborted=!0,d=l.backlog={})}var f="nr@context",u=e("gos"),s=e(7),d={},p={},l=t.exports=i();t.exports.getOrSetContext=o,l.backlog=d},{}],gos:[function(e,t,n){function r(e,t,n){if(i.call(e,t))return e[t];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,t,{value:r,writable:!0,enumerable:!1}),r}catch(o){}return e[t]=r,r}var i=Object.prototype.hasOwnProperty;t.exports=r},{}],handle:[function(e,t,n){function r(e,t,n,r){i.buffer([e],r),i.emit(e,t,n)}var i=e("ee").get("handle");t.exports=r,r.ee=i},{}],id:[function(e,t,n){function r(e){var t=typeof e;return!e||"object"!==t&&"function"!==t?-1:e===window?0:a(e,o,function(){return i++})}var i=1,o="nr@id",a=e("gos");t.exports=r},{}],loader:[function(e,t,n){function r(){if(!E++){var e=x.info=NREUM.info,t=l.getElementsByTagName("script")[0];if(setTimeout(u.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&t))return u.abort();f(h,function(t,n){e[t]||(e[t]=n)});var n=a();c("mark",["onload",n+x.offset],null,"api"),c("timing",["load",n]);var r=l.createElement("script");r.src="https://"+e.agent,t.parentNode.insertBefore(r,t)}}function i(){"complete"===l.readyState&&o()}function o(){c("mark",["domContent",a()+x.offset],null,"api")}var a=e(2),c=e("handle"),f=e(7),u=e("ee"),s=e(5),d=e(3),p=window,l=p.document,m="addEventListener",v="attachEvent",g=p.XMLHttpRequest,w=g&&g.prototype;if(d(p.location)){NREUM.o={ST:setTimeout,SI:p.setImmediate,CT:clearTimeout,XHR:g,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var y=""+location,h={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1208.min.js"},b=g&&w&&w[m]&&!/CriOS/.test(navigator.userAgent),x=t.exports={offset:a.getLastTimestamp(),now:a,origin:y,features:{},xhrWrappable:b,userAgent:s};e(1),e(4),l[m]?(l[m]("DOMContentLoaded",o,!1),p[m]("load",r,!1)):(l[v]("onreadystatechange",i),p[v]("onload",r)),c("mark",["firstbyte",a.getLastTimestamp()],null,"api");var E=0}},{}],"wrap-function":[function(e,t,n){function r(e,t){function n(t,n,r,f,u){function nrWrapper(){var o,a,s,p;try{a=this,o=d(arguments),s="function"==typeof r?r(o,a):r||{}}catch(l){i([l,"",[o,a,f],s],e)}c(n+"start",[o,a,f],s,u);try{return p=t.apply(a,o)}catch(m){throw c(n+"err",[o,a,m],s,u),m}finally{c(n+"end",[o,a,p],s,u)}}return a(t)?t:(n||(n=""),nrWrapper[p]=t,o(t,nrWrapper,e),nrWrapper)}function r(e,t,r,i,o){r||(r="");var c,f,u,s="-"===r.charAt(0);for(u=0;u<t.length;u++)f=t[u],c=e[f],a(c)||(e[f]=n(c,s?f+r:r,i,f,o))}function c(n,r,o,a){if(!m||t){var c=m;m=!0;try{e.emit(n,r,o,t,a)}catch(f){i([f,n,r,o],e)}m=c}}return e||(e=s),n.inPlace=r,n.flag=p,n}function i(e,t){t||(t=s);try{t.emit("internal-error",e)}catch(n){}}function o(e,t,n){if(Object.defineProperty&&Object.keys)try{var r=Object.keys(e);return r.forEach(function(n){Object.defineProperty(t,n,{get:function(){return e[n]},set:function(t){return e[n]=t,t}})}),t}catch(o){i([o],n)}for(var a in e)l.call(e,a)&&(t[a]=e[a]);return t}function a(e){return!(e&&e instanceof Function&&e.apply&&!e[p])}function c(e,t){var n=t(e);return n[p]=e,o(e,n,s),n}function f(e,t,n){var r=e[t];e[t]=c(r,n)}function u(){for(var e=arguments.length,t=new Array(e),n=0;n<e;++n)t[n]=arguments[n];return t}var s=e("ee"),d=e(8),p="nr@original",l=Object.prototype.hasOwnProperty,m=!1;t.exports=r,t.exports.wrapFunction=c,t.exports.wrapInPlace=f,t.exports.argsToArray=u},{}]},{},["loader"]);</script>
+  <title>WaniKani / Radical / Barb</title>
+  <link rel="stylesheet" media="screen" href="https://cdn.wanikani.com/assets/default-v2/application-138a44542e166bc4e854c8ebda94f160789624b9f0b29f69d826a885de87a0b6.css" />
+  <link rel="stylesheet" media="screen" href="https://cdn.wanikani.com/assets/application-be8fec0c87a2d6cf9afb39f298ad7f72f89c7f1d741153bdef831ee17b041bc2.css" />
+  <link rel="stylesheet" media="screen" href="https://cdn.wanikani.com/packs/css/application-753bfcef.css" />
+  <script src="https://cdn.wanikani.com/assets/default-v2/application-e2036934cf6a02df7ab87c3873ab2f1cc56fe741af2c8ee5e7587583f6e0d2c1.js"></script>
+  <script src="https://cdn.wanikani.com/assets/application-89d5ded9337480a9dc5cc30691d65bc1128209429ddb9dfdafba17874e9f3fa5.js" defer="defer"></script>
+  <script src="https://js.stripe.com/v3/"></script>
+    <meta content="6" name="subject_id"></meta>
+
+  <meta name="application-name" content="WaniKani">
+  <meta name="author" content="tofugu.com">
+  <meta name="description" content="WaniKani is a Japanese radicals, kanji, and vocabulary learning web app that uses mnemonics and SRS to make kanji learning simple.">
+  <meta name="keywords" content="japanese kanji, japanese language, japanese learning, kanji, radicals, kanji radicals, japanese vocabulary, vocabulary, srs, spaced repetition, mnemonics, memory tricks, web app">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="google" value="notranslate">
+  <!-- Open Graph data -->
+  <meta content='Learn Japanese kanji the effective way!' property='og:description'>
+  <meta content='https://cdn.wanikani.com/social-media-image.jpg' property='og:image'>
+  <meta content='en_US' property='og:locale'>
+  <meta content='WaniKani' property='og:site_name'>
+  <meta content='WaniKani, a kanji learning application by Tofugu' property='og:title'>
+  <meta content='website' property='og:type'>
+  <meta content='https://wanikani.com/' property='og:url'>
+  <meta content='https://www.tofugu.com' property='og:see_also'>
+  <!-- Twitter Card data -->
+  <meta content='summary_large_image' name='twitter:card'>
+  <meta content='@tofugu' name='twitter:creator'>
+  <meta content='Learn Japanese kanji the effective way!' name='twitter:description'>
+  <meta content='https://cdn.wanikani.com/social-media-image.jpg' name='twitter:image'>
+  <meta content='@wanikaniapp' name='twitter:site'>
+  <meta content='WaniKani, a kanji learning application by Tofugu' name='twitter:title'>
+  <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="no3dDQlJrjtP9kgX+Z+3fqFuMs8Y+IvJUE5CyBpgDpcnsaBMaks/OcvvsEkFh8eOb6UqprAIB5PKyY4nRzbsUQ==" />
+  <link rel="shortcut icon" type="image/x-icon" href="https://cdn.wanikani.com/assets/favicon-f2c0953320a351731c5da92c073c2ccd21166454d14e3d49424d3166269a5ddb.ico" />
+  <link rel="shortcut icon" type="image/png" href="https://cdn.wanikani.com/assets/v03/wanikani-icon-196x-2ebfdacd055c53130d9177fd7b6c4d2c0e470633b9bcabbe6d54816a0b2ef55d.png" sizes="196x196" />
+  <link rel="shortcut icon" type="image/png" href="https://cdn.wanikani.com/assets/v03/wanikani-icon-128x-c51cb24b2778f8a8a1fa6197852f3ed2666bf9e6c7933b44f32e2b4624e10c6f.png" sizes="128x128" />
+  <link rel="apple-touch-icon" type="image/png" href="https://cdn.wanikani.com/assets/v03/wanikani-icon-128x-c51cb24b2778f8a8a1fa6197852f3ed2666bf9e6c7933b44f32e2b4624e10c6f.png" sizes="128x128" />
+  <link rel="apple-touch-icon-precomposed" type="image/png" href="https://cdn.wanikani.com/assets/v03/wanikani-icon-128x-c51cb24b2778f8a8a1fa6197852f3ed2666bf9e6c7933b44f32e2b4624e10c6f.png" sizes="128x128" />
+   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700&display=swap&subset=japanese" rel="stylesheet"> 
+ 
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Ubuntu:300,700,300italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://maxcdn.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+  <script src="https://cdn.wanikani.com/packs/js/application-73c199cb948bda58095d.js"></script>
+  
+</head>
+<body>
+
+<div class="footer-adjustment">
+  <header class="global-header">
+  <div class="container">
+    <div class="logo">
+      <a class="logo__link" href="/">
+        <h1>WaniKani</h1>
+</a>    </div>
+    <nav class="navigation" role="navigation">
+      <button id="search__trigger__mobile" tabindex="0" class="box-content flex items-stretch p-0 transition duration-200 bg-transparent border-2 border-transparent border-solid rounded-full lg:hidden xl:hidden hover:border-transparent-1 w-7 h-7 focus:outline-none focus:border-transparent-3" data-expanded="false" aria-expanded="false" aria-controls="search-bar" type="button" aria-label="Search">
+        <span lang="en" class="self-center flex-1 pb-px pr-px text-center cursor-pointer icon-search"></span>
+      </button>
+      <button class="border-0 navigation__toggle" data-navigation-toggle data-expanded="false" aria-expanded="false" aria-controls="sitemap" type="button" aria-label="Menu">
+        <span class="navigation__toggle-lines"></span>
+      </button>
+      <ul id="sitemap" class="sitemap" data-navigation-content data-expanded="false">
+          <li class="sitemap__section">
+            <button class="sitemap__section-header" data-navigation-section-toggle data-expanded="false" aria-expanded="false" type="button" aria-controls="sitemap__levels" tabindex="0">
+              <span lang="ja">レベル</span>
+              <span lang="en" class="font-sans">Levels</span>
+            </button>
+            <div id="#sitemap__levels" class="sitemap__expandable-chunk sitemap__expandable-chunk--levels" data-navigation-section-content data-expanded="false">
+              <div class="sitemap__grouped-pages">
+    <h3 class="sitemap__group-header"><span lang="ja">快</span> PLEASANT</h3>
+    <ol class="sitemap__pages sitemap__pages--levels">
+        <li class="sitemap__page">
+          <a href="/level/1">01</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/2">02</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/3">03</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/4">04</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/5">05</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/6">06</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/7">07</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/8">08</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/9">09</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/10">10</a>
+        </li>
+    </ol>
+    <h3 class="sitemap__group-header"><span lang="ja">苦</span> PAINFUL</h3>
+    <ol class="sitemap__pages sitemap__pages--levels">
+        <li class="sitemap__page">
+          <a href="/level/11">11</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/12">12</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/13">13</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/14">14</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/15">15</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/16">16</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/17">17</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/18">18</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/19">19</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/20">20</a>
+        </li>
+    </ol>
+    <h3 class="sitemap__group-header"><span lang="ja">死</span> DEATH</h3>
+    <ol class="sitemap__pages sitemap__pages--levels">
+        <li class="sitemap__page">
+          <a href="/level/21">21</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/22">22</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/23">23</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/24">24</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/25">25</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/26">26</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/27">27</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/28">28</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/29">29</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/30">30</a>
+        </li>
+    </ol>
+    <h3 class="sitemap__group-header"><span lang="ja">地獄</span> HELL</h3>
+    <ol class="sitemap__pages sitemap__pages--levels">
+        <li class="sitemap__page">
+          <a href="/level/31">31</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/32">32</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/33">33</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/34">34</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/35">35</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/36">36</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/37">37</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/38">38</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/39">39</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/40">40</a>
+        </li>
+    </ol>
+    <h3 class="sitemap__group-header"><span lang="ja">天国</span> PARADISE</h3>
+    <ol class="sitemap__pages sitemap__pages--levels">
+        <li class="sitemap__page">
+          <a href="/level/41">41</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/42">42</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/43">43</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/44">44</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/45">45</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/46">46</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/47">47</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/48">48</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/49">49</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/50">50</a>
+        </li>
+    </ol>
+    <h3 class="sitemap__group-header"><span lang="ja">現実</span> REALITY</h3>
+    <ol class="sitemap__pages sitemap__pages--levels">
+        <li class="sitemap__page">
+          <a href="/level/51">51</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/52">52</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/53">53</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/54">54</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/55">55</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/56">56</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/57">57</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/58">58</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/59">59</a>
+        </li>
+        <li class="sitemap__page">
+          <a href="/level/60">60</a>
+        </li>
+    </ol>
+</div>
+
+            </div>
+          </li>
+          <li class="sitemap__section">
+            <button class="sitemap__section-header sitemap__section-header--radicals" data-navigation-section-toggle data-expanded="false" aria-expanded="false" aria-controls="sitemap__radicals" type="button" tabindex="0">
+              <span lang="ja">部首</span>
+              <span lang="en" class="font-sans">Radicals</span>
+            </button>
+            <div id="#sitemap__radicals" class="sitemap__expandable-chunk sitemap__expandable-chunk--radicals" data-navigation-section-content data-expanded="false">
+              <ul class="sitemap__pages sitemap__pages--radical">
+    <li class="sitemap__page sitemap__page--subject">
+      <a href="/radicals?difficulty=pleasant">
+        <span lang="ja">快</span> Pleasant
+        <span class="sitemap__page-subtitle">Levels 01-10</span>
+</a>    </li>
+    <li class="sitemap__page sitemap__page--subject">
+      <a href="/radicals?difficulty=painful">
+        <span lang="ja">苦</span> Painful
+        <span class="sitemap__page-subtitle">Levels 11-20</span>
+</a>    </li>
+    <li class="sitemap__page sitemap__page--subject">
+      <a href="/radicals?difficulty=death">
+        <span lang="ja">死</span> Death
+        <span class="sitemap__page-subtitle">Levels 21-30</span>
+</a>    </li>
+    <li class="sitemap__page sitemap__page--subject">
+      <a href="/radicals?difficulty=hell">
+        <span lang="ja">地獄</span> Hell
+        <span class="sitemap__page-subtitle">Levels 31-40</span>
+</a>    </li>
+    <li class="sitemap__page sitemap__page--subject">
+      <a href="/radicals?difficulty=paradise">
+        <span lang="ja">天国</span> Paradise
+        <span class="sitemap__page-subtitle">Levels 41-50</span>
+</a>    </li>
+    <li class="sitemap__page sitemap__page--subject">
+      <a href="/radicals?difficulty=reality">
+        <span lang="ja">現実</span> Reality
+        <span class="sitemap__page-subtitle">Levels 51-60</span>
+</a>    </li>
+</ul>
+
+            </div>
+          </li>
+          <li class="sitemap__section">
+            <button class="sitemap__section-header sitemap__section-header--kanji" data-navigation-section-toggle data-expanded="false" aria-expanded="false" aria-controls="sitemap__kanji" type="button" tabindex="0">
+              <span lang="ja">漢字</span>
+              <span lang="en" class="font-sans">Kanji</span>
+            </button>
+            <div id="#sitemap__kanji" class="sitemap__expandable-chunk sitemap__expandable-chunk--kanji" data-navigation-section-content data-expanded="false">
+              <ul class="sitemap__pages sitemap__pages--kanji">
+    <li class="sitemap__page sitemap__page--subject">
+      <a href="/kanji?difficulty=pleasant">
+        <span lang="ja">快</span> Pleasant
+        <span class="sitemap__page-subtitle">Levels 01-10</span>
+</a>    </li>
+    <li class="sitemap__page sitemap__page--subject">
+      <a href="/kanji?difficulty=painful">
+        <span lang="ja">苦</span> Painful
+        <span class="sitemap__page-subtitle">Levels 11-20</span>
+</a>    </li>
+    <li class="sitemap__page sitemap__page--subject">
+      <a href="/kanji?difficulty=death">
+        <span lang="ja">死</span> Death
+        <span class="sitemap__page-subtitle">Levels 21-30</span>
+</a>    </li>
+    <li class="sitemap__page sitemap__page--subject">
+      <a href="/kanji?difficulty=hell">
+        <span lang="ja">地獄</span> Hell
+        <span class="sitemap__page-subtitle">Levels 31-40</span>
+</a>    </li>
+    <li class="sitemap__page sitemap__page--subject">
+      <a href="/kanji?difficulty=paradise">
+        <span lang="ja">天国</span> Paradise
+        <span class="sitemap__page-subtitle">Levels 41-50</span>
+</a>    </li>
+    <li class="sitemap__page sitemap__page--subject">
+      <a href="/kanji?difficulty=reality">
+        <span lang="ja">現実</span> Reality
+        <span class="sitemap__page-subtitle">Levels 51-60</span>
+</a>    </li>
+</ul>
+
+            </div>
+          </li>
+          <li class="sitemap__section">
+            <button class="sitemap__section-header sitemap__section-header--vocabulary" data-navigation-section-toggle data-expanded="false" aria-expanded="false" aria-controls="sitemap__vocabulary" type="button" tabindex="0">
+              <span lang="ja">単語</span>
+              <span lang="en" class="font-sans">Vocabulary</span>
+            </button>
+            <div id="#sitemap__vocabulary" class="sitemap__expandable-chunk sitemap__expandable-chunk--vocabulary" data-navigation-section-content data-expanded="false">
+              <ul class="sitemap__pages sitemap__pages--vocabulary">
+    <li class="sitemap__page sitemap__page--subject">
+      <a href="/vocabulary?difficulty=pleasant">
+        <span lang="ja">快</span> Pleasant
+        <span class="sitemap__page-subtitle">Levels 01-10</span>
+</a>    </li>
+    <li class="sitemap__page sitemap__page--subject">
+      <a href="/vocabulary?difficulty=painful">
+        <span lang="ja">苦</span> Painful
+        <span class="sitemap__page-subtitle">Levels 11-20</span>
+</a>    </li>
+    <li class="sitemap__page sitemap__page--subject">
+      <a href="/vocabulary?difficulty=death">
+        <span lang="ja">死</span> Death
+        <span class="sitemap__page-subtitle">Levels 21-30</span>
+</a>    </li>
+    <li class="sitemap__page sitemap__page--subject">
+      <a href="/vocabulary?difficulty=hell">
+        <span lang="ja">地獄</span> Hell
+        <span class="sitemap__page-subtitle">Levels 31-40</span>
+</a>    </li>
+    <li class="sitemap__page sitemap__page--subject">
+      <a href="/vocabulary?difficulty=paradise">
+        <span lang="ja">天国</span> Paradise
+        <span class="sitemap__page-subtitle">Levels 41-50</span>
+</a>    </li>
+    <li class="sitemap__page sitemap__page--subject">
+      <a href="/vocabulary?difficulty=reality">
+        <span lang="ja">現実</span> Reality
+        <span class="sitemap__page-subtitle">Levels 51-60</span>
+</a>    </li>
+</ul>
+
+            </div>
+          </li>
+        <li class="sitemap__section sitemap--divider">
+          <button class="sitemap__section-header sitemap__section-header--help" data-navigation-section-toggle data-expanded="false" aria-expanded="false" type="button" aria-controls="sitemap__levels" tabindex="0">
+            <span lang="ja">ヘルプ</span>
+            <span lang="en" class="font-sans">Help</span>
+          </button>
+          <div id="#sitemap__help" class="sitemap__expandable-chunk" data-navigation-section-content data-expanded="false">
+            <ul class="sitemap__pages">
+              <li class="sitemap__page sitemap__page--subject">
+                <a href="/faq">Knowledge Guide</a>
+              </li>
+              <li class="sitemap__page sitemap__page--subject">
+                <button name="button" type="button" class="button--chat" onclick="FrontChat(&#39;show&#39;)">Chat with Us</button>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="sitemap__section">
+          <button id="search__trigger" tabindex="0" class="box-content items-stretch hidden p-0 text-base transition duration-200 bg-transparent border-2 border-transparent border-solid rounded-full lg:flex lg:visible hover:border-transparent-1 w-7 h-7 focus:outline-none focus:border-transparent-3" data-expanded="false" aria-expanded="false" aria-controls="search-bar" type="button">
+            <span lang="en" class="self-center flex-1 pb-px pr-px font-sans text-center cursor-pointer icon-search"></span>
+          </button>
+        </li>
+          <li class="sitemap__page sitemap__page--login sitemap--divider">
+            <a href="/login">Login</a>
+          </li>
+          <li class="sitemap__page sitemap__page--signup">
+            <a href="/signup">Sign up</a>
+          </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+  <noscript>WaniKani requires JavaScript to function properly</noscript>
+
+  
+
+  
+
+  <div class="container">
+  <div class="row">
+    <div class="span12">
+      <div class="callout">
+        <p><a href="/">Come learn 2000+ kanji and 6000+ vocabulary words with&nbsp;WaniKani.</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <div id="search">
+  <div class="container">
+    <div class="row">
+      <div id="search-bar" class="span12 hidden">
+        <form id="search-form" action="/search" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+          <span id="main-ico-search"><i class="icon-search"></i></span>
+          <input type="text" name="query" id="query" class="search-query" />
+</form>        <section class="search-results"></section>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
+<div class="container individual-item standard">
+  <div class="row">
+    <div class="span12">
+        <nav>
+          <ul class="pager">
+            <li class="previous disabled"></li><li class="next"><a href="/radicals/big">Big&nbsp;<i class="icon-circle-arrow-right"></i></a></li>
+          </ul>
+        </nav>
+        <header>
+          <h1>
+            <a class="level-icon" href="/level/1">1</a> <span class="radical-icon" lang="ja">亅</span> Barb
+          </h1>
+
+          <div class="page-list remove-margin-bottom">
+            <ul>
+              <li class="page-list-header"><span>Go to</span></li>
+              <li><a href="#information">Name</a></li>
+              <li><a href="#amalgamations">Found In Kanji</a></li>
+            </ul>
+          </div>
+        </header>
+
+      <section id="information">
+        <h2>Name</h2>
+        <div class="alternative-meaning">
+          <h2>Primary</h2>
+          <p>Barb</p>
+        </div>
+        <h3>Mnemonic</h3>
+          <section class="mnemonic-content mnemonic-content--new">
+    <p>This radical is shaped like a <span class="radical-highlight" title="Radical" rel="tooltip">barb</span>. Like the kind you'd see on barb wire. Imagine one of these getting stuck to your arm or your clothes. Think about how much it would hurt with that little hook on the end sticking into you. Say out loud, "Oh dang, I got a barb stuck in me!"</p>
+
+
+  </section>
+
+
+      </section>
+
+        <section id="amalgamations">
+          <h2>Found In Kanji</h2>
+          <ul class="single-character-grid multi-character-grid-extra-styling-767px">
+            <li class="kanji-465 locked character-item">
+              <span lang="ja" class="item-badge"></span>
+              <a href="/kanji/%E4%BA%86">
+              <span class="character" lang="ja">了</span>
+              <ul>
+                <li>りょう</li>
+                <li>Finish</li>
+              </ul>
+            </a></li><li class="kanji-468 locked character-item">
+              <span lang="ja" class="item-badge"></span>
+              <a href="/kanji/%E6%89%8D">
+              <span class="character" lang="ja">才</span>
+              <ul>
+                <li>さい</li>
+                <li>Genius</li>
+              </ul>
+            </a></li><li class="kanji-775 locked character-item">
+              <span lang="ja" class="item-badge"></span>
+              <a href="/kanji/%E4%BA%89">
+              <span class="character" lang="ja">争</span>
+              <ul>
+                <li>そう</li>
+                <li>Conflict</li>
+              </ul>
+            </a></li><li class="kanji-2430 locked character-item">
+              <span lang="ja" class="item-badge"></span>
+              <a href="/kanji/%E6%85%B6">
+              <span class="character" lang="ja">慶</span>
+              <ul>
+                <li>けい</li>
+                <li>Congratulate</li>
+              </ul>
+            </a></li>
+          </ul>
+        </section>
+    </div>
+  </div>
+</div>
+
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      CharacterGrid.removeLockClass();
+
+    InfoTip.enlargeCharacters();
+
+  });
+</script>
+
+
+  <div class="footer-push"></div>
+</div>
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="span12">
+        <ul>
+          <li>
+            <a href="/faq">Help</a>
+          </li><li>
+            <a target="_blank" href="/terms">Terms</a>
+          </li><li>
+            <a target="_blank" href="/privacy">Privacy</a>
+          </li><li>
+            Copyright © Tofugu LLC, <span lang="ja">よ</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1960021-27"></script>
+<script>
+  function checkForUserScripts() {
+    var userScripts = {
+      'wkof': 'WaniKani Open Framework',
+      'dpp': 'WaniKani Dashboard Progress Plus',
+      'wklightning': 'WaniKani Lightning Mode',
+      'reorder': 'Wanikani Reorder Ultimate 2',
+      'scriptLog': 'Wanikani Override',
+      'diagram': 'WaniKani Stroke Order',
+      'wkgoldburn': 'Wanikani Golden Burn',
+      'doublecheck': 'Wanikani Double-Check',
+      'similarKanjiContainer': 'WaniKani Similar kanji'
+    };
+
+    function scriptExists(property) {
+      return typeof window[property] !== 'undefined';
+    }
+
+    return Object.keys(userScripts).some(function(script){
+      return scriptExists(script)
+    });
+  }
+
+  var options = {
+    'custom_map': {
+      'dimension2': 'Userscripts Installed',
+      'dimension3': 'Current Level',
+      'dimension4': 'Subscription Status',
+      'dimension5': 'Maximum Level'
+    }
+  };
+
+
+  if (checkForUserScripts()) {
+    options['Userscripts Installed'] = 'installed';
+  }
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-1960021-27', options);
+
+  
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    InfoTip.tooltip();
+  });
+</script>
+
+
+
+<script src="https://chat-assets.frontapp.com/v1/chat.bundle.js"></script>
+<script>
+  window.FrontChat && window.FrontChat('init', {
+    chatId: 'c532927ea41813134eb816f1c64dfd46',
+    useDefaultLauncher: false,
+  });
+</script>
+
+  <script>
+    window.FrontChat && window.FrontChat('onUnreadChange', function(unread) {
+      if (unread.unread_count > 0) {
+        FrontChat('show');
+      }
+    });
+  </script>
+
+</body>
+</html><!-- html -->

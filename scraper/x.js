@@ -14,14 +14,20 @@ let output = [];
 async function run() {
 
 	// await scrapeLevelRecursively(0);
-	output = await scrapeLevel(0);
+	// output = await scrapeLevel(0);
+	// output = [await getLinkInfo({link: 'radicals/barb', level: 0})];
+	// output = output.concat(await getLinkInfo({link: 'kanji/%E7%94%9F', level: 0}));
+	// output = output.concat(await getLinkInfo({link: 'vocabulary/%E7%94%9F', level: 0}));
+	// output = output.concat(await getLinkInfo({link: 'vocabulary/%E6%96%B9', level: 0}));
+	output = output.concat(await getLinkInfo({link: 'vocabulary/%E5%BA%83%E3%81%84', level: 0}));
+	
 	
 	
 	// let data = await getLinkInfo("vocabulary/%E5%85%AB");
 	// console.log(data);
 	// let data = await getLinkInfo('vocabulary/%E4%B8%8A%E3%82%8B');
-	
-	writeToFile(JSON.stringify(output));
+	console.log(output);
+	// writeToFile(JSON.stringify(output));
 }
 
 async function scrapeLevelRecursively(l) {
@@ -42,14 +48,16 @@ async function scrapeLevelRecursively(l) {
 run();
 
 async function scrapeLevel(_level) {
-	let links = await getLevelLinks(0);
-	console.log("Scrape Level: " + _level, links.length)
+	let linkObjects = await getLevelLinks(0);
+	linkObjects.splice(10, 1000);
+	console.log("Scrape Level: " + _level, linkObjects.length)
 	let data = [];
 	let promises = [];
-	for (let link of links)
+	for (let obj of linkObjects)
 	{
+		console.log("scrape", obj.link);
 		promises.push(
-			getLinkInfo(link).then(function(_result) {
+			await getLinkInfo(obj).then(function(_result) { // remove await for async scraping
 				data.push(_result)
 			})
 		);
@@ -66,63 +74,145 @@ async function getLevelLinks(_level) {
 	for (let i = 1; i < parts.length; i++)
 	{
 		let link = parts[i].split("\">")[0].substr(13, 100);
-		links.push(link);
+		links.push({link: link, level: _level});
 	}
-	if (links.length == 0) writeToFile(page);
 	return links;
 }
 
-async function getLinkInfo(_link) {
-	let response = await fetch(domain + _link);
+async function getLinkInfo(_linkObj) {
+	let linkInfo = {
+		character: "",
+		readings: [], //On, Kun, Na
+		meanings: [],
+		meaningInfo: "",
+		readingInfo: "",
+		type: 0,
+		level: _linkObj.level,
+	}
+
+	console.log("getLinkInfo", domain + _linkObj.link);
+	let response = await fetch(domain + _linkObj.link);
 	let page = await response.text();
 	
+
 	let contentRadical = page.split('<span class="radical-icon" lang="ja">')[1];
 	let contentKanji = page.split('<span class="kanji-icon" lang="ja">')[1];
 	let contentVoca = page.split('<span class="vocabulary-icon" lang="ja">')[1];
-	let content = contentRadical;
 
 	
-	let type = 0; // 0 = radical, 1 = kanji, 2 = voca
-	if (contentKanji) {content = contentKanji; type = 1;}
-	if (contentVoca) {content = contentVoca; type = 2;}
+	linkInfo.type = 0; // 0 = radical, 1 = kanji, 2 = voca
+	let content = contentRadical;
+	if (contentKanji) {content = contentKanji; linkInfo.type = 1;}
+	if (contentVoca) {content = contentVoca; linkInfo.type = 2;}
 
-	let parts = content.split("</span>");
+	let info = getMeaningAndCharacter(content)
+	linkInfo.character = info.character;
+	linkInfo.meanings = info.meanings;
+	switch (linkInfo.type)
+	{
+		case 0: 
+			delete linkInfo.readings;
+
+
+		break;
+		case 1:
+
+
+		break;
+		case 2:
+
+
+		break;
+	}
+
+
+
+
+
+	// let parts = content.split("</span>");
 		
-	let meaningSubPart = parts[1].split('</h1>')[0];
-	let meaning = meaningSubPart.substr(1, meaningSubPart.length - 12);
+	// let meaningSubPart = parts[1].split('</h1>')[0];
+	// let meanings = meaningSubPart.substr(1, meaningSubPart.length - 12);
 
-	let infoSubPart = content.split('<section class="mnemonic-content mnemonic-content--new">')[1].split('</section>')[0];
-	let info = infoSubPart.substr(8, infoSubPart.length - 17);
+	// let infoSubPart = content.split('<section class="mnemonic-content mnemonic-content--new">')[1].split('</section>')[0];
+	// let info = infoSubPart.substr(8, infoSubPart.length - 17);
 
-	let readings = [];
-	if (type == 1)
-	{
-		let readingParts = page.split('<p lang="ja">');
-		for (let i = 1; i < readingParts.length; i++)
-		{
-			let curPart = readingParts[i].split("</p>")[0];
-			let curReadingString = curPart.substr(17, curPart.length - 32);
-			readings.push(curReadingString.split(", "));
-		}
-	} else if (type == 2)
-	{
-		let readingPart = page.split('<div data-react-class="AudioPronunciations/AudioPronunciations" data-react-props="{&quot;readings&quot;:[{&quot;primary&quot;:true,&quot;reading&quot;:&quot;')[1];
-		let reading = readingPart.split("&quot;,&quot;acceptedAnswer&quot;:true}]")[0]
-		readings.push(reading);
-	}
+	// let readings = [];
+	// if (type == 1)
+	// {
+	// 	let readingParts = page.split('<p lang="ja">');
+	// 	for (let i = 1; i < readingParts.length; i++)
+	// 	{
+	// 		let curPart = readingParts[i].split("</p>")[0];
+	// 		let curReadingString = curPart.substr(17, curPart.length - 32);
+	// 		readings.push(curReadingString.split(", "));
+	// 	}
+	// } else if (type == 2)
+	// {
+	// 	let readingPart = page.split('<div data-react-class="AudioPronunciations/AudioPronunciations" data-react-props="{&quot;readings&quot;:[{&quot;primary&quot;:true,&quot;reading&quot;:&quot;')[1];
+	// 	let reading = readingPart.split("&quot;,&quot;acceptedAnswer&quot;:true}]")[0]
+	// 	readings.push(reading);
+	// }
 
 
-	let linkInfo = {
-		character: parts[0],
-		readings: readings, //On, Kun, Na
-		meaning: meaning,
-		info: info,
-		type: type 
-	}
+	
 
 	return linkInfo;
 }
 
+
+function getMeaningAndCharacter(_content) {
+	let parts = _content.split("</span>");
+	let primaryMeaningParts = parts[1].split("</h1>");
+	let primaryMeaning = cleanString(primaryMeaningParts[0]);
+
+	let secondaryMeanings = getSecondaryMeanings(_content);
+
+	return {
+		character: parts[0],
+		meanings: [primaryMeaning].concat(secondaryMeanings)
+	}
+}
+
+
+function getSecondaryMeanings(_content) {
+	let parts = _content.split('<h2>Alternatives</h2>');
+	if (parts.length < 2) 
+	{
+		parts = _content.split('<h2>Alternative</h2>');
+		if (parts.length < 2) return [];
+	}
+
+	let newParts = parts[1].split("<p>");
+	let string = newParts[1].split("</p>")[0];
+	return string.split(', ');
+}
+
+
+
+function cleanString(_str) {
+	return removeSpacesFromEnds(removeNewLines(_str));
+}
+
+function removeNewLines(_str) {
+	let stringParts = _str.split('\n');
+	return stringParts.join("");
+}
+
+function removeSpacesFromEnds(_str) {
+  for (let c = 0; c < _str.length; c++)
+  {
+    if (_str[0] !== " ") continue;
+    _str = _str.substr(1, _str.length);
+  }
+
+  for (let c = _str.length; c > 0; c--)
+  {
+    if (_str[_str.length - 1] !== " ") continue;
+    _str = _str.substr(0, _str.length - 1);
+  }
+  return _str;
+} 
 
 
 // async function run() {
