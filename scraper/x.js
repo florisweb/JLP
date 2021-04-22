@@ -14,9 +14,9 @@ let output = [];
 async function run() {
 
 	// await scrapeLevelRecursively(0);
-	// output = await scrapeLevel(0);
+	output = await scrapeLevel(0);
 	// output = [await getLinkInfo({link: 'radicals/barb', level: 0})];
-	output = output.concat(await getLinkInfo({link: 'kanji/%E7%94%9F', level: 0}));
+	// output = output.concat(await getLinkInfo({link: 'kanji/%E7%94%9F', level: 0}));
 	// output = output.concat(await getLinkInfo({link: 'vocabulary/%E7%94%9F', level: 0}));
 	// output = output.concat(await getLinkInfo({link: 'vocabulary/%E6%96%B9', level: 0}));
 	// output = output.concat(await getLinkInfo({link: 'vocabulary/%E5%BA%83%E3%81%84', level: 0}));
@@ -28,7 +28,6 @@ async function run() {
 	// let data = await getLinkInfo("vocabulary/%E5%85%AB");
 	// console.log(data);
 	// let data = await getLinkInfo('vocabulary/%E4%B8%8A%E3%82%8B');
-	console.log(output);
 	writeToFile(JSON.stringify(output));
 }
 
@@ -51,7 +50,7 @@ run();
 
 async function scrapeLevel(_level) {
 	let linkObjects = await getLevelLinks(0);
-	linkObjects.splice(10, 1000);
+	// linkObjects.splice(10, 1000);
 	console.log("Scrape Level: " + _level, linkObjects.length)
 	let data = [];
 	let promises = [];
@@ -122,65 +121,42 @@ async function getLinkInfo(_linkObj) {
 		case 0: 
 			delete linkInfo.readings;
 			delete linkInfo.readingInfo;
-			// custom info detection for the radicals
 			linkInfo.meaningInfo = getRadicalMeaningInfo(page);
-
 		break;
 		case 1:
 			linkInfo.readings = getKanjiReadings(page);
 		break;
 		case 2:
-
-
+			linkInfo.readings = getVocaReadings(page);
 		break;
 	}
 
-
-
-
-
-	// let parts = content.split("</span>");
-		
-	// let meaningSubPart = parts[1].split('</h1>')[0];
-	// let meanings = meaningSubPart.substr(1, meaningSubPart.length - 12);
-
-	// let infoSubPart = content.split('<section class="mnemonic-content mnemonic-content--new">')[1].split('</section>')[0];
-	// let info = infoSubPart.substr(8, infoSubPart.length - 17);
-
-	// let readings = [];
-	// if (type == 1)
-	// {
-	// 	let readingParts = page.split('<p lang="ja">');
-	// 	for (let i = 1; i < readingParts.length; i++)
-	// 	{
-	// 		let curPart = readingParts[i].split("</p>")[0];
-	// 		let curReadingString = curPart.substr(17, curPart.length - 32);
-	// 		readings.push(curReadingString.split(", "));
-	// 	}
-	// } else if (type == 2)
-	// {
-	// 	let readingPart = page.split('<div data-react-class="AudioPronunciations/AudioPronunciations" data-react-props="{&quot;readings&quot;:[{&quot;primary&quot;:true,&quot;reading&quot;:&quot;')[1];
-	// 	let reading = readingPart.split("&quot;,&quot;acceptedAnswer&quot;:true}]")[0]
-	// 	readings.push(reading);
-	// }
-
-
-	
-
 	return linkInfo;
+}
+
+function getVocaReadings(_content) {
+	let parts = _content.split('pronunciation-variant" lang="ja">');
+	let readings = [];
+	for (let i = 1; i < parts.length; i++)
+	{
+		let subPart = parts[i].split('</p>')[0];
+		readings.push(cleanString(subPart));
+	}
+
+	return readings;
 }
 
 function getKanjiReadings(_content) {
 	let part = _content.split('id="reading">')[1];
 	let readingParts = part.split('<p lang="ja">');
-	let meanings = [];
+	let readings = [];
 	for (let i = 1; i < readingParts.length; i++)
 	{
 		let subPart = readingParts[i].split('</p>')[0];
-		meanings[i - 1] = cleanString(subPart).split(', ');
+		readings[i - 1] = cleanString(subPart).split(', ');
 	}
 
-	return meanings;
+	return readings;
 }
 
 
