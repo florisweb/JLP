@@ -115,7 +115,7 @@ async function getLinkInfo(_linkObj) {
 	linkInfo.meaningInfo = rmInfo.meaningInfo;
 	linkInfo.readingInfo = rmInfo.readingInfo;
 
-	linkInfo.readings = getReadings(page);
+
 	
 	switch (linkInfo.type)
 	{
@@ -127,8 +127,7 @@ async function getLinkInfo(_linkObj) {
 
 		break;
 		case 1:
-
-
+			linkInfo.readings = getKanjiReadings(page);
 		break;
 		case 2:
 
@@ -171,9 +170,17 @@ async function getLinkInfo(_linkObj) {
 	return linkInfo;
 }
 
-function getReadings(_content) {
+function getKanjiReadings(_content) {
+	let part = _content.split('id="reading">')[1];
+	let readingParts = part.split('<p lang="ja">');
+	let meanings = [];
+	for (let i = 1; i < readingParts.length; i++)
+	{
+		let subPart = readingParts[i].split('</p>')[0];
+		meanings[i - 1] = cleanString(subPart).split(', ');
+	}
 
-	return [];
+	return meanings;
 }
 
 
