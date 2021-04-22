@@ -5,7 +5,8 @@ export type Word = {
   readings: string[],
   type: number,
 
-  info?: string
+  readingInfo?: string,
+  meaningInfo?: string
 }
 
 export type Question = {

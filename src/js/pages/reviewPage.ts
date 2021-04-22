@@ -90,7 +90,7 @@ export default class ReviewPage extends Page {
 		this.InputField.setAnswerCorrectStatus(false);
 		let This = this;
 		setTimeout(function () {
-			This.wordInfoMenu.open(This.curQuestion.word);
+			This.wordInfoMenu.open(This.curQuestion.word, This.curQuestion.askMeaning);
 		}, 500);
 		
 		this.resultStatus.inCorrect.push(this.curQuestion);

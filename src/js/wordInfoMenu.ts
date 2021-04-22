@@ -26,11 +26,15 @@ export default class WordInfoMenu {
 	open(_word: Word, _showMeaning:boolean = false) {
 		this.openState = true;
 		this.HTML.menu.classList.remove("hide");	
+		console.log(_word);
 		this.#setTitle(_word);
-
+		
 		setTextToElement(this.HTML.meaningHolder, _word.meanings.join(', '));
 		setTextToElement(this.HTML.readingsHolder, _word.readings.join(', '));
-		setTextToElement(this.HTML.infoHolder, _word.info);
+		
+		let info = _word.readingInfo;
+		if (_showMeaning) info = _word.meaningInfo;
+		setTextToElement(this.HTML.infoHolder, info);
 	}
 
 	#setTitle = function(_word:Word) {
