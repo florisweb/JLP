@@ -66,14 +66,15 @@
 				return $word;
 			}
 			$result = $this->DB->execute(
-				"INSERT INTO $this->DBTableName (_character, meanings, readings, type, readingInfo, meaningInfo) VALUES (?, ?, ?, ?, ?, ?)", 
+				"INSERT INTO $this->DBTableName (_character, meanings, readings, type, readingInfo, meaningInfo, level) VALUES (?, ?, ?, ?, ?, ?, ?)", 
 				array(
 					$word["character"],
 					json_encode($word["meanings"]),
 					json_encode($word["readings"]),
 					$word["type"],
 					$word["readingInfo"],
-					$word["meaningInfo"]
+					$word["meaningInfo"],
+					$word["level"],
 				)
 			);
 			$word["id"] = $this->DB->getLatestInsertId();
