@@ -41,17 +41,30 @@
 
 		public function getReviewSession() {
 			$words = $this->parent->words->getAll();
-			$reviewSession = array();
+			$session = array();
 
 			foreach ($words as $trainerWord) 
 			{
 				$dt = time() - $trainerWord["lastReviewTime"];
 				$requiredTime = $this->secondsPerLevel * pow(2, $trainerWord["knowledgeLevel"]) * .5;
-				if ($dt < $requiredTime) continue;
-				array_push($reviewSession, $trainerWord["word"]);
+				if ($dt < $requiredTime || $trainerWord["knowledgeLevel"] == 0) continue;
+				array_push($session, $trainerWord["word"]);
 			}
 
-			return $reviewSession;			
+			return $session;			
+		}
+		
+		public function getLessonSession() {
+			$words = $this->parent->words->getAll();
+			$session = array();
+
+			foreach ($words as $trainerWord) 
+			{
+				if ($trainerWord["knowledgeLevel"] != 0) continue;
+				array_push($session, $trainerWord["word"]);
+			}
+
+			return $session;			
 		}
 
 		public function addWordToTrainer($_wordId) {
@@ -74,7 +87,13 @@
 			if ($_correct)
 			{
 				$trainerWord["knowledgeLevel"]++;
-			} else if ($trainerWord["knowledgeLevel"] > 1) $trainerWord["knowledgeLevel"] -= 2;
+			} else {
+				$removeCount = 2;
+				if ($trainerWord["knowledgeLevel"] < 2) $removeCount = 1;
+				if ($trainerWord["knowledgeLevel"] < 1) $removeCount = 0;
+				
+				$trainerWord["knowledgeLevel"] -= $removeCount;
+			}
 
 			return $this->parent->words->update($trainerWord);
 		}

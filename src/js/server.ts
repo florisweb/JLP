@@ -38,6 +38,32 @@ const Server = new (function() {
           console.warn(result);
         }
     } as any);
+
+
+    this.lessons = new (function() {
+      this.getWords = async function():Promise<Question[] | Boolean> {
+        //@ts-ignore
+        let result = await REQUEST.send("database/trainer/getLessonSession.php");
+        if (!result) return false;
+
+        let questions: Question[] = [];
+        for (let word of result)
+        {
+          questions.push({
+            askMeaning: true,
+            word: word,
+          });
+          if (word.type == 0) continue;
+          questions.push({
+            askMeaning: false,
+            word: word,
+          });
+        }
+
+        shuffleArray(questions);
+        return questions;
+      }
+  } as any);
 } as any);
 
 export default Server;
