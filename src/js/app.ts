@@ -10,10 +10,10 @@ export namespace App {
   }
 
 
-  export let homePage = new HomePage();
+  export let homePage   = new HomePage();
   export let reviewPage = new ReviewPage();
   export let resultPage = new ResultPage();
-  export let curPage = homePage;
+  export let curPage    = false;
 
   export async function setup() {
     console.warn("Started setting up...");
@@ -22,7 +22,8 @@ export namespace App {
     await resultPage.setup();
 
     KeyHandler.setup();
-
+    
+    await homePage.open();
     console.warn("Finished setting up!");
   }
 }

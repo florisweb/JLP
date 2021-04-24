@@ -1,6 +1,7 @@
 import Page from './page';
-import { $ } from '../extraFunctions';
+import { $, setTextToElement } from '../extraFunctions';
 import { App } from '../app';
+import Server from '../server';
 
 export default class HomePage extends Page {
 	#HTML = {
@@ -19,5 +20,7 @@ export default class HomePage extends Page {
 	}
 
 	onOpen = async function() {	
+		let reviews = await Server.review.getQuestions();
+		setTextToElement(this.#HTML.navButtons[1].children[1], reviews.length + " words");
 	}
 }

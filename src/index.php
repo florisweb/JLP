@@ -105,7 +105,8 @@
 		</div>
 	
 		<script src='lib/wanakana.js'></script>
-		<script src='main_min.js?a=8'></script>
+		<script src='/JS/request2.js'></script>
+		<script src='main_min.js?a=9'></script>
 	</body>
 </html>	
 

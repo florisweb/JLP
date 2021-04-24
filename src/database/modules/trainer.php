@@ -35,7 +35,7 @@
 			if (!$actualWord) return E_wordNotFound;
 			$trainerWord = array(
 				"lastReviewTime" => false,
-				"knowledgeLevel" => 0,
+				"knowledgeLevel" => 1,
 				"word" => $actualWord,
 			);
 			return $this->parent->words->update($trainerWord);
@@ -50,7 +50,7 @@
 			if ($_correct)
 			{
 				$trainerWord["knowledgeLevel"]++;
-			} else if ($trainerWord["knowledgeLevel"] > 0) $trainerWord["knowledgeLevel"]--;
+			} else if ($trainerWord["knowledgeLevel"] > 1) $trainerWord["knowledgeLevel"] -= 2;
 
 			return $this->parent->words->update($trainerWord);
 		}
