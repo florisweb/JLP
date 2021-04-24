@@ -89,12 +89,11 @@
 				$trainerWord["knowledgeLevel"]++;
 			} else {
 				$removeCount = 2;
-				if ($trainerWord["knowledgeLevel"] < 2) $removeCount = 1;
-				if ($trainerWord["knowledgeLevel"] < 1) $removeCount = 0;
+				if ($trainerWord["knowledgeLevel"] < 3) $removeCount = 1;
+				if ($trainerWord["knowledgeLevel"] < 2) $removeCount = 0;
 				
 				$trainerWord["knowledgeLevel"] -= $removeCount;
 			}
-
 			return $this->parent->words->update($trainerWord);
 		}
 

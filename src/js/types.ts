@@ -1,5 +1,6 @@
 
 export type Word = {
+  id?: number,
   character: string,
   meanings: string[],
   readings: string[],

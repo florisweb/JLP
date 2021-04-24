@@ -34,7 +34,10 @@ const Server = new (function() {
 
         this.updateWordTrainStatus = async function(_question: Question, _correct:Boolean) {
           //@ts-ignore
-          let result = await REQUEST.send("database/trainer/updateWordTrainStatus.php", "wordId=" + _question.word.id + "&correct=" + _correct);
+          let result = await REQUEST.send(
+            "database/trainer/updateWordTrainStatus.php", 
+            "wordId=" + _question.word.id + "&correct=" + (_correct ? "1" : "0")
+          );
           console.warn(result);
         }
     } as any);
