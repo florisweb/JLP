@@ -18,8 +18,10 @@
 			$this->userId = $_userId;
 			if (!$_userId) die(E_noAuth);
 
-			$this->words = new _App_words();
+			$this->words = new _App_words($this);
 			$this->trainer = new _App_trainer($this);
+
+			$this->trainer->autoAddWordsToTrainer();
 		}
 	}
 ?>
