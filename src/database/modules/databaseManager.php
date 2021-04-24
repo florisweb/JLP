@@ -21,7 +21,7 @@
 			$this->DB = $GLOBALS["DB"]->connect($this->DBName);
 			if (!$this->DB) die("Error connecting to DB");
 			$this->words = new _DatabaseManager_wordList($this->DB);
-			$this->users = new _DatabaseManager_userList($this->DB);
+			$this->userData = new _DatabaseManager_userData($this->DB);
 		}
 	}
 
@@ -34,11 +34,13 @@
 		}
 
 		public function getById($_id) {
-			$result = $this->DB->execute("SELECT * FROM $this->DBTableName WHERE id=? LIMIT 1", array($_id));
+			$result = $this->DB->execute("SELECT * FROM $this->DBTableName WHERE id=? LIMIT 1", array($_id))[0];
 			if (!$result) return false;
+			$result["character"] = $result["_character"];
+			unset($result["_character"]);
 			$result["meanings"] = json_decode($result["meanings"], true);
 			$result["readings"] = json_decode($result["readings"], true);
-			return $result[0];
+			return $result;
 		}
 
 		public function update($_word) {
@@ -84,7 +86,8 @@
 		}
 	}
 
-	class _DatabaseManager_userList {
+
+	class _DatabaseManager_userData {
 		private $DBTableName = "userList";
 		private $DB;
 
@@ -92,29 +95,19 @@
 			$this->DB = $_DB;
 		}
 
-
-		public function getToLearnListById($_id) {
-			$result = $this->DB->execute("SELECT toLearnWords FROM $this->DBTableName WHERE userId=? LIMIT 1", array($_id))[0];
+		public function getWordListByUId($_id) {
+			$result = $this->DB->execute("SELECT words FROM $this->DBTableName WHERE userId=? LIMIT 1", array($_id))[0];
 			if (!$result) return array();
-			$result = json_decode($result["toLearnWords"], true);
-			if (!$result) return array();
-			return $result;
-		}
-
-		public function getLearnedListById($_id) {
-			$result = $this->DB->execute("SELECT learnedWords FROM $this->DBTableName WHERE userId=? LIMIT 1", array($_id))[0];
-			if (!$result) return array();
-			$result = json_decode($result["learnedWords"], true);
+			$result = json_decode($result["words"], true);
 			if (!$result) return array();
 			return $result;
 		}
 
-
-		public function setToLearnList($_array, $_id) {
+		public function setWordListByUId($_array, $_id) {
 			if ($this->userRowExists($_id))
 			{
 				return $this->DB->execute(
-					"UPDATE $this->DBTableName SET toLearnWords=? WHERE userId=?", 
+					"UPDATE $this->DBTableName SET words=? WHERE userId=?", 
 					array(
 						json_encode($_array),
 						$_id,
@@ -122,26 +115,7 @@
 				);
 			}
 			return $this->DB->execute(
-				"INSERT INTO $this->DBTableName (userId, learnedWords, toLearnWords) VALUES (?, '[]', ?)", 
-				array(
-					$_id,
-					json_encode($_array)
-				)
-			);
-		}
-		public function setLearnedList($_array, $_id) {
-			if ($this->userRowExists($_id))
-			{
-				return $this->DB->execute(
-					"UPDATE $this->DBTableName SET learnedWords=? WHERE userId=?", 
-					array(
-						json_encode($_array),
-						$_id,
-					)
-				);
-			}
-			return $this->DB->execute(
-				"INSERT INTO $this->DBTableName (userId, learnedWords, toLearnWords) VALUES (?, ?, '[]')", 
+				"INSERT INTO $this->DBTableName (userId, words) VALUES (?, ?)", 
 				array(
 					$_id,
 					json_encode($_array)
