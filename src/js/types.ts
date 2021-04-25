@@ -1,3 +1,4 @@
+export const WordTypes:string[] = ["Radical", "Kanji", "Voca"];
 
 export type Word = {
   id?: number,

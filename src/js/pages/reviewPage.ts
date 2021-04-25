@@ -2,7 +2,7 @@ import Page from './page';
 import { App } from '../app';
 import Server from '../server';
 import WordInfoMenu from '../wordInfoMenu';
-import { Question } from '../types';
+import { Question, WordTypes } from '../types';
 import { $, setTextToElement, removeSpacesFromEnds } from '../extraFunctions';
 
 
@@ -77,7 +77,7 @@ export default class ReviewPage extends Page {
 	checkAnswer = function() {
 		let isCorrect = this.#isAnswerCorrect(this.curQuestion);
 		if (this.curQuestion == this.questions[0]) this.questions.splice(0, 1);
-		Server.review.updateWordTrainStatus(this.curQuestion, isCorrect);
+		Server.reviews.updateWordTrainStatus(this.curQuestion, isCorrect);
 		
 		if (isCorrect)
 		{	
@@ -146,10 +146,9 @@ export default class ReviewPage extends Page {
 		this.#HTML.questionHolder.style.color = color;
 		this.#HTML.questionTypeHolder.style.color = color;
 
-		setTextToElement(
-			this.#HTML.questionTypeHolder, 
-			_question.askMeaning ? "Meaning" : "Reading"
-		);
+		this.#HTML.questionTypeHolder.innerHTML = 
+			"<strong>" + WordTypes[_question.word.type] + "</strong> - " +
+			(_question.askMeaning ? "Meaning" : "Reading");
 	}
 };
 
