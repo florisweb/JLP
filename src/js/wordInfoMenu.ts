@@ -24,7 +24,6 @@ export default class WordInfoMenu {
 	}
 	
 	open(_word: Word, _showMeaning:boolean = false) {
-		console.log('open', _word);
 		this.openState = true;
 		this.HTML.menu.classList.remove("hide");	
 		this.#setTitle(_word);

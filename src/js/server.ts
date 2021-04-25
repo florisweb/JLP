@@ -12,8 +12,8 @@ const Server = new (function() {
 
   this.sync = async function() {
     await Promise.all([
-      this.reviews.getQuestions(),
-      this.lessons.getWords()
+      this.reviews.getQuestions(true),
+      this.lessons.getWords(true)
     ]);
   }
 
@@ -21,8 +21,8 @@ const Server = new (function() {
     let lastSync:Date = new Date(0);
     this.list = [];
 
-    this.getQuestions = async function():Promise<Question[] | Boolean> {
-      if (new Date().getTime() - lastSync.getTime() < syncTimeout) return this.list;
+    this.getQuestions = async function(_forceUpdate: Boolean):Promise<Question[] | Boolean> {
+      if (new Date().getTime() - lastSync.getTime() < syncTimeout && !_forceUpdate) return this.list;
       //@ts-ignore
       let result = await REQUEST.send("database/trainer/getReviewSession.php");
       if (!result) return false;
@@ -47,13 +47,12 @@ const Server = new (function() {
       return questions;
     }
 
-    this.updateWordTrainStatus = async function(_question: Question, _correct:Boolean) {
+    this.updateWordTrainStatus = async function(_wordId: number, _correct:Boolean) {
       //@ts-ignore
-      let result = await REQUEST.send(
+      return await REQUEST.send(
         "database/trainer/updateWordTrainStatus.php", 
-        "wordId=" + _question.word.id + "&correct=" + (_correct ? "1" : "0")
+        "wordId=" + _wordId + "&correct=" + (_correct ? "1" : "0")
       );
-      console.warn(result);
     }
   } as any);
 
@@ -61,9 +60,13 @@ const Server = new (function() {
   this.lessons = new (function() {
     let lastSync:Date = new Date(0);
     this.list = [];
+    
+    this.learnedWord = function(_word:Word) {
+      return Server.reviews.updateWordTrainStatus(_word.id, true);
+    }
 
-    this.getWords = async function():Promise<Word[] | Boolean> {
-      if (new Date().getTime() - lastSync.getTime() < syncTimeout) return this.list;
+    this.getWords = async function(_forceUpdate:boolean):Promise<Word[] | Boolean> {
+      if (new Date().getTime() - lastSync.getTime() < syncTimeout && !_forceUpdate) return this.list;
       //@ts-ignore
       let result = await REQUEST.send("database/trainer/getLessonSession.php");
       if (!result) return false;

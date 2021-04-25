@@ -49,6 +49,7 @@ export default class LessonPage extends Page {
 	showWord = function(_word: Word) {		
 		this.#writeWord(_word);
 		this.#wordInfoMenu.open(_word, false);
+		Server.lessons.learnedWord(_word);
 	}
 
 

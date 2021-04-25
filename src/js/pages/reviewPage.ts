@@ -77,7 +77,7 @@ export default class ReviewPage extends Page {
 	checkAnswer = function() {
 		let isCorrect = this.#isAnswerCorrect(this.curQuestion);
 		if (this.curQuestion == this.questions[0]) this.questions.splice(0, 1);
-		Server.reviews.updateWordTrainStatus(this.curQuestion, isCorrect);
+		Server.reviews.updateWordTrainStatus(this.curQuestion.word.id, isCorrect);
 		
 		if (isCorrect)
 		{	
