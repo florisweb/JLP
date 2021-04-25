@@ -91,6 +91,7 @@ html {
   margin: 5px;
   margin-top: 0;
   margin-left: 15px;
+  z-index: 1000;
 }
 
 

@@ -98,7 +98,7 @@
 			</div>
 			<div class='page hide'>
 			</div>
-			<div class='page hide'>
+			<div class='page hide lessonPage'>
 				<div class='topBar'>
 					<img src='images/homeIcon.png' class='homeButton clickable'>
 					<div class='text scoreHolder'>5/15</div>

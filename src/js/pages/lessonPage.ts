@@ -28,7 +28,7 @@ export default class LessonPage extends Page {
 	}
 
 	setup = async function() {
-		let homeButton = $<HTMLElement>("#mainContent .page.reviewPage .topBar .homeButton")[0];
+		let homeButton = $<HTMLElement>("#mainContent .page.lessonPage .topBar .homeButton")[0];
 		homeButton.addEventListener("click", function () {App.homePage.open()});
 	}
 
