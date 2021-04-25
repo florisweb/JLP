@@ -24,16 +24,16 @@ export default class WordInfoMenu {
 	}
 	
 	open(_word: Word, _showMeaning:boolean = false) {
+		console.log('open', _word);
 		this.openState = true;
 		this.HTML.menu.classList.remove("hide");	
-		console.log(_word);
 		this.#setTitle(_word);
 		
 		setTextToElement(this.HTML.meaningHolder, _word.meanings.join(', '));
-		setTextToElement(this.HTML.readingsHolder, _word.readings.join(', '));
+		this.#setReadings(_word);
 		
 		let info = _word.readingInfo;
-		if (_showMeaning) info = _word.meaningInfo;
+		if (_showMeaning || _word.type == 0) info = _word.meaningInfo;
 		setTextToElement(this.HTML.infoHolder, info);
 	}
 
@@ -46,6 +46,18 @@ export default class WordInfoMenu {
 		let typeClasses = ['radical', 'kanji', 'voca'];
 		this.HTML.titleHolder.classList.add(typeClasses[_word.type]);
 	}
+
+	#setReadings = function(_word: Word) {
+		let reading =  _word.readings.join(', ');
+		console.log("setReading", _word, reading);
+		this.HTML.readingsHolder.parentNode.classList.remove('hide');
+		if (!reading || _word.type == 0)
+		{
+			this.HTML.readingsHolder.parentNode.classList.add('hide');
+		}
+
+		setTextToElement(this.HTML.readingsHolder, reading);
+	}	
 
 
 	close() {

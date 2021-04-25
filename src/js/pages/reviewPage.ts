@@ -141,7 +141,7 @@ export default class ReviewPage extends Page {
 		let color = "rgb(140, 140, 205)";
 		if (_question.word.type == 1) color = "rgb(205, 140, 140)";
 		if (_question.word.type == 2) color = "rgb(140, 205, 140)";
-		let questionHolderLine = $<HTMLElement>("#mainContent .page .questionHolder a")[0];
+		let questionHolderLine = $<HTMLElement>("#mainContent .page.reviewPage .questionHolder a")[0];
 		questionHolderLine.style.borderBottomColor = color;
 		this.#HTML.questionHolder.style.color = color;
 		this.#HTML.questionTypeHolder.style.color = color;

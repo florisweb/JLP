@@ -8,20 +8,14 @@ import { $, setTextToElement } from '../extraFunctions';
 
 export default class LessonPage extends Page {
 	words:Word[] = [];
-	curWord:Word;
 	
 	#HTML = {
-		questionHolder: 	$<HTMLElement>("#mainContent .page.reviewPage .questionHolder")[0],
-		questionTypeHolder: $<HTMLElement>("#mainContent .page.reviewPage .questionTypeHolder")[0],
-		inputField: 		$<HTMLInputElement>("#mainContent .page.reviewPage .inputField")[0],
-		infoMenu: 			$<HTMLElement>("#mainContent .page.reviewPage .infoPanel")[0],
-		progressBar:		$<HTMLElement>("#mainContent .page.reviewPage .progressBar")[0],
-		topBar:				$<HTMLElement>("#mainContent .page.reviewPage .topBar")[0],
-		scoreHolder:		$<HTMLElement>("#mainContent .page.reviewPage .topBar .scoreHolder")[0],
+		questionHolder: 	$<HTMLElement>("#mainContent .page.lessonPage .questionHolder")[0],
+		infoMenu: 			$<HTMLElement>("#mainContent .page.lessonPage .infoPanel")[0],
 	};
 
 
-	private wordInfoMenu = new WordInfoMenu(this.#HTML.infoMenu);
+	#wordInfoMenu = new WordInfoMenu(this.#HTML.infoMenu);
 	
 	constructor() {
 		super({index: 3});
@@ -33,8 +27,9 @@ export default class LessonPage extends Page {
 	}
 
 	onOpen = async function() {
-		this.words = await Server.lessons.getLessons();
+		this.words = await Server.lessons.getWords();
 		console.log(this.words);
+		this.showWord(this.words[0]);
 
 	}
 
@@ -51,34 +46,25 @@ export default class LessonPage extends Page {
 
 
 
-	// showQuestion = function(_question: Question) {
-	// 	this.InputField.reset();
-		
-	// 	this.curQuestion = _question;
-	// 	this.#writeQuestion(this.curQuestion);
-	// 	this.InputField.setKanaInputMode();
-	// 	if (this.curQuestion.askMeaning) this.InputField.setNormalInputMode();
-	// }
+	showWord = function(_word: Word) {		
+		this.#writeWord(_word);
+		this.#wordInfoMenu.open(_word, false);
+	}
 
 
 	
-	// #writeQuestion = function(_question: Question) {		
-	// 	setTextToElement(
-	// 		this.#HTML.questionHolder, 
-	// 		_question.word.character
-	// 	);
+	#writeWord = function(_word: Word) {
+		setTextToElement(
+			this.#HTML.questionHolder, 
+			_word.character
+		);
 
-	// 	let color = "rgb(140, 140, 205)";
-	// 	if (_question.word.type == 1) color = "rgb(205, 140, 140)";
-	// 	if (_question.word.type == 2) color = "rgb(140, 205, 140)";
-	// 	let questionHolderLine = $<HTMLElement>("#mainContent .page .questionHolder a")[0];
-	// 	questionHolderLine.style.borderBottomColor = color;
-	// 	this.#HTML.questionHolder.style.color = color;
-	// 	this.#HTML.questionTypeHolder.style.color = color;
+		let color = "rgb(140, 140, 205)";
+		if (_word.type == 1) color = "rgb(205, 140, 140)";
+		if (_word.type == 2) color = "rgb(140, 205, 140)";
 
-	// 	setTextToElement(
-	// 		this.#HTML.questionTypeHolder, 
-	// 		_question.askMeaning ? "Meaning" : "Reading"
-	// 	);
-	// }
+		let questionHolderLine = $<HTMLElement>("#mainContent .page.lessonPage .questionHolder a")[0];
+		questionHolderLine.style.borderBottomColor = color;
+		this.#HTML.questionHolder.style.color = color;
+	}
 };

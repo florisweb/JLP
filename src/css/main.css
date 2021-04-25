@@ -212,7 +212,9 @@ html {
 #mainContent .page .infoPanel .infoTextHolder {
   margin-top: 10px;
 }
-
+#mainContent .page .infoPanel .keyValuePair.hide {
+  display: none;
+}
 
 
 

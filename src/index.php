@@ -105,9 +105,6 @@
 				</div>
 				<div class='pageContent'>
 					<div class='text blue questionHolder'><a>三日</a></div>
-					<div class='text blue questionTypeHolder'><a>Meaning</a></div>
-					<br>
-					<input class='text blue panel inputField'>
 
 					<div class='panel infoPanel hide'>
 						<span class='text title highLightType kanji'></span>

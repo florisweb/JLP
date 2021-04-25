@@ -13,7 +13,7 @@ const Server = new (function() {
   this.sync = async function() {
     await Promise.all([
       this.reviews.getQuestions(),
-      this.lessons.getLessons()
+      this.lessons.getWords()
     ]);
   }
 
@@ -62,30 +62,16 @@ const Server = new (function() {
     let lastSync:Date = new Date(0);
     this.list = [];
 
-    this.getLessons = async function():Promise<Question[] | Boolean> {
+    this.getWords = async function():Promise<Word[] | Boolean> {
       if (new Date().getTime() - lastSync.getTime() < syncTimeout) return this.list;
       //@ts-ignore
       let result = await REQUEST.send("database/trainer/getLessonSession.php");
       if (!result) return false;
 
-      let questions: Question[] = [];
-      for (let word of result)
-      {
-        questions.push({
-          askMeaning: true,
-          word: word,
-        });
-        if (word.type == 0) continue;
-        questions.push({
-          askMeaning: false,
-          word: word,
-        });
-      }
-
-      shuffleArray(questions);
-      this.list = questions;
+      shuffleArray(result);
+      this.list = result;
       lastSync = new Date();
-      return questions;
+      return result;
     }
   } as any);
 } as any);
