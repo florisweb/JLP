@@ -75,6 +75,32 @@
 				<div class='progressBar'></div>
 				<div class='topBar'>
 					<img src='images/homeIcon.png' class='homeButton clickable'>
+					<div class='text scoreHolder'></div>
+				</div>
+				<div class='pageContent'>
+					<div class='text blue questionHolder'><a</a></div>
+					<div class='text blue questionTypeHolder'><a></a></div>
+					<br>
+					<input class='text blue panel inputField'>
+
+					<div class='panel infoPanel hide'>
+						<span class='text title highLightType kanji'></span>
+						<br>
+						<div class='text subText keyValuePair'>
+							Meaning: <span class='value'></span>
+						</div>
+						<div class='text subText keyValuePair'>
+							Readings: <span class='value'></span>
+						</div>
+						<div class='text subText infoTextHolder'></div>
+					</div>
+				</div>
+			</div>
+			<div class='page hide'>
+			</div>
+			<div class='page hide'>
+				<div class='topBar'>
+					<img src='images/homeIcon.png' class='homeButton clickable'>
 					<div class='text scoreHolder'>5/15</div>
 				</div>
 				<div class='pageContent'>
@@ -95,8 +121,6 @@
 						<div class='text subText infoTextHolder'></div>
 					</div>
 				</div>
-			</div>
-			<div class='page hide'>
 			</div>
 		</div>
 	

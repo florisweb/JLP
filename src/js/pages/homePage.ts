@@ -14,6 +14,9 @@ export default class HomePage extends Page {
 	}
 
 	setup = async function() {
+		this.#HTML.navButtons[0].addEventListener("click", function () {
+			App.lessonPage.open();
+		});
 		this.#HTML.navButtons[1].addEventListener("click", function () {
 			App.reviewPage.open();
 		});
