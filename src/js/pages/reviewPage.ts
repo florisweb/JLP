@@ -43,7 +43,7 @@ export default class ReviewPage extends Page {
 	}
 
 	onOpen = async function() {
-		this.questions = await Server.review.getQuestions();
+		this.questions = await Server.reviews.getQuestions();
 		this.resultStatus = {
 			correct: [],
 			inCorrect: [],

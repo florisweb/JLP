@@ -231,6 +231,10 @@ html {
   background: url("/pictures/background_front.png");
   background-size: 100% 100%; 
 }
+#navigationHolder .panel.disabled {
+  pointer-events: none;
+  filter: grayscale(1);
+}
 
 
 

@@ -8,64 +8,85 @@ function shuffleArray(arr:Question[]) {
 
 
 const Server = new (function() {
-    this.review = new (function() {
-        this.getQuestions = async function():Promise<Question[] | Boolean> {
-          //@ts-ignore
-          let result = await REQUEST.send("database/trainer/getReviewSession.php");
-          if (!result) return false;
+  const syncTimeout:number = 1000 * 120; //ms
 
-          let questions: Question[] = [];
-          for (let word of result)
-          {
-            questions.push({
-              askMeaning: true,
-              word: word,
-            });
-            if (word.type == 0) continue;
-            questions.push({
-              askMeaning: false,
-              word: word,
-            });
-          }
+  this.sync = async function() {
+    await Promise.all([
+      this.reviews.getQuestions(),
+      this.lessons.getLessons()
+    ]);
+  }
 
-          shuffleArray(questions);
-          return questions;
-        }
+  this.reviews = new (function() {
+    let lastSync:Date = new Date(0);
+    this.list = [];
 
-        this.updateWordTrainStatus = async function(_question: Question, _correct:Boolean) {
-          //@ts-ignore
-          let result = await REQUEST.send(
-            "database/trainer/updateWordTrainStatus.php", 
-            "wordId=" + _question.word.id + "&correct=" + (_correct ? "1" : "0")
-          );
-          console.warn(result);
-        }
-    } as any);
+    this.getQuestions = async function():Promise<Question[] | Boolean> {
+      if (new Date().getTime() - lastSync.getTime() < syncTimeout) return this.list;
+      //@ts-ignore
+      let result = await REQUEST.send("database/trainer/getReviewSession.php");
+      if (!result) return false;
 
-
-    this.lessons = new (function() {
-      this.getWords = async function():Promise<Question[] | Boolean> {
-        //@ts-ignore
-        let result = await REQUEST.send("database/trainer/getLessonSession.php");
-        if (!result) return false;
-
-        let questions: Question[] = [];
-        for (let word of result)
-        {
-          questions.push({
-            askMeaning: true,
-            word: word,
-          });
-          if (word.type == 0) continue;
-          questions.push({
-            askMeaning: false,
-            word: word,
-          });
-        }
-
-        shuffleArray(questions);
-        return questions;
+      let questions: Question[] = [];
+      for (let word of result)
+      {
+        questions.push({
+          askMeaning: true,
+          word: word,
+        });
+        if (word.type == 0) continue;
+        questions.push({
+          askMeaning: false,
+          word: word,
+        });
       }
+
+      shuffleArray(questions);
+      this.list = questions;
+      lastSync = new Date();
+      return questions;
+    }
+
+    this.updateWordTrainStatus = async function(_question: Question, _correct:Boolean) {
+      //@ts-ignore
+      let result = await REQUEST.send(
+        "database/trainer/updateWordTrainStatus.php", 
+        "wordId=" + _question.word.id + "&correct=" + (_correct ? "1" : "0")
+      );
+      console.warn(result);
+    }
+  } as any);
+
+
+  this.lessons = new (function() {
+    let lastSync:Date = new Date(0);
+    this.list = [];
+
+    this.getLessons = async function():Promise<Question[] | Boolean> {
+      if (new Date().getTime() - lastSync.getTime() < syncTimeout) return this.list;
+      //@ts-ignore
+      let result = await REQUEST.send("database/trainer/getLessonSession.php");
+      if (!result) return false;
+
+      let questions: Question[] = [];
+      for (let word of result)
+      {
+        questions.push({
+          askMeaning: true,
+          word: word,
+        });
+        if (word.type == 0) continue;
+        questions.push({
+          askMeaning: false,
+          word: word,
+        });
+      }
+
+      shuffleArray(questions);
+      this.list = questions;
+      lastSync = new Date();
+      return questions;
+    }
   } as any);
 } as any);
 

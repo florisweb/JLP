@@ -20,10 +20,20 @@ export default class HomePage extends Page {
 	}
 
 	onOpen = async function() {	
-		let reviews = await Server.review.getQuestions();
-		setTextToElement(this.#HTML.navButtons[1].children[1], reviews.length + " words");
+		await this.#updateNavButtons();
+	}
+
+
+	#updateNavButtons = async function() {
+		await Server.sync();
+		console.log('sync');
+		this.#HTML.navButtons[0].classList.remove("disabled");
+		this.#HTML.navButtons[1].classList.remove("disabled");
 		
-		let lessons = await Server.lessons.getWords();
-		setTextToElement(this.#HTML.navButtons[0].children[1], lessons.length + " words");
+		if (Server.lessons.list.length == 0) this.#HTML.navButtons[0].classList.add("disabled");
+		if (Server.reviews.list.length == 0) this.#HTML.navButtons[1].classList.add("disabled");
+
+		setTextToElement(this.#HTML.navButtons[0].children[1], Server.lessons.list.length + " words");
+		setTextToElement(this.#HTML.navButtons[1].children[1], Server.reviews.list.length + " words");
 	}
 }

@@ -3,7 +3,7 @@
 	<head>
 		<title>JLP - Florisweb.tk</title>
 		<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0' name='viewport'/>
- 		<link rel="stylesheet" type="text/css" href="main_min.css?a=14">
+ 		<link rel="stylesheet" type="text/css" href="main_min.css?a=15">
 	</head>	
 	<body>
 		<img src="/pictures/background_front.png" id="backgroundHolder">
@@ -17,17 +17,13 @@
 							<div class='text title'>
 								Lessons
 							</div>
-							<div class='text subText'>
-								15 lessons
-							</div>
+							<div class='text subText'></div>
 						</div>
 						<div class="panel clickable">
 							<div class='text title'>
 								Reviews
 							</div>
-							<div class='text subText'>
-								15 words
-							</div>
+							<div class='text subText'></div>
 						</div>
 					</div>
 
@@ -106,7 +102,7 @@
 	
 		<script src='lib/wanakana.js'></script>
 		<script src='/JS/request2.js'></script>
-		<script src='main_min.js?a=9'></script>
+		<script src='main_min.js?a=10'></script>
 	</body>
 </html>	
 
