@@ -48,7 +48,6 @@ export default class WordInfoMenu {
 
 	#setReadings = function(_word: Word) {
 		let reading =  _word.readings.join(', ');
-		console.log("setReading", _word, reading);
 		this.HTML.readingsHolder.parentNode.classList.remove('hide');
 		if (!reading || _word.type == 0)
 		{

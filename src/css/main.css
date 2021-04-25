@@ -104,8 +104,6 @@ html {
   position: relative;
   margin: auto;
   margin-top: 30vh;
-
-
   width: auto;
   text-align: center;
 }
@@ -113,6 +111,14 @@ html {
 #mainContent .page .questionHolder a {
   font-size: 60px;
   border-bottom: 2px solid rgba(140, 140, 205, .4);
+}
+#mainContent .page .questionHolder.img a {
+  line-height: 88px;
+}
+
+#mainContent .page .questionHolder a img {
+  width: auto;
+  height: 68px;  
 }
 
 #mainContent .page .questionTypeHolder {

@@ -123,7 +123,7 @@
 	
 		<script src='lib/wanakana.js'></script>
 		<script src='/JS/request2.js'></script>
-		<script src='main_min.js?a=10'></script>
+		<script src='main_min.js?a=11'></script>
 	</body>
 </html>	
 

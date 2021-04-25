@@ -112,8 +112,6 @@
 			}
 			return $this->parent->words->update($trainerWord);
 		}
-
-
 	}
 
 

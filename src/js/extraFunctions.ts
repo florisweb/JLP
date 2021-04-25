@@ -10,6 +10,24 @@ export function setTextToElement(element:Element, text:string) {
   element.append(a);
 }
 
+export function setCharacterToElement(element:Element, character:string) {
+  element.classList.remove("img");
+  let parts = character.split("url:");
+  if (parts.length < 2)
+  {
+    return setTextToElement(element, character);
+  }
+  element.innerHTML = "";
+  element.classList.add("img");
+  let a = document.createElement('a');
+  
+
+  let img = document.createElement("img");
+  img.setAttribute("src", parts[1]);
+  a.append(img);
+  element.append(a);
+}
+
 export function newId():string {
   return Math.round(Math.random() * 100000000) + "" + Math.round(Math.random() * 100000000);
 }
@@ -29,6 +47,7 @@ export function removeSpacesFromEnds(_str:string):string {
   }
   return _str;
 } 
+
 
 
 

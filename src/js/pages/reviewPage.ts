@@ -3,7 +3,7 @@ import { App } from '../app';
 import Server from '../server';
 import WordInfoMenu from '../wordInfoMenu';
 import { Question, WordTypes } from '../types';
-import { $, setTextToElement, removeSpacesFromEnds } from '../extraFunctions';
+import { $, setCharacterToElement, setTextToElement, removeSpacesFromEnds } from '../extraFunctions';
 
 
 type Result = {
@@ -111,8 +111,13 @@ export default class ReviewPage extends Page {
 			return false;
 		}
 
-		for (let reading of _question.word.readings)
+		let readings = _question.word.readings;
+		// @ts-ignore
+		if (_question.word.type == 1) readings = _question.word.readings[0];
+		console.log('readings', readings);
+		for (let reading of readings)
 		{
+			console.log(answer, reading);
 			if (answer == reading.toLowerCase()) return true;	
 		}
 		return false;
@@ -133,11 +138,11 @@ export default class ReviewPage extends Page {
 
 	
 	#writeQuestion = function(_question: Question) {		
-		setTextToElement(
+		setCharacterToElement(
 			this.#HTML.questionHolder, 
 			_question.word.character
 		);
-
+		
 		let color = "rgb(140, 140, 205)";
 		if (_question.word.type == 1) color = "rgb(205, 140, 140)";
 		if (_question.word.type == 2) color = "rgb(140, 205, 140)";

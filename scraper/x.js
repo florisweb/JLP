@@ -13,8 +13,8 @@ async function getPage(_level = 0) {
 let output = [];
 async function run() {
 
-	// await scrapeLevelRecursively(0);
-	output = await scrapeLevel(0);
+	await scrapeLevelRecursively(0);
+	// output = await scrapeLevel(0);
 	// output = [await getLinkInfo({link: 'radicals/barb', level: 0})];
 	// output = output.concat(await getLinkInfo({link: 'kanji/%E7%94%9F', level: 0}));
 	// output = output.concat(await getLinkInfo({link: 'vocabulary/%E7%94%9F', level: 0}));

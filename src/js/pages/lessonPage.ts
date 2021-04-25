@@ -3,7 +3,7 @@ import { App } from '../app';
 import Server from '../server';
 import WordInfoMenu from '../wordInfoMenu';
 import { Word, Question } from '../types';
-import { $, setTextToElement } from '../extraFunctions';
+import { $, setCharacterToElement, setTextToElement } from '../extraFunctions';
 
 
 export default class LessonPage extends Page {
@@ -55,7 +55,7 @@ export default class LessonPage extends Page {
 
 	
 	#writeWord = function(_word: Word) {
-		setTextToElement(
+		setCharacterToElement(
 			this.#HTML.questionHolder, 
 			_word.character
 		);
