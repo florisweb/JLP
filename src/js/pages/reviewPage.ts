@@ -69,7 +69,7 @@ export default class ReviewPage extends Page {
 		this.#ProgressBar.setPercentage(this.resultStatus.correct.length / (this.questions.length + this.resultStatus.correct.length));
 		setTextToElement(this.#HTML.scoreHolder, this.resultStatus.correct.length + "/" + (this.questions.length + this.resultStatus.correct.length));
 
-		if (this.questions.lenght < 1) return App.resultPage.open();
+		if (this.questions.length < 1) return App.homePage.open(); // TODO: Will be resultPage
 		this.showQuestion(this.questions[0]);
 	}
 

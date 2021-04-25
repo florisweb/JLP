@@ -13,17 +13,17 @@
 			<div class='page'>
 				<div class='pageContent'>
 					<div id='navigationHolder'>
-						<div class="panel clickable">
+						<div class="panel clickable disabled">
 							<div class='text title'>
 								Lessons
 							</div>
-							<div class='text subText'></div>
+							<div class='text subText'>0 words</div>
 						</div>
-						<div class="panel clickable">
+						<div class="panel clickable disabled">
 							<div class='text title'>
 								Reviews
 							</div>
-							<div class='text subText'></div>
+							<div class='text subText'>0 words</div>
 						</div>
 					</div>
 

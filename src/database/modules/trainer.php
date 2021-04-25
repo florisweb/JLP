@@ -16,7 +16,7 @@
 		}
 
 		public function autoAddWordsToTrainer() {
-			$score = $this->getAverageKnowledgeLevel();
+			$score = $this->getKnowledgeLevelScore();
 			if ($score < $this->minAverageKnowledgeLevelForNewWords) return false;
 			$curIndex = $this->parent->words->getHighestIndex();
 
@@ -28,15 +28,31 @@
 			return true;
 		}
 
-		public function getAverageKnowledgeLevel() {
+		public function getKnowledgeLevelScore() {
 			$words = $this->parent->words->getAll();
 			if (sizeof($words) == 0) return $this->minAverageKnowledgeLevelForNewWords;
 
-			$sum = 0;
-			foreach ($words as $trainerWord) $sum += $trainerWord["knowledgeLevel"];
+			function sortWordArray($a, $b) {
+				if ($a['knowledgeLevel'] > $b['knowledgeLevel']) return 1;
+				return -1;
+			}
 
-			return $sum / sizeof($words);
+			usort($words, "sortWordArray");
+			$sum = 0;
+			$totalWordCount = 0;
+			for ($i = 0; $i < $this->newWordsPerSession; $i++)
+			{
+				if (sizeof($words) - 1 < $i) break;
+				$totalWordCount++;
+				$sum += $words[$i]["knowledgeLevel"];
+			}
+
+			return $sum / $totalWordCount;
 		}
+
+
+		
+
 
 
 		public function getReviewSession() {
