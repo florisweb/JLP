@@ -15,7 +15,7 @@
 		private $DB;
 
 		public $words;
-		public $users;
+		public $userData;
 
 		public function __construct() {
 			$this->DB = $GLOBALS["DB"]->connect($this->DBName);

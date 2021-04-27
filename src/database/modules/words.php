@@ -60,10 +60,27 @@
 		}
 		
 		public function getAll() {
-			return $GLOBALS["DBManager"]->userData->getWordListByUId($this->parent->userId);
+			$words = $GLOBALS["DBManager"]->userData->getWordListByUId($this->parent->userId);
+			$newWords = array();
+			for ($i = 0; $i < sizeof($words); $i++)
+			{
+				$word = $GLOBALS["DBManager"]->words->getById($words[$i]["wordId"]);
+				if (!$word) continue;
+				unset($words[$i]["wordId"]);
+				$words[$i]["word"] = $word;
+				array_push($newWords, $words[$i]);
+			}
+
+			return $newWords;
 		}
 
 		private function set($_list) {
+			for ($i = 0; $i < sizeof($_list); $i++)
+			{
+				$_list[$i]["wordId"] = $_list[$i]["word"]["id"];
+				unset($_list[$i]["word"]);
+			}
+
 			return $GLOBALS["DBManager"]->userData->setWordListByUId($_list, $this->parent->userId);
 		}
 	}
