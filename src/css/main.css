@@ -202,7 +202,6 @@ html {
 
   left: calc(15% - 10px + 3px);
   width: calc(70% - 10px * 2 - 3px * 2);
-  /* padding-top: 10px; */
 
   background: #fff;
   margin: auto;
@@ -213,6 +212,17 @@ html {
   opacity: 0;
   transform: scale(.8);
   pointer-events: none;;
+}
+
+#mainContent .page .infoPanel .title.highLightType.img {
+  position: relative;
+  top: -4px;
+}
+#mainContent .page .infoPanel .title.highLightType.img img {
+  margin-top: 9px;
+  margin-bottom: -3px;
+  height: 25px;
+  width: auto;
 }
 
 #mainContent .page .infoPanel .infoTextHolder {

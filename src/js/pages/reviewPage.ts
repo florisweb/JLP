@@ -140,7 +140,8 @@ export default class ReviewPage extends Page {
 	#writeQuestion = function(_question: Question) {		
 		setCharacterToElement(
 			this.#HTML.questionHolder, 
-			_question.word.character
+			_question.word.character,
+			false
 		);
 		
 		let color = "rgb(140, 140, 205)";

@@ -1,5 +1,5 @@
 import { Word } from './types';
-import { setTextToElement } from './extraFunctions';
+import { setTextToElement, setCharacterToElement } from './extraFunctions';
 
 type HTMLHolder = {
 	menu: 				HTMLElement
@@ -40,7 +40,11 @@ export default class WordInfoMenu {
 		this.HTML.titleHolder.classList.remove('radical');
 		this.HTML.titleHolder.classList.remove('kanji');
 		this.HTML.titleHolder.classList.remove('voca');
-		setTextToElement(this.HTML.titleHolder, _word.character);
+		setCharacterToElement(
+			this.HTML.titleHolder, 
+			_word.character,
+			true
+		);
 		
 		let typeClasses = ['radical', 'kanji', 'voca'];
 		this.HTML.titleHolder.classList.add(typeClasses[_word.type]);

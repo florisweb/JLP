@@ -10,7 +10,7 @@ export function setTextToElement(element:Element, text:string) {
   element.append(a);
 }
 
-export function setCharacterToElement(element:Element, character:string) {
+export function setCharacterToElement(element:Element, character:string, _isWhite:boolean = false) {
   element.classList.remove("img");
   let parts = character.split("url:");
   if (parts.length < 2)
@@ -21,9 +21,9 @@ export function setCharacterToElement(element:Element, character:string) {
   element.classList.add("img");
   let a = document.createElement('a');
   
-
+  let url = parts[1] + (_isWhite ? "White.png" : "Blue.png");
   let img = document.createElement("img");
-  img.setAttribute("src", parts[1]);
+  img.setAttribute("src", url);
   a.append(img);
   element.append(a);
 }
