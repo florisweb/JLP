@@ -50,7 +50,7 @@ export default class LessonPage extends Page {
 	showWord = function(_word: Word) {		
 		this.#writeWord(_word);
 		this.#wordInfoMenu.open(_word, false);
-		Server.lessons.learnedWord(_word);
+		// Server.lessons.learnedWord(_word);
 	}
 
 	#writeWord = function(_word: Word) {
@@ -122,7 +122,8 @@ class WordNavigator {
 		
 		setCharacterToElement(
 			element, 
-			_character
+			_character,
+			true
 		);
 
 		this.#HTML.appendChild(element);
