@@ -153,7 +153,7 @@ export default class ReviewPage extends Page {
 		this.#HTML.questionTypeHolder.style.color = color;
 
 		this.#HTML.questionTypeHolder.innerHTML = 
-			"<strong>" + WordTypes[_question.word.type] + "</strong> - " +
+			"<strong>" + WordTypes[_question.word.type].name + "</strong> - " +
 			(_question.askMeaning ? "Meaning" : "Reading");
 	}
 };

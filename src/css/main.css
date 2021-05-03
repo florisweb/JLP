@@ -76,6 +76,7 @@ html {
   height: 30px;
   line-height: 30px;
   width: 100%;
+  z-index: 100;
 
   text-align: center;
 }
@@ -195,6 +196,54 @@ html {
 
 
 
+
+
+
+
+
+
+
+
+#mainContent .page.lessonPage .topBar .wordNavigator {
+  margin-top: 3px;
+}
+#mainContent .page.lessonPage .topBar .wordNavigator .wordButton {
+  margin-left: 2px;
+  margin-right: 2px;
+  cursor: pointer;
+}
+
+#mainContent .page.lessonPage .topBar .wordNavigator .wordButton.arrowButton {
+  position: relative;
+  top: 3px;
+
+  font-size: 30px;
+  line-height: 40px;
+  margin: 0 -5px;
+  
+  background: none;
+  color: #bbb;
+}
+
+
+#mainContent .page.lessonPage .topBar .wordNavigator .wordButton.disabled {
+  background: #444;
+  pointer-events: none;
+  opacity: .3;
+}
+#mainContent .page.lessonPage .topBar .wordNavigator .wordButton.disabled.arrowButton {
+  background: none;
+}
+
+
+
+
+
+
+
+
+
+
 #mainContent .page .panel.infoPanel {
   position: absolute;
   float: bottom;
@@ -231,6 +280,9 @@ html {
 #mainContent .page .infoPanel .keyValuePair.hide {
   display: none;
 }
+
+
+
 
 
 

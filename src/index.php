@@ -3,7 +3,7 @@
 	<head>
 		<title>JLP - Florisweb.tk</title>
 		<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0' name='viewport'/>
- 		<link rel="stylesheet" type="text/css" href="main_min.css?a=16">
+ 		<link rel="stylesheet" type="text/css" href="main_min.css?a=20">
 	</head>	
 	<body>
 		<img src="/pictures/background_front.png" id="backgroundHolder">
@@ -101,11 +101,22 @@
 			<div class='page hide lessonPage'>
 				<div class='topBar'>
 					<img src='images/homeIcon.png' class='homeButton clickable'>
-					<div class='text scoreHolder'>5/15</div>
+					<div class='text scoreHolder'></div>
+					<div class='wordNavigator'>
+						<span class='text highLightType wordButton arrowButton disabled'>‹</span>
+						<span class='text highLightType radical wordButton'>入</span>
+						<span class='text highLightType voca wordButton'>三日</span>
+						<span class='text highLightType kanji wordButton'>三日</span>
+						<span class='text highLightType kanji wordButton disabled'>三日</span>
+						<span class='text highLightType wordButton arrowButton'>›</span>
+					</div>
 				</div>
-				<div class='pageContent'>
-					<div class='text blue questionHolder'><a>三日</a></div>
 
+				<div class='pageContent'>
+					<div class='text blue questionHolder'><a></a></div>
+					<div class='text blue questionTypeHolder'><a></a></div>
+
+					
 					<div class='panel infoPanel hide'>
 						<span class='text title highLightType kanji'></span>
 						<br>
@@ -123,7 +134,7 @@
 	
 		<script src='lib/wanakana.js'></script>
 		<script src='/JS/request2.js'></script>
-		<script src='main_min.js?a=12'></script>
+		<script src='main_min.js?a=14'></script>
 	</body>
 </html>	
 

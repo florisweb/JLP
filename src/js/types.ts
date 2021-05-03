@@ -1,4 +1,12 @@
-export const WordTypes:string[] = ["Radical", "Kanji", "Voca"];
+type WordType = {
+  name: string,
+  class: string,
+}
+export const WordTypes:WordType[] = [
+  {name: "Radical", class: 'radical'}, 
+  {name: "Kanji", class: 'kanji'}, 
+  {name: "Voca", class: 'voca'}
+];
 
 export type Word = {
   id?: number,

@@ -45,6 +45,16 @@
 	background: rgb(140, 205, 140)
 }
 
+.text.highLightType.img {
+	position: relative;
+	top: -4px;
+}
+.text.highLightType.img img {
+	margin-top: 9px;
+	margin-bottom: -3px;
+	height: 15x;
+	width: auto;
+}
 
 
 
