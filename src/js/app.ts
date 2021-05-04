@@ -4,6 +4,7 @@ import LessonPage from './pages/lessonPage';
 import HomePage from './pages/homePage';
 import KeyHandler from './keyHandler';
 import { $ } from './extraFunctions';
+import Page from './pages/page';
 
 export namespace App {
   const HTML = {
@@ -11,11 +12,11 @@ export namespace App {
   }
 
 
-  export let homePage   = new HomePage();
-  export let reviewPage = new ReviewPage();
-  export let resultPage = new ResultPage();
-  export let lessonPage = new LessonPage();
-  export let curPage    = false;
+  export let homePage       = new HomePage();
+  export let reviewPage     = new ReviewPage();
+  export let resultPage     = new ResultPage();
+  export let lessonPage     = new LessonPage();
+  export let curPage:Page   = homePage;
 
   export async function setup() {
     console.warn("Started setting up...");

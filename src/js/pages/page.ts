@@ -13,8 +13,10 @@ export default class Page {
 	
 	setup = async function() {console.log('defaultSetup');}
 	onOpen = async function() {console.warn('Warning: You forgot to add a onOpen-handler to this page.', this);}
+	onClose = async function() {console.warn('Warning: You forgot to add a onClose-handler to this page.', this);}
 	
 	open = async function() {
+		App.curPage.onClose();
 		this.#openHTMLPage(this.pageIndex);
 		App.curPage = this;
 		let result;

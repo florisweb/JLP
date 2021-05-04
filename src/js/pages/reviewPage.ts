@@ -53,6 +53,10 @@ export default class ReviewPage extends Page {
 		
 		this.InputField.reset();
 	}
+	
+	onClose = async function() {
+		this.wordInfoMenu.close();
+	}
 
 
 	onEnterPress = function(_inInputField:boolean) {

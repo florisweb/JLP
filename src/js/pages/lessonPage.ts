@@ -34,6 +34,9 @@ export default class LessonPage extends Page {
 		this.showWord(this.words[0]);
 		this.#wordNavigator.setWords(this.words);
 	}
+	onClose = async function() {
+		this.#wordInfoMenu.close();
+	}
 
 
 	onEnterPress = function(_inInputField:boolean) {
