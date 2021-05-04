@@ -299,7 +299,7 @@ html {
   width: calc(50% - 20px * 2 - 20px * 2 - 4px);
   height: 90px;
 
-  background: url("/pictures/background_front.png");
+  background: url("images/background.png");
   background-size: 100% 100%; 
 }
 #navigationHolder .panel.disabled {

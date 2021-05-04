@@ -6,7 +6,7 @@
  		<link rel="stylesheet" type="text/css" href="main_min.css?a=21">
 	</head>	
 	<body>
-		<img src="/pictures/background_front.png" id="backgroundHolder">
+		<img src="images/background.png" id="backgroundHolder">
 
 
 		<div id="mainContent">
