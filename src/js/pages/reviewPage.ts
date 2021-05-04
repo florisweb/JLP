@@ -76,6 +76,8 @@ export default class ReviewPage extends Page {
 
 	checkAnswer = function() {
 		let isCorrect = this.#isAnswerCorrect(this.curQuestion);
+		if (isCorrect == 'InvalidInput') return alert('invalid input'); // TODO: Actual visual indication that the input is incorrect
+
 		if (this.curQuestion == this.questions[0]) this.questions.splice(0, 1);
 		Server.reviews.updateWordTrainStatus(this.curQuestion.word.id, isCorrect);
 		
@@ -110,6 +112,8 @@ export default class ReviewPage extends Page {
 			}
 			return false;
 		}
+		// @ts-ignore
+		if (!wanakana.isHiragana(answer)) return "InvalidInput";
 
 		let readings = _question.word.readings;
 		// @ts-ignore
