@@ -56,6 +56,7 @@ export default class ReviewPage extends Page {
 	
 	onClose = async function() {
 		this.wordInfoMenu.close();
+		this.#ProgressBar.setPercentage(0);
 	}
 
 
