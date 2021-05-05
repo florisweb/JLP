@@ -11,15 +11,11 @@
 	$words = json_decode($data, true);
 	if (!$words || !sizeof($words)) die("Invalid data");
 
-	echo "<pre>";
-
-
-	foreach ($words as $word) 
+	foreach ($words as $level) 
 	{
-		var_dump($word);
-		$result = $GLOBALS["DBManager"]->words->update($word);
-		var_dump($result);
-
+		foreach ($level as $word) 
+		{
+			$result = $GLOBALS["DBManager"]->words->update($word);
+		}
 	}
-
 ?>

@@ -73,13 +73,11 @@
 		public function getLessonSession() {
 			$words = $this->parent->words->getAll();
 			$session = array();
-
 			foreach ($words as $trainerWord) 
 			{
 				if ($trainerWord["knowledgeLevel"] != 0) continue;
 				array_push($session, $trainerWord["word"]);
 			}
-
 			return $session;			
 		}
 

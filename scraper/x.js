@@ -28,8 +28,15 @@ async function run() {
 	// let data = await getLinkInfo("vocabulary/%E5%85%AB");
 	// console.log(data);
 	// let data = await getLinkInfo('vocabulary/%E4%B8%8A%E3%82%8B');
-	writeToFile(JSON.stringify(output));
+	writeToFile(replaceRadicalImages(JSON.stringify(output)));
 }
+
+function replaceRadicalImages(_string) {
+	let string = _string.split('<img class="radical-image" alt="gun" src="https://cdn.wanikani.com/subjects/images/8762-gun-large.png" />').join('url:images/radicals/gun');
+	string = string.split('<img class="radical-image" alt="leaf" src="https://cdn.wanikani.com/subjects/images/8763-leaf-large.png" />').join('url:images/radicals/leaf');
+	return string.split('<img class="radical-image" alt="stick" src="https://cdn.wanikani.com/subjects/images/8761-stick-large.png" />').join('url:images/radicals/stick');
+}
+
 
 async function scrapeLevelRecursively(l) {
 	output[l] = await scrapeLevel(l);
