@@ -2,9 +2,11 @@
 	require_once __DIR__ . "/database/getRoot.php";
 	require_once $Root . "/PHPV2/PacketManager.php";
 	$GLOBALS["PM"]->includePacket("SESSION", "1.0");
+	$GLOBALS["PM"]->includePacket("GLOBALS", "1.0");
+	
 	if (!$GLOBALS["SESSION"]->get("userId"))
 	{
-		header("Location: https://user.florisweb.tk/login?redirect=https://jlp.florisweb.tk");
+		header("Location: " . $GLOBALS['UserDomainUrl'] . "/login?redirect=" . $GLOBALS['ProjectUrls']['JLP']);
 		die("E_noAuth");
 	}
 ?>
@@ -18,8 +20,6 @@
 	</head>	
 	<body>
 		<img src="images/background.png" id="backgroundHolder">
-
-
 		<div id="mainContent">
 			<div class='page'>
 				<div class='pageContent'>
@@ -144,7 +144,7 @@
 		</div>
 	
 		<script src='lib/wanakana.js'></script>
-		<script src='https://florisweb.tk/JS/request2.js'></script>
+		<script src='<?php echo $GLOBALS['DomainUrl']; ?>/JS/request2.js'></script>
 		<script src='main_min.js?a=16'></script>
 	</body>
 </html>	
