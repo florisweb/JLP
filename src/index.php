@@ -1,3 +1,14 @@
+<?php
+	require_once __DIR__ . "/database/getRoot.php";
+	require_once $Root . "/PHPV2/PacketManager.php";
+	$GLOBALS["PM"]->includePacket("SESSION", "1.0");
+	if (!$GLOBALS["SESSION"]->get("userId"))
+	{
+		header("Location: https://user.florisweb.tk/login?redirect=https://jlp.florisweb.tk");
+		die("E_noAuth");
+	}
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>
