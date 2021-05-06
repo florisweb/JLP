@@ -11,7 +11,6 @@ type Result = {
 	inCorrect: Question[]
 }
 
-let a = 4;
 export default class ReviewPage extends Page {
 	questions:Question[] = [];
 	curQuestion:Question;
@@ -42,24 +41,19 @@ export default class ReviewPage extends Page {
 		homeButton.addEventListener("click", function () {App.homePage.open()});
 	}
 
-	onOpen = async function() {
-		this.questions = await Server.reviews.getQuestions();
+	onOpen = async function(_questions:Question[] = []) {
+		this.questions = _questions.length ? _questions : await Server.reviews.getQuestions();
 		this.resultStatus = {
 			correct: [],
 			inCorrect: [],
 		};
 
 		this.nextQuestion();
-		
 		this.InputField.reset();
 	}
 
-	openWithLesson = async function(_questions:Question[]) {
-		await this.open();
-		this.questions = _questions;
-		this.nextQuestion();
-
-		console.log(a);
+	openWithLesson = function(_questions:Question[]) {
+		return this.open(_questions);
 	}
 
 	

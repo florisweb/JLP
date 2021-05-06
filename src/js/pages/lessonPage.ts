@@ -1,3 +1,4 @@
+declare const window:any;
 import Page from './page';
 import { App } from '../app';
 import Server from '../server';
@@ -8,6 +9,7 @@ import { $, setCharacterToElement, setTextToElement } from '../extraFunctions';
 
 export default class LessonPage extends Page {
 	words:Word[] = [];
+	curWordIndex:number = -1;
 	
 	#HTML = {
 		questionHolder: 	$<HTMLElement>("#mainContent .page.lessonPage .questionHolder")[0],	
@@ -31,7 +33,8 @@ export default class LessonPage extends Page {
 
 	onOpen = async function() {
 		this.words = await Server.lessons.getWords();
-		this.showWord(this.words[0]);
+		this.curWordIndex = -1;
+		this.nextWord();
 		this.#wordNavigator.setWords(this.words);
 	}
 	onClose = async function() {
@@ -40,12 +43,38 @@ export default class LessonPage extends Page {
 
 
 	onEnterPress = function(_inInputField:boolean) {
+		return this.nextWord();
 	}
 
-	
 
-	nextQuestion = function() {
-	
+	nextWord = function() {
+		this.#wordInfoMenu.close();
+
+		if (this.curWordIndex >= this.words.length - 1) {
+			return this.openLessonReviewer();
+		};
+
+		this.curWordIndex++;
+		this.showWord(this.words[this.curWordIndex]);
+	}
+
+	openLessonReviewer = function() {
+		console.log('openLessonReviewer');
+		let questions:Question[] = [];
+		for (let word of this.words)
+		{
+			questions.push({
+				askMeaning: true,
+				word: word,
+			});
+			if (word.type == 0) continue;
+			questions.push({
+				askMeaning: false,
+				word: word,
+			});
+		}
+		console.log(window.q = questions);
+		App.reviewPage.openWithLesson(questions);
 	}
 
 
@@ -114,21 +143,6 @@ class WordNavigator {
 		element.classList.add('arrowButton');
 		
 		element.addEventListener('click', function () { // TEMP
-			let questions:Question[] = [];
-			for (let word of App.lessonPage.words)
-			{
-				questions.push({
-					askMeaning: true,
-					word: word,
-				});
-				if (word.type == 0) continue;
-				questions.push({
-					askMeaning: false,
-					word: word,
-				});
-			}
-
-			App.reviewPage.openWithLesson(questions);
 		});
 	}
 
