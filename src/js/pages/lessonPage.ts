@@ -2,7 +2,7 @@ import Page from './page';
 import { App } from '../app';
 import Server from '../server';
 import WordInfoMenu from '../wordInfoMenu';
-import { Word, WordTypes } from '../types';
+import { Word, Question, WordTypes } from '../types';
 import { $, setCharacterToElement, setTextToElement } from '../extraFunctions';
 
 
@@ -112,8 +112,23 @@ class WordNavigator {
 	#addArrow = function(_isLeftArrow:boolean) {
 		let element = this.#createWordNavigationBaseItem(_isLeftArrow ? '‹' : '›', 0);
 		element.classList.add('arrowButton');
-		element.addEventListener('click', function () {
-			console.log('arrowclick');
+		
+		element.addEventListener('click', function () { // TEMP
+			let questions:Question[] = [];
+			for (let word of App.lessonPage.words)
+			{
+				questions.push({
+					askMeaning: true,
+					word: word,
+				});
+				if (word.type == 0) continue;
+				questions.push({
+					askMeaning: false,
+					word: word,
+				});
+			}
+
+			App.reviewPage.openWithLesson(questions);
 		});
 	}
 

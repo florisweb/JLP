@@ -11,7 +11,7 @@ type Result = {
 	inCorrect: Question[]
 }
 
-
+let a = 4;
 export default class ReviewPage extends Page {
 	questions:Question[] = [];
 	curQuestion:Question;
@@ -53,6 +53,15 @@ export default class ReviewPage extends Page {
 		
 		this.InputField.reset();
 	}
+
+	openWithLesson = async function(_questions:Question[]) {
+		await this.open();
+		this.questions = _questions;
+		this.nextQuestion();
+
+		console.log(a);
+	}
+
 	
 	onClose = async function() {
 		this.wordInfoMenu.close();
