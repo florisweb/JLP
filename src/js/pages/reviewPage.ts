@@ -93,20 +93,13 @@ export default class ReviewPage extends Page {
 		{	
 			this.resultStatus.correct.push(this.curQuestion);
 			this.InputField.setAnswerCorrectStatus(true);
-			setTimeout(function () {
-				App.reviewPage.nextQuestion();
-			}, 500);
-			return;
+		} else {
+			this.InputField.setAnswerCorrectStatus(false);
+			this.resultStatus.inCorrect.push(this.curQuestion);
+			this.questions.push(this.curQuestion);
 		}
 
-		this.InputField.setAnswerCorrectStatus(false);
-		let This = this;
-		setTimeout(function () {
-			This.wordInfoMenu.open(This.curQuestion.word, This.curQuestion.askMeaning);
-		}, 500);
-		
-		this.resultStatus.inCorrect.push(this.curQuestion);
-		this.questions.push(this.curQuestion);
+		this.wordInfoMenu.open(this.curQuestion.word, this.curQuestion.askMeaning);
 	}
 
 
