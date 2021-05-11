@@ -114,7 +114,7 @@ export default class ReviewPage extends Page {
 			return false;
 		}
 		// @ts-ignore
-		if (!wanakana.isHiragana(answer)) return "InvalidInput";
+		if (!wanakana.isHiragana(answer) && answer) return "InvalidInput";
 
 		let readings = _question.word.readings;
 		// @ts-ignore
