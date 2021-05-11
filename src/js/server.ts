@@ -64,11 +64,6 @@ const Server = new (function() {
   this.lessons = new (function() {
     let lastSync:Date = new Date(0);
     this.list = [];
-    
-    this.learnedWord = function(_word:Word) {
-      return Server.reviews.updateWordTrainStatus(_word.id, true);
-    }
-
     this.getWords = async function(_forceUpdate:boolean):Promise<Word[] | Boolean> {
       if (new Date().getTime() - lastSync.getTime() < syncTimeout && !_forceUpdate) return this.list;
       let result = await Server.sendRequest("database/trainer/getLessonSession.php");

@@ -34,8 +34,8 @@ export default class LessonPage extends Page {
 	onOpen = async function() {
 		this.words = await Server.lessons.getWords();
 		this.curWordIndex = -1;
-		this.nextWord();
 		this.#wordNavigator.setWords(this.words);
+		this.nextWord();
 	}
 	onClose = async function() {
 		this.#wordInfoMenu.close();
@@ -45,21 +45,23 @@ export default class LessonPage extends Page {
 	onEnterPress = function(_inInputField:boolean) {
 		return this.nextWord();
 	}
-
+	
+	prevWord = function() {
+		if (this.curWordIndex <= 0) return;
+		this.curWordIndex--;
+		this.showWordByIndex(this.curWordIndex);
+	}
 
 	nextWord = function() {
-		this.#wordInfoMenu.close();
-
 		if (this.curWordIndex >= this.words.length - 1) {
 			return this.openLessonReviewer();
 		};
 
 		this.curWordIndex++;
-		this.showWord(this.words[this.curWordIndex]);
+		this.showWordByIndex(this.curWordIndex);
 	}
 
 	openLessonReviewer = function() {
-		console.log('openLessonReviewer');
 		let questions:Question[] = [];
 		for (let word of this.words)
 		{
@@ -73,16 +75,22 @@ export default class LessonPage extends Page {
 				word: word,
 			});
 		}
-		console.log(window.q = questions);
 		App.reviewPage.openWithLesson(questions);
 	}
 
 
 
-	showWord = function(_word: Word) {		
-		this.#writeWord(_word);
-		this.#wordInfoMenu.open(_word, false);
-		// Server.lessons.learnedWord(_word);
+	showWordByIndex = function(_index: number) {
+		if (_index < 0) return;
+		if (_index >= this.words.length) return;
+
+		this.#wordNavigator.setLeftArrowStatus(_index != 0);
+
+		App.lessonPage.curWordIndex = _index;	
+		let word = this.words[_index];	
+		this.#wordInfoMenu.close();
+		this.#writeWord(word);
+		this.#wordInfoMenu.open(word, false);
 	}
 
 	#writeWord = function(_word: Word) {
@@ -110,6 +118,7 @@ export default class LessonPage extends Page {
 class WordNavigator {
 	#HTML = {};
 	#words:Word[] = [];
+	#leftArrow:HTMLElement;
 
 	constructor(_wordNavigator:HTMLElement) {
 		this.#HTML = _wordNavigator;
@@ -119,17 +128,23 @@ class WordNavigator {
 		this.#words = [];
 		this.#HTML.innerHTML = '';
 		
-		this.#addArrow(true);
-		for (let word of _words) this.#addWordNavigationItem(word);
+		this.#leftArrow = this.#addArrow(true);
+		for (let i = 0; i < _words.length; i++) this.#addWordNavigationItem(_words[i], i);
 		
 		this.#addArrow(false);
 	}
 
-	#addWordNavigationItem = function(_word: Word) {
+	setLeftArrowStatus = function(_enabled:boolean) {
+		this.#leftArrow.classList.remove("disabled");
+		if (_enabled) return;
+		this.#leftArrow.classList.add("disabled");
+	}
+
+	#addWordNavigationItem = function(_word: Word, _index:number) {
 		let element = this.#createWordNavigationBaseItem(_word.character, _word.type);
 
 		element.addEventListener('click', function () {
-			App.lessonPage.showWord(_word);
+			App.lessonPage.showWordByIndex(_index);
 		});
 
 		this.#words.push({
@@ -142,8 +157,11 @@ class WordNavigator {
 		let element = this.#createWordNavigationBaseItem(_isLeftArrow ? '‹' : '›', 0);
 		element.classList.add('arrowButton');
 		
-		element.addEventListener('click', function () { // TEMP
+		element.addEventListener('click', function () {
+			if (_isLeftArrow) return App.lessonPage.prevWord();
+			App.lessonPage.nextWord();
 		});
+		return element;
 	}
 
 

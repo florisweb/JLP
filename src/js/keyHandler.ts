@@ -10,6 +10,18 @@ let Keys: {[index: string]: boolean};
 const KeyHandler = new (function () {
   const shortCuts:ShortCut[] = [
     {
+      keys: ["ArrowLeft"],
+      event: function (_e:KeyboardEvent) {
+        if (App.curPage.pageIndex == App.lessonPage.pageIndex) return App.lessonPage.prevWord();
+      }
+    },
+    {
+      keys: ["ArrowRight"],
+      event: function (_e:KeyboardEvent) {
+        if (App.curPage.pageIndex == App.lessonPage.pageIndex) return App.lessonPage.nextWord();
+      }
+    },
+    {
       keys: ["Enter"], 
       event: function (_e:KeyboardEvent) {
         //@ts-ignore
@@ -37,7 +49,6 @@ const KeyHandler = new (function () {
   this.handleKeys = function(_event:KeyboardEvent) {
     // @ts-ignore
     let inInputField = _event.target.type == "text" || _event.target.type == "textarea";
-
     for (let i = 0; i < shortCuts.length; i++)
     {
       let curShortcut = shortCuts[i]; 
