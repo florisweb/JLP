@@ -18,6 +18,12 @@ export namespace App {
   export let lessonPage     = new LessonPage();
   export let curPage:Page   = homePage;
 
+
+  export function requestSignIn() {
+    window.location.replace('http://localhost/user/login?redirect=' + window.location.href);
+    // window.location.replace('https://user.florisweb.tk/login?redirect=' + window.location.href);
+  }
+
   export async function setup() {
     console.warn("Started setting up...");
     await homePage.setup();

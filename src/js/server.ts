@@ -1,14 +1,13 @@
 import { Question, Word } from './types';
+import { App } from './app';
 
 // //@ts-ignore
 function shuffleArray(arr:Question[]) {
   return arr.sort(() => Math.random() - 0.5);
 }
 
-
-
 const Server = new (function() {
-  const syncTimeout:number = 1000 * 120; //ms
+  const syncTimeout:number = 1000 * 60 * 2; //ms
 
   this.sync = async function() {
     await Promise.all([
@@ -17,14 +16,20 @@ const Server = new (function() {
     ]);
   }
 
+  this.sendRequest = async function() {
+    //@ts-ignore
+    let response = await REQUEST.send(...arguments);
+    if (response == "E_noAuth") App.requestSignIn();
+    return response;
+  }
+
   this.reviews = new (function() {
     let lastSync:Date = new Date(0);
     this.list = [];
 
     this.getQuestions = async function(_forceUpdate: Boolean):Promise<Question[] | Boolean> {
       if (new Date().getTime() - lastSync.getTime() < syncTimeout && !_forceUpdate) return this.list;
-      //@ts-ignore
-      let result = await REQUEST.send("database/trainer/getReviewSession.php");
+      let result = await Server.sendRequest("database/trainer/getReviewSession.php");
       if (!result) return false;
 
       let questions: Question[] = [];
@@ -48,8 +53,7 @@ const Server = new (function() {
     }
 
     this.updateWordTrainStatus = async function(_wordId: number, _correct:Boolean) {
-      //@ts-ignore
-      return await REQUEST.send(
+      return await Server.sendRequest(
         "database/trainer/updateWordTrainStatus.php", 
         "wordId=" + _wordId + "&correct=" + (_correct ? "1" : "0")
       );
@@ -67,8 +71,7 @@ const Server = new (function() {
 
     this.getWords = async function(_forceUpdate:boolean):Promise<Word[] | Boolean> {
       if (new Date().getTime() - lastSync.getTime() < syncTimeout && !_forceUpdate) return this.list;
-      //@ts-ignore
-      let result = await REQUEST.send("database/trainer/getLessonSession.php");
+      let result = await Server.sendRequest("database/trainer/getLessonSession.php");
       if (!result) return false;
 
       shuffleArray(result);
