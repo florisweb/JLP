@@ -1,4 +1,7 @@
 # JLP
+Problems:
+- XSS in the info-field in the wordInfoMenu
+
 
 
 ======== DEFINITIONS ======== 

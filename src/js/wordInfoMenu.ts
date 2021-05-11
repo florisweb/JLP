@@ -1,4 +1,4 @@
-import { Word } from './types';
+import { Word, WordTypes } from './types';
 import { setTextToElement, setCharacterToElement } from './extraFunctions';
 
 type HTMLHolder = {
@@ -33,21 +33,23 @@ export default class WordInfoMenu {
 		
 		let info = _word.readingInfo;
 		if (_showMeaning || _word.type == 0) info = _word.meaningInfo;
-		setTextToElement(this.HTML.infoHolder, info);
+		this.HTML.infoHolder.innerHTML = info;
+		// setTextToElement(this.HTML.infoHolder, info);
 	}
 
 	#setTitle = function(_word:Word) {
-		this.HTML.titleHolder.classList.remove('radical');
-		this.HTML.titleHolder.classList.remove('kanji');
-		this.HTML.titleHolder.classList.remove('voca');
+		for (let type of WordTypes)
+		{
+			this.HTML.titleHolder.classList.remove(type.class);	
+		}
+		
 		setCharacterToElement(
 			this.HTML.titleHolder, 
 			_word.character,
 			true
 		);
 		
-		let typeClasses = ['radical', 'kanji', 'voca'];
-		this.HTML.titleHolder.classList.add(typeClasses[_word.type]);
+		this.HTML.titleHolder.classList.add(WordTypes[_word.type].class);
 	}
 
 	#setReadings = function(_word: Word) {

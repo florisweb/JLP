@@ -16,7 +16,7 @@
 	<head>
 		<title>JLP - Florisweb.tk</title>
 		<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0' name='viewport'/>
- 		<link rel="stylesheet" type="text/css" href="main_min.css?a=21">
+ 		<link rel="stylesheet" type="text/css" href="main_min.css?a=23">
 	</head>	
 	<body>
 		<img src="images/background.png" id="backgroundHolder">

@@ -148,7 +148,7 @@ html {
   font-size: 20px;
 
   background: #fff;
-  box-shadow: 3px 3px 12px 8px rgba(100, 100, 165, .15);
+  box-shadow: 3px 3px 12px 8px rgba(100, 100, 165, .1);
   
   transition: all .3s;
 }
@@ -246,21 +246,24 @@ html {
 
 #mainContent .page .panel.infoPanel {
   position: absolute;
-  float: bottom;
-  bottom: 100px;
+  top: calc(224px + 30vh + 10px);
 
   left: calc(15% - 10px + 3px);
   width: calc(70% - 10px * 2 - 3px * 2);
+  max-height: calc(100vh - (224px + 30vh + 30px) - 20px * 2);
+
+  overflow-y: auto;
+  overflow-x: hidden;
 
   background: #fff;
   margin: auto;
   transition: all .3s;
 }
 #mainContent .page .infoPanel.hide {
-  bottom: 0;
+  top: calc(224px + 30vh + 10px + 10vh);
   opacity: 0;
   transform: scale(.8);
-  pointer-events: none;;
+  pointer-events: none;
 }
 
 #mainContent .page .infoPanel .title.highLightType.img {
