@@ -90,7 +90,7 @@ async function getLevelLinks(_level) {
 async function getLinkInfo(_linkObj) {
 	let linkInfo = {
 		character: "",
-		readings: [], //On, Kun, Na
+		readings: [],
 		meanings: [],
 		meaningInfo: "",
 		readingInfo: "",
@@ -102,7 +102,6 @@ async function getLinkInfo(_linkObj) {
 	let response = await fetch(domain + _linkObj.link);
 	let page = await response.text();
 	
-
 	let contentRadical = page.split('<span class="radical-icon" lang="ja">')[1];
 	let contentKanji = page.split('<span class="kanji-icon" lang="ja">')[1];
 	let contentVoca = page.split('<span class="vocabulary-icon" lang="ja">')[1];
@@ -155,15 +154,10 @@ function getVocaReadings(_content) {
 
 function getKanjiReadings(_content) {
 	let part = _content.split('id="reading">')[1];
-	let readingParts = part.split('<p lang="ja">');
-	let readings = [];
-	for (let i = 1; i < readingParts.length; i++)
-	{
-		let subPart = readingParts[i].split('</p>')[0];
-		readings[i - 1] = cleanString(subPart).split(', ');
-	}
-
-	return readings;
+	let subPart = part.split('<div class="span4 ">')[1];
+	let readingPart = subPart.split('<p lang="ja">')[1];
+	let actualReadings = readingPart.split('</p>')[0];
+	return cleanString(actualReadings).split(', ');
 }
 
 

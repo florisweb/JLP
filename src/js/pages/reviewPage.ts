@@ -116,11 +116,7 @@ export default class ReviewPage extends Page {
 		// @ts-ignore
 		if (!wanakana.isHiragana(answer) && answer) return "InvalidInput";
 
-		let readings = _question.word.readings;
-		// @ts-ignore
-		if (_question.word.type == 1) readings = _question.word.readings[0];
-		console.log('readings', readings);
-		for (let reading of readings)
+		for (let reading of _question.word.readings)
 		{
 			console.log(answer, reading);
 			if (answer == reading.toLowerCase()) return true;	

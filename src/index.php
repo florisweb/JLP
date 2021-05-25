@@ -145,7 +145,7 @@
 	
 		<script src='lib/wanakana.js'></script>
 		<script src='<?php echo $GLOBALS['DomainUrl']; ?>/JS/request2.js'></script>
-		<script src='main_min.js?a=20'></script>
+		<script src='main_min.js?a=21'></script>
 	</body>
 </html>	
 

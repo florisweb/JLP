@@ -6,7 +6,7 @@
 
 
 	class _App_trainer {
-		private $secondsPerLevel = 60; // 1 hour per level
+		private $secondsPerLevel = 60 * 60; // 1 hour per level
 		private $parent;
 		private $newWordsPerSession = 5;
 		private $minAverageKnowledgeLevelForNewWords = 3;
