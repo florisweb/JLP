@@ -47,7 +47,7 @@ async function scrapeLevelRecursively(l) {
 
 			await scrapeLevelRecursively(l + 1)
 			resolve();
-
+			writeToFile(replaceRadicalImages(JSON.stringify(output)));
 		}, 1000 * 10);
 	});
 }
@@ -56,7 +56,7 @@ async function scrapeLevelRecursively(l) {
 run();
 
 async function scrapeLevel(_level) {
-	let linkObjects = await getLevelLinks(0);
+	let linkObjects = await getLevelLinks(_level);
 	// linkObjects.splice(10, 1000);
 	console.log("Scrape Level: " + _level, linkObjects.length)
 	let data = [];
