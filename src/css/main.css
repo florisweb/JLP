@@ -134,6 +134,33 @@ html {
 }
 
 
+#mainContent .page .smallInfoPanelHolder {
+  position: absolute;
+  left: 0;
+  bottom: 20vh;
+  width: 100%;
+  
+  display: flex;
+  pointer-events: none;
+}
+
+#mainContent .page .smallInfoPanelHolder .panel.smallInfoPanel {
+  position: relative;
+  float: none;
+  margin: auto;
+  width: auto;
+
+  pointer-events: all;
+  color: #fff;
+  transition: all .3s;
+}
+
+#mainContent .page .smallInfoPanelHolder.hide .panel.smallInfoPanel {
+  transform: scale(.8);
+  opacity: 0;
+  pointer-events: none;
+}
+
 
 
 #mainContent .page.reviewPage .inputField {

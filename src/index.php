@@ -16,7 +16,7 @@
 	<head>
 		<title>JLP - Florisweb.tk</title>
 		<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0' name='viewport'/>
- 		<link rel="stylesheet" type="text/css" href="main_min.css?a=23">
+ 		<link rel="stylesheet" type="text/css" href="main_min.css?a=24">
 	</head>	
 	<body>
 		<img src="images/background.png" id="backgroundHolder">
@@ -105,6 +105,12 @@
 						</div>
 						<div class='text subText infoTextHolder'></div>
 					</div>
+
+					<div class='smallInfoPanelHolder hide'>
+						<div class='text panel smallInfoPanel'>
+							Incorrect input
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class='page hide'>
@@ -113,14 +119,7 @@
 				<div class='topBar'>
 					<img src='images/homeIcon.png' class='homeButton clickable'>
 					<div class='text scoreHolder'></div>
-					<div class='wordNavigator'>
-						<span class='text highLightType wordButton arrowButton disabled'>‹</span>
-						<span class='text highLightType radical wordButton'>入</span>
-						<span class='text highLightType voca wordButton'>三日</span>
-						<span class='text highLightType kanji wordButton'>三日</span>
-						<span class='text highLightType kanji wordButton disabled'>三日</span>
-						<span class='text highLightType wordButton arrowButton'>›</span>
-					</div>
+					<div class='wordNavigator'></div>
 				</div>
 
 				<div class='pageContent'>
@@ -145,7 +144,7 @@
 	
 		<script src='lib/wanakana.js'></script>
 		<script src='<?php echo $GLOBALS['DomainUrl']; ?>/JS/request2.js'></script>
-		<script src='main_min.js?a=21'></script>
+		<script src='main_min.js?a=22'></script>
 	</body>
 </html>	
 

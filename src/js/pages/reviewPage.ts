@@ -2,6 +2,7 @@ import Page from './page';
 import { App } from '../app';
 import Server from '../server';
 import WordInfoMenu from '../wordInfoMenu';
+import SmallInfoMenu from '../smallInfoMenu';
 import { Question, WordTypes } from '../types';
 import { $, setCharacterToElement, setTextToElement, removeSpacesFromEnds } from '../extraFunctions';
 
@@ -18,19 +19,21 @@ export default class ReviewPage extends Page {
 	resultStatus:Result;
 	
 	#HTML = {
-		questionHolder: 	$<HTMLElement>("#mainContent .page.reviewPage .questionHolder")[0],
-		questionTypeHolder: $<HTMLElement>("#mainContent .page.reviewPage .questionTypeHolder")[0],
-		inputField: 		$<HTMLInputElement>("#mainContent .page.reviewPage .inputField")[0],
-		infoMenu: 			$<HTMLElement>("#mainContent .page.reviewPage .infoPanel")[0],
-		progressBar:		$<HTMLElement>("#mainContent .page.reviewPage .progressBar")[0],
-		topBar:				$<HTMLElement>("#mainContent .page.reviewPage .topBar")[0],
-		scoreHolder:		$<HTMLElement>("#mainContent .page.reviewPage .topBar .scoreHolder")[0],
+		questionHolder: 		$<HTMLElement>("#mainContent .page.reviewPage .questionHolder")[0],
+		questionTypeHolder: 	$<HTMLElement>("#mainContent .page.reviewPage .questionTypeHolder")[0],
+		inputField: 			$<HTMLInputElement>("#mainContent .page.reviewPage .inputField")[0],
+		infoMenu: 				$<HTMLElement>("#mainContent .page.reviewPage .infoPanel")[0],
+		smallInfoMenuHolder: 	$<HTMLElement>("#mainContent .page.reviewPage .smallInfoPanelHolder")[0],
+		progressBar:			$<HTMLElement>("#mainContent .page.reviewPage .progressBar")[0],
+		topBar:					$<HTMLElement>("#mainContent .page.reviewPage .topBar")[0],
+		scoreHolder:			$<HTMLElement>("#mainContent .page.reviewPage .topBar .scoreHolder")[0],
 	};
 
 
-	private InputField = new InputField(this.#HTML.inputField);
-	#ProgressBar = new ProgressBar(this.#HTML.progressBar);
-	private wordInfoMenu = new WordInfoMenu(this.#HTML.infoMenu);
+	private InputField 		= new InputField(this.#HTML.inputField);
+	#ProgressBar 			= new ProgressBar(this.#HTML.progressBar);
+	private wordInfoMenu 	= new WordInfoMenu(this.#HTML.infoMenu);
+	#smallInfoMenu 			= new SmallInfoMenu(this.#HTML.smallInfoMenuHolder);
 	
 	constructor() {
 		super({index: 1});
@@ -84,13 +87,20 @@ export default class ReviewPage extends Page {
 
 	checkAnswer = function() {
 		let isCorrect = this.#isAnswerCorrect(this.curQuestion);
-		if (isCorrect == 'InvalidInput') return alert('invalid input'); // TODO: Actual visual indication that the input is incorrect
+		if (isCorrect == 'InvalidInput')
+		{
+			this.InputField.focus();
+			return this.#smallInfoMenu.openWithTimeout('The reading only uses kana', '#f77', 2000);
+		}
 
 		if (this.curQuestion == this.questions[0]) this.questions.splice(0, 1);
 		Server.reviews.updateWordTrainStatus(this.curQuestion.word.id, isCorrect);
 		
 		if (isCorrect)
 		{	
+			if (this.curQuestion.askMeaning && this.curQuestion.word.meanings.length > 1) this.#smallInfoMenu.openWithTimeout('Did you know this word has multiple meanings?', '#88c', 3000);
+			if (!this.curQuestion.askMeaning && this.curQuestion.word.readings.length > 1) this.#smallInfoMenu.openWithTimeout('Did you know this word has multiple readings?', '#88c', 3000);
+
 			this.resultStatus.correct.push(this.curQuestion);
 			this.InputField.setAnswerCorrectStatus(true);
 		} else {
@@ -170,6 +180,9 @@ class InputField {
 
 	#wanakanaIsBound:boolean = false;
 	
+	focus = function() {
+		this.#HTML.focus();
+	}
 	reset = function() {
 		this.#HTML.removeAttribute("readonly");
 		this.#HTML.value = null; 
