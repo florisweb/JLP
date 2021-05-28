@@ -94,7 +94,7 @@ export default class ReviewPage extends Page {
 		}
 
 		if (this.curQuestion == this.questions[0]) this.questions.splice(0, 1);
-		Server.reviews.updateWordTrainStatus(this.curQuestion.word.id, isCorrect);
+		Server.reviews.updateWordTrainStatus(this.curQuestion, isCorrect);
 		
 		if (isCorrect)
 		{	

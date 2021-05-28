@@ -52,10 +52,10 @@ const Server = new (function() {
       return questions;
     }
 
-    this.updateWordTrainStatus = async function(_wordId: number, _correct:Boolean) {
+    this.updateWordTrainStatus = async function(_question:Question, _correct:Boolean) {
       return await Server.sendRequest(
         "database/trainer/updateWordTrainStatus.php", 
-        "wordId=" + _wordId + "&correct=" + (_correct ? "1" : "0")
+        "wordId=" + _question.word.id + "&correct=" + (_correct ? "1" : "0") + "&isMeaning=" + (_question.askMeaning ? "1" : "0")
       );
     }
   } as any);

@@ -34,7 +34,8 @@ Problems:
 		{
 			word: Backend.Word,
 			lastReviewTime: PHP.time,
-		  	knowledgeLevel: number
+		  	meaningKnowledgeLevel: number
+			readingKnowledgeLevel: number
 		}
 		
 
@@ -46,5 +47,6 @@ DB:
 		{
 			wordId: ..,
 			lastReviewTime: PHP.time,
-		  	knowledgeLevel: number
+		  	meaningKnowledgeLevel: number
+			readingKnowledgeLevel: number
 		}

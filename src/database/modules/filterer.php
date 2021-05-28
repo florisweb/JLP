@@ -21,13 +21,13 @@
 				"level" 			=> ["int", 0, $GLOBALS["FILTERER"]->Defaultable],
 				"readingInfo"		=> ["string", "", $GLOBALS["FILTERER"]->Defaultable],
 				"meaningInfo"		=> ["string", "", $GLOBALS["FILTERER"]->Defaultable],
-				
 			));
 
 			$this->trainerWordFilter = $GLOBALS["FILTERER"]->createFilter(array(
-				"word"				=> [$this->wordFilter],
-				"knowledgeLevel"	=> ["int", 0, $GLOBALS["FILTERER"]->Defaultable],
-				"lastReviewTime"	=> ["int", time(), $GLOBALS["FILTERER"]->Defaultable],
+				"word"					=> [$this->wordFilter],
+				"meaningKnowledgeLevel"	=> ["int", 0, $GLOBALS["FILTERER"]->Defaultable],
+				"readingKnowledgeLevel"	=> ["int", 0, $GLOBALS["FILTERER"]->Defaultable],
+				"lastReviewTime"		=> ["int", time(), $GLOBALS["FILTERER"]->Defaultable],
 			));
 		}
 
