@@ -4,7 +4,6 @@
 	
 
 
-
 	class _App_trainer {
 		private $secondsPerLevel = 60 * 60; // 1 hour per level
 		private $parent;
@@ -28,12 +27,23 @@
 			return true;
 		}
 
+		public function getScoreByTWord($_trainerWord) {
+			$score = $_trainerWord['meaningKnowledgeLevel'] + $_trainerWord['readingKnowledgeLevel'];
+			if ($_trainerWord["word"]->type == 0) return $score;
+			return $score / 2;
+		}
+
 		public function getKnowledgeLevelScore() {
 			$words = $this->parent->words->getAll();
 			if (sizeof($words) == 0) return $this->minAverageKnowledgeLevelForNewWords;
 
 			function sortWordArray($a, $b) {
-				if ($a['meaningKnowledgeLevel'] + $a['readingKnowledgeLevel'] > $b['meaningKnowledgeLevel'] + $b['readingKnowledgeLevel']) return 1;
+				$scoreA = $a['meaningKnowledgeLevel'] + $a['readingKnowledgeLevel'];
+				if ($a["word"]->type == 0) $scoreA *= 2;
+				$scoreB = $b['meaningKnowledgeLevel'] + $b['readingKnowledgeLevel'];
+				if ($b["word"]->type == 0) $scoreB *= 2;
+
+				if ($scoreA > $scoreB) return 1;
 				return -1;
 			}
 
@@ -44,15 +54,15 @@
 			{
 				if (sizeof($words) - 1 < $i) break;
 				$totalWordCount++;
-				$sum += ($words[$i]["meaningKnowledgeLevel"] + $words[$i]["readingKnowledgeLevel"]) / 2;
+				$sum += $this->getScoreByTWord($words[$i]);
 			}
 
 			return $sum / $totalWordCount;
 		}
 
 
-		
 
+		
 
 
 		public function getReviewSession() {
@@ -62,7 +72,7 @@
 			foreach ($words as $trainerWord) 
 			{
 				$dt = time() - $trainerWord["lastReviewTime"];
-				$requiredTime = $this->secondsPerLevel * pow(2, ($trainerWord["meaningKnowledgeLevel"] + $trainerWord["readingKnowledgeLevel"]) / 2) * .5;
+				$requiredTime = $this->secondsPerLevel * pow(2, $this->getScoreByTWord($trainerWord)) * .5;
 				if ($dt < $requiredTime || $trainerWord["meaningKnowledgeLevel"] == 0) continue;
 				array_push($session, $trainerWord["word"]);
 			}
