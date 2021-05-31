@@ -1,6 +1,6 @@
 <?php
 	require_once __DIR__ . "/../getRoot.php";
-	require_once $GLOBALS["Root"] . "/PHPV2/PacketManager.php";
+	require_once $GLOBALS["Root"] . "/PHP/PacketManager.php";
 	require_once __DIR__ . "/filterer.php";
 
 	$PM->includePacket("DB", "1.0");
