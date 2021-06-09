@@ -20,8 +20,8 @@ export namespace App {
 
 
   export function requestSignIn() {
-    window.location.replace('http://localhost/user/login?redirect=' + window.location.href);
-    // window.location.replace('https://user.florisweb.tk/login?redirect=' + window.location.href);
+    // @ts-ignore
+    window.location.replace(SignInUrl);
   }
 
   export async function setup() {

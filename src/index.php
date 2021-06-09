@@ -9,12 +9,14 @@
 		header("Location: " . $GLOBALS['UserDomainUrl'] . "/login?redirect=" . $GLOBALS['ProjectUrls']['JLP']);
 		die("E_noAuth");
 	}
+
+	echo '<script>const SignInUrl = "' . $GLOBALS['UserDomainUrl'] . "/login?redirect=" . $GLOBALS['ProjectUrls']['JLP'] . '"</script>';
 ?>
 
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>JLP - Florisweb.tk</title>
+		<title>JLP - Florisweb</title>
 		<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0' name='viewport'/>
  		<link rel="stylesheet" type="text/css" href="main_min.css?a=24">
 	</head>	
