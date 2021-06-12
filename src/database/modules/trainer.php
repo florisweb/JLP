@@ -9,6 +9,7 @@
 		private $parent;
 		private $newWordsPerSession = 5;
 		private $minAverageKnowledgeLevelForNewWords = 3;
+		private $maxReviewCountPerDay = 10; // words per day
 
 		public function __construct($_parent) {
 			$this->parent = $_parent;
@@ -16,7 +17,9 @@
 
 		public function autoAddWordsToTrainer() {
 			$score = $this->getKnowledgeLevelScore();
-			if ($score < $this->minAverageKnowledgeLevelForNewWords) return false;
+			$wordsToReviewNextDay = $this->getWordsByTimeDomain(0, time() + 60 * 60 * 24);
+
+			if ($score < $this->minAverageKnowledgeLevelForNewWords || $wordsToReviewNextDay > $maxReviewCountPerDay) return false;
 			$curIndex = $this->parent->words->getHighestIndex();
 
 			for ($di = 0; $di < $this->newWordsPerSession; $di++)
@@ -61,25 +64,41 @@
 		}
 
 
+		public function getReviewSchedule() {
+			$result = [];
 
+			for ($i = 0; $i < 24; $i++) 
+			{
+				$result[$i] = sizeof($this->getWordsByTimeDomain(0, time() + $i * 60 * 60));
+			}
+
+			return $result;
+		}
 		
 
 
 		public function getReviewSession() {
-			$words = $this->parent->words->getAll();
+			$words = $this->getWordsByTimeDomain(0, time());
 			$session = array();
 
-			foreach ($words as $trainerWord) 
-			{
-				$dt = time() - $trainerWord["lastReviewTime"];
-				$requiredTime = $this->secondsPerLevel * pow(2, $this->getScoreByTWord($trainerWord)) * .5;
-				if ($dt < $requiredTime || $trainerWord["meaningKnowledgeLevel"] == 0) continue;
-				array_push($session, $trainerWord["word"]);
-			}
+			foreach ($words as $trainerWord) array_push($session, $trainerWord["word"]);
 
 			return $session;			
 		}
 		
+		private function getWordsByTimeDomain($_min, $_max) {
+			$words = $this->parent->words->getAll();
+			$result = array();
+			foreach ($words as $trainerWord) 
+			{
+				$releaseTime = $trainerWord['lastReviewTime'] + $this->secondsPerLevel * pow(2, $this->getScoreByTWord($trainerWord)) * .5;
+				if ($releaseTime < $_min || $releaseTime > $_max || $trainerWord["meaningKnowledgeLevel"] == 0) continue;
+				array_push($result, $trainerWord);
+			}
+			return $result;	
+		}
+
+
 		public function getLessonSession() {
 			$words = $this->parent->words->getAll();
 			$session = array();
