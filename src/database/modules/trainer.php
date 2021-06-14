@@ -9,7 +9,7 @@
 		private $parent;
 		private $newWordsPerSession = 5;
 		private $minAverageKnowledgeLevelForNewWords = 3;
-		private $maxReviewCountPerDay = 10; // words per day
+		private $maxReviewCountPerDay = 25; // words per day
 
 		public function __construct($_parent) {
 			$this->parent = $_parent;
@@ -19,7 +19,7 @@
 			$score = $this->getKnowledgeLevelScore();
 			$wordsToReviewNextDay = $this->getWordsByTimeDomain(0, time() + 60 * 60 * 24);
 
-			if ($score < $this->minAverageKnowledgeLevelForNewWords || $wordsToReviewNextDay > $maxReviewCountPerDay) return false;
+			if ($score < $this->minAverageKnowledgeLevelForNewWords || $wordsToReviewNextDay > $this->maxReviewCountPerDay) return false;
 			$curIndex = $this->parent->words->getHighestIndex();
 
 			for ($di = 0; $di < $this->newWordsPerSession; $di++)
@@ -39,16 +39,6 @@
 		public function getKnowledgeLevelScore() {
 			$words = $this->parent->words->getAll();
 			if (sizeof($words) == 0) return $this->minAverageKnowledgeLevelForNewWords;
-
-			function sortWordArray($a, $b) {
-				$scoreA = $a['meaningKnowledgeLevel'] + $a['readingKnowledgeLevel'];
-				if ($a["word"]->type == 0) $scoreA *= 2;
-				$scoreB = $b['meaningKnowledgeLevel'] + $b['readingKnowledgeLevel'];
-				if ($b["word"]->type == 0) $scoreB *= 2;
-
-				if ($scoreA > $scoreB) return 1;
-				return -1;
-			}
 
 			usort($words, "sortWordArray");
 			$sum = 0;
@@ -70,7 +60,8 @@
 			for ($i = 0; $i < 24; $i++) 
 			{
 				$result[$i] = sizeof($this->getWordsByTimeDomain(0, time() + $i * 60 * 60));
-			}
+			};
+			array_push($result, $this->getKnowledgeLevelScore());
 
 			return $result;
 		}
@@ -141,5 +132,16 @@
 			}
 			return $this->parent->words->update($trainerWord);
 		}
+	}
+
+
+	function sortWordArray($a, $b) {
+		$scoreA = $a['meaningKnowledgeLevel'] + $a['readingKnowledgeLevel'];
+		if ($a["word"]->type == 0) $scoreA *= 2;
+		$scoreB = $b['meaningKnowledgeLevel'] + $b['readingKnowledgeLevel'];
+		if ($b["word"]->type == 0) $scoreB *= 2;
+
+		if ($scoreA > $scoreB) return 1;
+		return -1;
 	}
 ?>
