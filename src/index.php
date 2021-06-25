@@ -41,45 +41,45 @@
 						</div>
 					</div>
 
-					<div id='deckHolder'>
-						<div class="panel">
+					<div class="panel" id='basketHolder'>
+						<div class='basket'>
 							<div class='text title'>
-								New
+								0
 							</div>
 							<div class='text subText'>
-								15 lessons
+								Unfamiliar
 							</div>
 						</div>
-						<div class="panel">
+						<div class='basket'>
 							<div class='text title'>
-								Repeated
+								0
 							</div>
 							<div class='text subText'>
-								15 words
+								Fresh
 							</div>
 						</div>
-						<div class="panel">
+						<div class='basket'>
 							<div class='text title'>
-								Hard
+								0
 							</div>
 							<div class='text subText'>
-								15 words
+								Familiar
 							</div>
 						</div>
-						<div class="panel">
+						<div class='basket'>
 							<div class='text title'>
-								Something else
+								0
 							</div>
 							<div class='text subText'>
-								15 words
+								Proficient
 							</div>
 						</div>
-						<div class="panel">
+						<div class='basket'>
 							<div class='text title'>
-								Finished
+								0
 							</div>
 							<div class='text subText'>
-								15 words
+								Mastered
 							</div>
 						</div>
 					</div>

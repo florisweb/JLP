@@ -7,6 +7,7 @@ export default class HomePage extends Page {
 	#HTML = {
 		navHolder: $("#navigationHolder"),
 		navButtons: $("#navigationHolder .panel"),
+		basketTitles: $('#basketHolder .basket .title')
 	}
 
 	constructor() {
@@ -24,12 +25,28 @@ export default class HomePage extends Page {
 
 	onOpen = async function() {	
 		await this.#updateNavButtons();
+		this.#updateBaskets();
+	}
+
+	#updateBaskets = async function() {
+		let baskets = Server.wordBaskets.list;
+		const basketOffset = 1;
+		const groupSize = 2;
+		for (let i = 0; i < this.#HTML.basketTitles.length; i++)
+		{
+			let wordCount = 0;
+			for (let a = 0; a < groupSize; a++) wordCount += baskets[i * groupSize + a + basketOffset];
+			if (i >= this.#HTML.basketTitles.length - 1)
+			{
+				for (let b = (i + 1) * groupSize + basketOffset; b < baskets.length; b++) wordCount += baskets[b];
+			}
+			setTextToElement(this.#HTML.basketTitles[i], String(wordCount));
+		}
 	}
 
 
 	#updateNavButtons = async function() {
 		await Server.sync();
-		console.log('sync');
 		this.#HTML.navButtons[0].classList.remove("disabled");
 		this.#HTML.navButtons[1].classList.remove("disabled");
 		

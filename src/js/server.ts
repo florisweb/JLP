@@ -12,7 +12,8 @@ const Server = new (function() {
   this.sync = async function() {
     await Promise.all([
       this.reviews.getQuestions(true),
-      this.lessons.getWords(true)
+      this.lessons.getWords(true),
+      this.wordBaskets.getWordBaskets(true)
     ]);
   }
 
@@ -70,6 +71,20 @@ const Server = new (function() {
       if (!result) return false;
 
       shuffleArray(result);
+      this.list = result;
+      lastSync = new Date();
+      return result;
+    }
+  } as any);
+
+  this.wordBaskets = new (function() {
+    let lastSync:Date = new Date(0);
+    this.list = [];
+    this.getWordBaskets = async function(_forceUpdate:boolean):Promise<Word[] | Boolean> {
+      if (new Date().getTime() - lastSync.getTime() < syncTimeout && !_forceUpdate) return this.list;
+      let result = await Server.sendRequest("database/trainer/getWordBaskets.php");
+      if (!result) return false;
+
       this.list = result;
       lastSync = new Date();
       return result;
