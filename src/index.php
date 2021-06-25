@@ -17,6 +17,7 @@
 <html>
 	<head>
 		<title>JLP - Florisweb</title>
+		<link rel="shortcut icon" href="images/favicon.png">
 		<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0' name='viewport'/>
  		<link rel="stylesheet" type="text/css" href="main_min.css?a=24">
 	</head>	
