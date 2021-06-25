@@ -17,7 +17,7 @@
 
 		public function autoAddWordsToTrainer() {
 			$score = $this->getKnowledgeLevelScore();
-			$wordsToReviewNextDay = $this->getWordsByTimeDomain(0, time() + 60 * 60 * 24);
+			$wordsToReviewNextDay = sizeof($this->getWordsByTimeDomain(0, time() + 60 * 60 * 24));
 
 			if ($score < $this->minAverageKnowledgeLevelForNewWords || $wordsToReviewNextDay > $this->maxReviewCountPerDay) return false;
 			$curIndex = $this->parent->words->getHighestIndex();
@@ -62,9 +62,12 @@
 				$result[$i] = sizeof($this->getWordsByTimeDomain(0, time() + $i * 60 * 60));
 			};
 			array_push($result, $this->getKnowledgeLevelScore());
+			array_push($result, sizeof($this->getWordsByTimeDomain(0, time() + 60 * 60 * 24)));
 
 			return $result;
 		}
+
+
 		
 
 
@@ -85,6 +88,21 @@
 				$releaseTime = $trainerWord['lastReviewTime'] + $this->secondsPerLevel * pow(2, $this->getScoreByTWord($trainerWord)) * .5;
 				if ($releaseTime < $_min || $releaseTime > $_max || $trainerWord["meaningKnowledgeLevel"] == 0) continue;
 				array_push($result, $trainerWord);
+			}
+			return $result;	
+		}
+
+
+		public function getWordBaskets() {
+			$words = $this->parent->words->getAll();
+			$result = array();
+			for ($i = 1; $i < 30; $i++) array_push($result, 0);
+			foreach ($words as $trainerWord) 
+			{
+				$basketIndex = round($this->getScoreByTWord($trainerWord));
+				if ($trainerWord["meaningKnowledgeLevel"] == 0) continue;
+				if (!isset($result[$basketIndex])) $result[$basketIndex] = 0;
+				$result[$basketIndex] += 1;
 			}
 			return $result;	
 		}
