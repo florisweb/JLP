@@ -7,7 +7,12 @@ export default class HomePage extends Page {
 	#HTML = {
 		navHolder: $("#navigationHolder"),
 		navButtons: $("#navigationHolder .panel"),
-		basketTitles: $('#basketHolder .basket .title')
+		basketTitles: $('#basketHolder .basket .title'),
+		levelHolder: {
+			levelText: $('.page .levelHolder .levelText')[0],
+			progressScalar: $('.page .levelHolder .progressBar .front')[0],
+			progressText: $('.page .levelHolder .progressBar .back, .page .levelHolder .progressBar .front')
+		}
 	}
 
 	constructor() {
@@ -26,9 +31,10 @@ export default class HomePage extends Page {
 	onOpen = async function() {	
 		await this.#updateNavButtons();
 		this.#updateBaskets();
+		this.#updateLevelHolder();
 	}
 
-	#updateBaskets = async function() {
+	#updateBaskets = function() {
 		let baskets = Server.wordBaskets.list;
 		const basketOffset = 1;
 		const groupSize = 2;
@@ -42,6 +48,24 @@ export default class HomePage extends Page {
 			}
 			setTextToElement(this.#HTML.basketTitles[i], String(wordCount));
 		}
+	}
+
+	#updateLevelHolder = function() {
+		// let level = Server.levelManager.getLevel();
+		// let levelProgress = Server.levelManager.getLevelProgress();
+		let level = 2;
+		let levelProgress = Math.random();
+
+		setTextToElement(this.#HTML.levelHolder.levelText, "Level " + level);
+		let progress = Math.round(levelProgress * 100) + "%";
+		let progressText = 'Progress ' + progress;
+		setTextToElement(this.#HTML.levelHolder.progressText[0], progressText);
+		setTextToElement(this.#HTML.levelHolder.progressText[1], progressText);
+		
+		this.#HTML.levelHolder.progressScalar.style.clipPath = 'inset(0 0 0 ' + progress + ')';
+		// this.#HTML.levelHolder.progressScalar.style.clipPath = 'inset(0 0 0 ' + progress + ')';
+		// clip-path: inset(0 0 0 30%);
+		// -webkit-clip-path: inset(0 0 0 30%);
 	}
 
 

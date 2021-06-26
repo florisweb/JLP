@@ -111,6 +111,65 @@ html {
 
 
 
+
+.page .levelHolder {
+  position: relative;
+  margin-top: 10px;
+  width: calc(100% - 20px * 2);
+  padding: 20px;
+}
+
+
+  .page .levelHolder .levelText {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    font-size: 35px;
+    margin-bottom: 20px;;
+  }
+  .page .levelHolder .progressBar {
+    position: relative;
+    display: flex;
+    width: calc(100% - 2px);
+    height: 20px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 12px;
+    overflow: hidden;
+  }
+
+    .levelHolder .progressBar .back {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      background: linear-gradient(to right, rgba(0, 0, 255, .25), rgba(255, 0, 0, .25));
+      color: #fff;
+    }
+
+    .levelHolder .progressBar .front {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background: #fff;
+      color: rgb(200, 177, 207);
+
+      clip-path: inset(0 0 0 0%);
+      -webkit-clip-path: inset(0 0 0 0%);
+      transition: clip-path 1s linear;
+    }
+
+
+
+
+
+
+
 .page #basketHolder.panel {
   position: relative;
   width: calc(100% - 40px * 2);
@@ -367,7 +426,7 @@ html {
 }
 
 #navigationHolder .panel {
-  width: calc(50% - 20px * 2 - 20px * 2 - 4px);
+  width: calc(50% - 20px * 2 - 20px * 2);
   height: 90px;
 
   background: url("images/background.png");

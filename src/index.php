@@ -19,13 +19,21 @@
 		<title>JLP - Florisweb</title>
 		<link rel="shortcut icon" href="images/favicon.png">
 		<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0' name='viewport'/>
- 		<link rel="stylesheet" type="text/css" href="main_min.css?a=24">
+ 		<link rel="stylesheet" type="text/css" href="main_min.css">
 	</head>	
 	<body>
 		<img src="images/background.png" id="backgroundHolder">
 		<div id="mainContent">
 			<div class='page'>
 				<div class='pageContent'>
+					<div class='levelHolder'>
+						<div class='text blue levelText'>Level 3</div>
+						<div class='text progressBar'>
+							<div class="back">progress 50%</div>
+							<div class="front">progress 50%</div>
+						</div>
+					</div>
+
 					<div id='navigationHolder'>
 						<div class="panel clickable disabled">
 							<div class='text title'>
@@ -147,7 +155,7 @@
 	
 		<script src='lib/wanakana.js'></script>
 		<script src='<?php echo $GLOBALS['DomainUrl']; ?>/JS/request2.js'></script>
-		<script src='main_min.js?a=23'></script>
+		<script src='main_min.js'></script>
 	</body>
 </html>	
 
