@@ -111,9 +111,21 @@
 
 		public function getCurLevelData() {
 			$words = $this->parent->words->getAll();
-			$lastWord = $words[sizeof($words) - 1]["word"];
+
+			$lastWord = false;
+			for ($i = sizeof($words) - 1; $i >= 0; $i--)
+			{
+				if ($words[$i]["meaningKnowledgeLevel"] == 0) continue;
+				$lastWord = $words[$i]["word"];
+				break;
+			}
+
+			if (!$lastWord) return array("level" => 0, "progress" => 0);
+
+			
 			$level = $lastWord["level"];
 			$wordsInLevel = $GLOBALS["DBManager"]->words->getByLevel($level);
+
 			$minId = $wordsInLevel[0]["id"];
 			$maxId = $wordsInLevel[sizeof($wordsInLevel) - 1]["id"];
 			return array(
