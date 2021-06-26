@@ -27,28 +27,13 @@
 			<div class='page'>
 				<div class='pageContent'>
 					<div class='levelHolder'>
-						<div class='text blue levelText'>Level 3</div>
+						<div class='text blue levelText'>Level 1</div>
 						<div class='text progressBar'>
-							<div class="back">progress 50%</div>
-							<div class="front">progress 50%</div>
+							<div class="back">Progress 0%</div>
+							<div class="front">Progress 0%</div>
 						</div>
 					</div>
-
-					<div id='navigationHolder'>
-						<div class="panel clickable disabled">
-							<div class='text title'>
-								Lessons
-							</div>
-							<div class='text subText'>0 words</div>
-						</div>
-						<div class="panel clickable disabled">
-							<div class='text title'>
-								Reviews
-							</div>
-							<div class='text subText'>0 words</div>
-						</div>
-					</div>
-
+					
 					<div class="panel" id='basketHolder'>
 						<div class='basket'>
 							<div class='text title'>
@@ -91,6 +76,22 @@
 							</div>
 						</div>
 					</div>
+					
+					<div id='navigationHolder'>
+						<div class="panel clickable disabled">
+							<div class='text title'>
+								Lessons
+							</div>
+							<div class='text subText'>0 words</div>
+						</div>
+						<div class="panel clickable disabled">
+							<div class='text title'>
+								Reviews
+							</div>
+							<div class='text subText'>0 words</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
 			<div class='page hide reviewPage'>
