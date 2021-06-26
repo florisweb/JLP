@@ -167,7 +167,7 @@ class WordNavigator {
 
 	#createWordNavigationBaseItem = function(_character:string, _type:number):HTMLElement {
 		let element = document.createElement('span');
-		element.className = 'text highLightType wordButton';
+		element.className = 'text highLightType wordButton noselect';
 		element.classList.add(WordTypes[_type].class);
 		
 		setCharacterToElement(

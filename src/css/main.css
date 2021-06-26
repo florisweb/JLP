@@ -348,7 +348,9 @@ html, body {
 
 
 #mainContent .page.lessonPage .topBar .wordNavigator {
-  margin-top: 3px;
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
 #mainContent .page.lessonPage .topBar .wordNavigator .wordButton {
   margin-left: 2px;
