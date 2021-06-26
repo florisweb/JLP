@@ -36,11 +36,28 @@
 		public function getById($_id) {
 			$result = $this->DB->execute("SELECT * FROM $this->DBTableName WHERE id=? LIMIT 1", array($_id))[0];
 			if (!$result) return false;
-			$result["character"] = $result["_character"];
-			unset($result["_character"]);
-			$result["meanings"] = json_decode($result["meanings"], true);
-			$result["readings"] = json_decode($result["readings"], true);
-			return $result;
+			return $this->DBWordToExportWord($result);
+		}
+		private function DBWordToExportWord($_word) {
+			$_word["character"] = $_word["_character"];
+			unset($_word["_character"]);
+			$_word["meanings"] = json_decode($_word["meanings"], true);
+			$_word["readings"] = json_decode($_word["readings"], true);
+			return $_word;
+		}
+
+		public function getByLevel($_level) {
+			$words = [];
+			$results = $this->DB->execute(
+				"SELECT * FROM $this->DBTableName WHERE level=?", 
+				array((int)$_level)
+			);
+			if (!$results) return false;
+			foreach ($results as $word) 
+			{
+				array_push($words, $this->DBWordToExportWord($word));
+			}
+			return $words;
 		}
 
 		public function update($_word) {

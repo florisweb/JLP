@@ -13,7 +13,8 @@ const Server = new (function() {
     await Promise.all([
       this.reviews.getQuestions(true),
       this.lessons.getWords(true),
-      this.wordBaskets.getWordBaskets(true)
+      this.wordBaskets.getWordBaskets(true),
+      this.curLevel.getCurLevelData(true),
     ]);
   }
 
@@ -86,6 +87,23 @@ const Server = new (function() {
       if (!result) return false;
 
       this.list = result;
+      lastSync = new Date();
+      return result;
+    }
+  } as any);
+  
+  this.curLevel = new (function() {
+    let lastSync:Date = new Date(0);
+    this.data = {
+      level: 0,
+      progress: 0,
+    }
+    this.getCurLevelData = async function(_forceUpdate:boolean):Promise<Word[] | Boolean> {
+      if (new Date().getTime() - lastSync.getTime() < syncTimeout && !_forceUpdate) return this.list;
+      let result = await Server.sendRequest("database/trainer/getCurLevelData.php");
+      if (!result) return false;
+
+      this.data = result;
       lastSync = new Date();
       return result;
     }

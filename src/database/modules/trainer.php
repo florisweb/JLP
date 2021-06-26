@@ -108,6 +108,23 @@
 		}
 
 
+
+		public function getCurLevelData() {
+			$words = $this->parent->words->getAll();
+			$lastWord = $words[sizeof($words) - 1]["word"];
+			$level = $lastWord["level"];
+			$wordsInLevel = $GLOBALS["DBManager"]->words->getByLevel($level);
+			$minId = $wordsInLevel[0]["id"];
+			$maxId = $wordsInLevel[sizeof($wordsInLevel) - 1]["id"];
+			return array(
+				"level" => $level,
+				"progress" => ($lastWord["id"] - $minId) / ($maxId - $minId)
+			);
+		}
+
+
+
+
 		public function getLessonSession() {
 			$words = $this->parent->words->getAll();
 			$session = array();
