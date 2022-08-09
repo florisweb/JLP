@@ -19,12 +19,15 @@
 			$score = $this->getKnowledgeLevelScore();
 			$wordsToReviewNextDay = sizeof($this->getWordsByTimeDomain(0, time() + 60 * 60 * 24));
 
-			if ($score < $this->minAverageKnowledgeLevelForNewWords || $wordsToReviewNextDay > $this->maxReviewCountPerDay) return false;
-			$curIndex = $this->parent->words->getHighestIndex();
+			$newWordBudget = $this->maxReviewCountPerDay - $wordsToReviewNextDay;
+			$newWords = min($newWordBudget, $this->newWordsPerSession);
+			if ($score < $this->minAverageKnowledgeLevelForNewWords || $newWords <= 0) return false;
 
-			for ($di = 0; $di < $this->newWordsPerSession; $di++)
+			$wordIds = $GLOBALS["DBManager"]->userData->getXNewWordIds($newWords, $this->parent->userId);
+
+			for ($i = 0; $i < sizeof($wordIds); $i++)
 			{
-				$this->addWordToTrainer($di + $curIndex + 1);
+				$this->addWordToTrainer($wordIds[$i]);
 			}
 
 			return true;
@@ -32,7 +35,7 @@
 
 		public function getScoreByTWord($_trainerWord) {
 			$score = $_trainerWord['meaningKnowledgeLevel'] + $_trainerWord['readingKnowledgeLevel'];
-			if ($_trainerWord["word"]->type == 0) return $score;
+			if ($_trainerWord["word"]['type'] == 0) return $score;
 			return $score / 2;
 		}
 
@@ -184,9 +187,9 @@
 
 	function sortWordArray($a, $b) {
 		$scoreA = $a['meaningKnowledgeLevel'] + $a['readingKnowledgeLevel'];
-		if ($a["word"]->type == 0) $scoreA *= 2;
+		if ($a["word"]['type'] == 0) $scoreA *= 2;
 		$scoreB = $b['meaningKnowledgeLevel'] + $b['readingKnowledgeLevel'];
-		if ($b["word"]->type == 0) $scoreB *= 2;
+		if ($b["word"]['type'] == 0) $scoreB *= 2;
 
 		if ($scoreA > $scoreB) return 1;
 		return -1;

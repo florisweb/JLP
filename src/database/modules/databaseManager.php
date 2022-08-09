@@ -139,6 +139,19 @@
 				)
 			);
 		}
+
+		public function getXNewWordIds($_x, $_id) {
+			$words = $this->getWordListByUId($_id);
+			$idList = "(" . $words[0]['wordId'];
+			for ($i = 1; $i < sizeof($words); $i++) $idList .= ',' . ((int)$words[$i]['wordId']);
+			$idList .= ')';
+
+			 
+			$results = $this->DB->execute("SELECT id FROM wordList WHERE id NOT IN $idList LIMIT ?", array($_x));
+			$ids = [];
+			foreach ($results as $result) array_push($ids, $result['id']);
+			return $ids;
+		}
 		
 		private function userRowExists($_id) {
 			$result = $this->DB->execute("SELECT userId FROM $this->DBTableName WHERE userId=?", array($_id))[0];
