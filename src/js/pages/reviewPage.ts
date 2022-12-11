@@ -67,6 +67,7 @@ export default class ReviewPage extends Page {
 
 
 	onEnterPress = function(_inInputField:boolean) {
+		this.#smallInfoMenu.close();
 		if (this.wordInfoMenu.openState) return this.nextQuestion();
 		if (!_inInputField) return;
 		this.checkAnswer();

@@ -5,6 +5,7 @@ type HTMLHolder = {
 	menu: 	HTMLElement
 }
 
+let internalTimeout:any;
 export default class SmallInfoMenu {
 	private HTML: HTMLHolder;
 	openState:boolean = false;
@@ -26,11 +27,8 @@ export default class SmallInfoMenu {
 	openWithTimeout(_text:string, _backgroundColor:string, _timeOut:number = 1000) {
 		//@ts-ignore
 		this.open(...arguments);
-		let This = this;
-		setTimeout(
-			function () {
-				This.close();
-			},
+		internalTimeout = setTimeout(
+			() => this.close(),
 			_timeOut
 		);
 	}
@@ -38,5 +36,6 @@ export default class SmallInfoMenu {
 	close() {
 		this.openState = false;
 		this.HTML.holder.classList.add('hide');
+		if (internalTimeout) clearTimeout(internalTimeout);
 	}
 }

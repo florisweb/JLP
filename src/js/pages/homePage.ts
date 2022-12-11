@@ -37,7 +37,7 @@ export default class HomePage extends Page {
 	#updateBaskets = function() {
 		let baskets = Server.wordBaskets.list;
 		const basketOffset = 1;
-		const groupSize = 2;
+		const groupSize = 3;
 		for (let i = 0; i < this.#HTML.basketTitles.length; i++)
 		{
 			let wordCount = 0;
