@@ -22,6 +22,8 @@ export default class ReviewPage extends Page {
 		questionHolder: 		$<HTMLElement>("#mainContent .page.reviewPage .questionHolder")[0],
 		questionTypeHolder: 	$<HTMLElement>("#mainContent .page.reviewPage .questionTypeHolder")[0],
 		inputField: 			$<HTMLInputElement>("#mainContent .page.reviewPage .inputField")[0],
+		iWasRightButton:		$<HTMLElement>("#mainContent .page.reviewPage .iWasRightButton")[0],
+
 		infoMenu: 				$<HTMLElement>("#mainContent .page.reviewPage .infoPanel")[0],
 		smallInfoMenuHolder: 	$<HTMLElement>("#mainContent .page.reviewPage .smallInfoPanelHolder")[0],
 		progressBar:			$<HTMLElement>("#mainContent .page.reviewPage .progressBar")[0],
@@ -42,6 +44,8 @@ export default class ReviewPage extends Page {
 	setup = async function() {
 		let homeButton = $<HTMLElement>("#mainContent .page.reviewPage .topBar .homeButton")[0];
 		homeButton.addEventListener("click", function () {App.homePage.open()});
+
+		this.#HTML.iWasRightButton.addEventListener("click", () => this.iWasRight());
 	}
 
 	onOpen = async function(_questions:Question[] = []) {
@@ -53,6 +57,7 @@ export default class ReviewPage extends Page {
 
 		this.nextQuestion();
 		this.InputField.reset();
+		this.#HTML.iWasRightButton.classList.add('hide');
 	}
 
 	openWithLesson = function(_questions:Question[]) {
@@ -71,6 +76,11 @@ export default class ReviewPage extends Page {
 		if (this.wordInfoMenu.openState) return this.nextQuestion();
 		if (!_inInputField) return;
 		this.checkAnswer();
+	}
+
+	iWasRight = function() {
+		this.resultStatus.correct.push(this.questions.splice(this.questions.length - 1, 1)[0]);
+		this.nextQuestion();
 	}
 
 	
@@ -99,18 +109,25 @@ export default class ReviewPage extends Page {
 		
 		if (isCorrect)
 		{	
-			if (this.curQuestion.askMeaning && this.curQuestion.word.meanings.length > 1) this.#smallInfoMenu.openWithTimeout('Did you know this word has multiple meanings?', '#88c', 3000);
-			if (!this.curQuestion.askMeaning && this.curQuestion.word.readings.length > 1) this.#smallInfoMenu.openWithTimeout('Did you know this word has multiple readings?', '#88c', 3000);
-
-			this.resultStatus.correct.push(this.curQuestion);
-			this.InputField.setAnswerCorrectStatus(true);
-		} else {
-			this.InputField.setAnswerCorrectStatus(false);
-			this.resultStatus.inCorrect.push(this.curQuestion);
-			this.questions.push(this.curQuestion);
-		}
+			this.#answerIsCorrect();
+		} else this.#answerIsIncorrect();
 
 		this.wordInfoMenu.open(this.curQuestion.word, this.curQuestion.askMeaning);
+	}
+
+	#answerIsCorrect = function() {
+		if (this.curQuestion.askMeaning && this.curQuestion.word.meanings.length > 1) this.#smallInfoMenu.openWithTimeout('Did you know this word has multiple meanings?', '#88c', 3000);
+		if (!this.curQuestion.askMeaning && this.curQuestion.word.readings.length > 1) this.#smallInfoMenu.openWithTimeout('Did you know this word has multiple readings?', '#88c', 3000);
+
+		this.resultStatus.correct.push(this.curQuestion);
+		this.InputField.setAnswerCorrectStatus(true);
+
+	}
+	#answerIsIncorrect = function() {
+		this.InputField.setAnswerCorrectStatus(false);
+		this.resultStatus.inCorrect.push(this.curQuestion);
+		this.#HTML.iWasRightButton.classList.remove('hide');
+		this.questions.push(this.curQuestion);
 	}
 
 
@@ -140,7 +157,8 @@ export default class ReviewPage extends Page {
 
 	showQuestion = function(_question: Question) {
 		this.InputField.reset();
-		
+		this.#HTML.iWasRightButton.classList.add('hide');
+
 		this.curQuestion = _question;
 		this.#writeQuestion(this.curQuestion);
 		this.InputField.setKanaInputMode();
@@ -222,7 +240,7 @@ class InputField {
 	#showAnswerCorrectAnimation = function() {
 		this.#HTML.classList.add("answerCorrect");
 	}
-	 #clearAnimation = function() {
+	#clearAnimation = function() {
 		this.#HTML.classList.remove("answerIncorrect");
 		this.#HTML.classList.remove("answerCorrect");
 	}

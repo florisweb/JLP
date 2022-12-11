@@ -278,33 +278,74 @@ html, body {
 
 
 
-#mainContent .page.reviewPage .inputField {
+#mainContent .page.reviewPage .inputContainer {
   position: relative;
   top: 20px;
-  left: calc(25% - 3px);
-  width: 50%;
+  width: calc(50vw + 105px);
+/*  padding-left: 100px;*/
+  
   margin: auto;
   height: 50px;
 
-  text-align: center;
-  font-size: 20px;
-
-  background: #fff;
-  box-shadow: 3px 3px 12px 8px rgba(100, 100, 165, .1);
-  
-  transition: all .3s;
+  display: flex;
 }
 
-#mainContent .page.reviewPage .inputField.answerIncorrect {
-  color: #f00;
-  background: rgb(255, 220, 220);
-  animation: inputHolder_inputDenied .3s 3;
-  animation-fill-mode: forwards;
-}
-#mainContent .page.reviewPage .inputField.answerCorrect {
-  color: #0f0;
-  background: rgb(200, 255, 220);
-}
+
+  #mainContent .page.reviewPage .inputContainer .inputField {
+    left: calc(105px / 2);
+    height: 100%;
+    width: calc(100% - 105px);
+    margin: 0;
+    
+    background: #fff;
+    box-shadow: 3px 3px 12px 8px rgba(100, 100, 165, .1);
+    
+    text-align: center;
+    font-size: 20px;
+
+    transition: all .3s;
+  }
+
+  #mainContent .page.reviewPage .inputContainer .inputField.answerIncorrect {
+    left: 0;
+    color: #f00;
+    background: rgb(255, 220, 220);
+    animation: inputHolder_inputDenied .3s 3;
+    animation-fill-mode: forwards;
+  }
+  #mainContent .page.reviewPage .inputContainer .inputField.answerCorrect {
+    color: #0f0;
+    background: rgb(200, 255, 220);
+  }
+
+  #mainContent .page.reviewPage .inputContainer .button.iWasRightButton {
+    position: relative;
+    height: calc(100% - 7.5px * 2) !important;
+    width: 95px;
+    margin: 7.5px 0 7.5px 10px;
+    box-sizing: border-box;
+
+
+    line-height: 24px;
+    text-align: center;
+    font-size: 12px;
+    color: #fff;
+
+    background: linear-gradient(to right, rgba(0, 0, 255, .25), rgba(255, 0, 0, .25));
+    box-shadow: 3px 3px 12px 8px rgba(100, 100, 165, .1);
+    border-radius: 30px;
+
+    transition: opacity .3s, margin-left .3s;
+  }
+
+  #mainContent .page.reviewPage .inputContainer .button.iWasRightButton.hide {
+    margin-left: -50px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+
+
 
 #mainContent .page.reviewPage .progressBar {
   position: fixed;
@@ -317,19 +358,19 @@ html, body {
 
 @keyframes inputHolder_inputDenied {
     0% {
-        margin-left: 0;
+      transform: translateX(0);
     }
     50% {
-      margin-left: 0;
+      transform: translateX(0);
     }
     66% {
-      margin-left: -3%;
+      transform: translateX(-3%);
     }
     83% {
-      margin-left: 3%;
+      transform: translateX(3%);
     }
     100% {
-      margin-left: 0;
+      transform: translateX(0);
     }
 }
 

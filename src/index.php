@@ -104,8 +104,11 @@
 					<div class='text blue questionHolder'><a</a></div>
 					<div class='text blue questionTypeHolder'><a></a></div>
 					<br>
-					<input class='text blue panel inputField'>
-
+					<div class='inputContainer'>
+						<input class='text blue panel inputField'>
+						<div class='text button panel iWasRightButton hide'>I was right</div>
+					</div>
+			
 					<div class='panel infoPanel hide'>
 						<span class='text title highLightType kanji'></span>
 						<br>
