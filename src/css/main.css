@@ -282,7 +282,7 @@ html, body {
   position: relative;
   top: 20px;
   width: calc(50vw + 105px);
-/*  padding-left: 100px;*/
+  max-width: 500px;
   
   margin: auto;
   height: 50px;

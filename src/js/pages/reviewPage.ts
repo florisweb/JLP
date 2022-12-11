@@ -70,8 +70,10 @@ export default class ReviewPage extends Page {
 		this.#ProgressBar.setPercentage(0);
 	}
 
-
+	#lastFailedAnswer:any = 0;
 	onEnterPress = function(_inInputField:boolean) {
+		let curTime:any = new Date();
+		if (curTime - this.#lastFailedAnswer < 1000) return;
 		this.#smallInfoMenu.close();
 		if (this.wordInfoMenu.openState) return this.nextQuestion();
 		if (!_inInputField) return;
@@ -128,6 +130,7 @@ export default class ReviewPage extends Page {
 		this.resultStatus.inCorrect.push(this.curQuestion);
 		this.#HTML.iWasRightButton.classList.remove('hide');
 		this.questions.push(this.curQuestion);
+		this.#lastFailedAnswer = new Date();
 	}
 
 
